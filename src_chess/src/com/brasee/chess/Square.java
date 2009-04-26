@@ -13,25 +13,37 @@ public class Square {
 	
 		
 	public Square(String squareString) {
-		validateSquareString(squareString);
+		throwExceptionForInvalidSquareString(squareString);
 		fileAndRank[FILE_INDEX] = squareString.charAt(FILE_INDEX);
 		fileAndRank[RANK_INDEX] = squareString.charAt(RANK_INDEX);
 	}
 
-	private void validateSquareString(String squareString) {
-		if (squareString == null || squareString.length() != fileAndRank.length) {
+	private void throwExceptionForInvalidSquareString(String squareString) {
+		if (isNullOrIncorrectLength(squareString)) {
 			throw new InvalidSquareException("Square String must be length 2");
 		}
-		char squareFile = squareString.charAt(FILE_INDEX);
-		char squareRank = squareString.charAt(RANK_INDEX);
-		if (squareFile < MIN_FILE || squareFile > MAX_FILE) {
+		else if (isInvalidFile(squareString)) {
 			throw new InvalidSquareException("Invalid Square file");
 		}
-		if (squareRank < MIN_RANK || squareRank > MAX_RANK) {
+		else if (isInvalidRank(squareString)) {
 			throw new InvalidSquareException("Invalid Square rank");
 		}
 	}
 	
+	private boolean isInvalidRank(String squareString) {
+		return (squareString.charAt(RANK_INDEX)	< MIN_RANK || 
+				squareString.charAt(RANK_INDEX) > MAX_RANK);
+	}
+
+	private boolean isInvalidFile(String squareString) {
+		return (squareString.charAt(FILE_INDEX) < MIN_FILE || 
+				squareString.charAt(FILE_INDEX) > MAX_FILE);
+	}
+
+	private boolean isNullOrIncorrectLength(String squareString) {
+		return (squareString == null || squareString.length() != fileAndRank.length);
+	}
+
 	@Override
 	public String toString() {
 		return new String(fileAndRank);

@@ -1,5 +1,6 @@
 package com.brasee.chess.pieces;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.brasee.chess.Square;
@@ -8,44 +9,119 @@ import static org.junit.Assert.*;
 
 public class PawnTest {
 
+	private Piece whitePawn;
+	private Piece blackPawn;
+	
+	@Before
+	public void setUp() {
+		whitePawn = new Pawn(Piece.WHITE);
+		blackPawn = new Pawn(Piece.BLACK);
+	}
 	@Test
-	public void testCanMoveForwardOneSquare() {
-		Piece pawn = new Pawn();
+	public void testWhitePawnCanMoveUpOneSquare() {
 		Square currentSquare = new Square("a2");
 		Square emptySquare = new Square("a3");
-		assertTrue(pawn.canMove(currentSquare, emptySquare));
+		assertTrue(whitePawn.canMove(currentSquare, emptySquare));
 	}
 	
 	@Test
-	public void testCanMoveForwardTwoSquaresIfThisIsFirstMove() {
-		Piece pawn = new Pawn();
+	public void testWhitePawnCannotMoveDown() {
+		Square currentSquare = new Square("a7");
+		Square emptySquare = new Square("a6");
+		assertFalse(whitePawn.canMove(currentSquare, emptySquare));
+	}
+	
+	@Test
+	public void testWhitePawnCanMoveUpTwoSquaresIfThisIsFirstMove() {
 		Square currentSquare = new Square("a2");
 		Square emptySquare = new Square("a4");
-		assertTrue(pawn.canMove(currentSquare, emptySquare));
+		assertTrue(whitePawn.canMove(currentSquare, emptySquare));
 	}
 	
 	@Test
-	public void testCannotMoveForwardThreeSquares() {
-		Piece pawn = new Pawn();
+	public void testWhitePawnCannotMoveUpThreeSquares() {
 		Square currentSquare = new Square("a2");
 		Square emptySquare = new Square("a5");
-		assertFalse(pawn.canMove(currentSquare, emptySquare));
+		assertFalse(whitePawn.canMove(currentSquare, emptySquare));
 	}
 	
 	@Test
-	public void testCanAttackPieceForwardAndLeftOneSquare() {
-		Piece pawn = new Pawn();
+	public void testWhitePawnCanAttackPieceUpAndLeftOneSquare() {
 		Square currentSquare = new Square("b2");
 		Square occupiedSquare = new Square("c3");
-		assertTrue(pawn.canAttack(currentSquare, occupiedSquare));
+		assertTrue(whitePawn.canAttack(currentSquare, occupiedSquare));
 	}
 	
 	@Test
-	public void testCanAttackPieceForwardAndRightOneSquare() {
-		Piece pawn = new Pawn();
+	public void testWhitePawnCanAttackPieceUpAndRightOneSquare() {
 		Square currentSquare = new Square("b2");
 		Square occupiedSquare = new Square("a3");
-		assertTrue(pawn.canAttack(currentSquare, occupiedSquare));
+		assertTrue(whitePawn.canAttack(currentSquare, occupiedSquare));
 	}
+	
+	@Test
+	public void testBlackPawnCanMoveDownOneSquare() {
+		Square currentSquare = new Square("a7");
+		Square emptySquare = new Square("a6");
+		assertTrue(blackPawn.canMove(currentSquare, emptySquare));
+	}
+	
+	@Test
+	public void testBlackPawnCannotMoveUp() {
+		Square currentSquare = new Square("a7");
+		Square emptySquare = new Square("a8");
+		assertFalse(blackPawn.canMove(currentSquare, emptySquare));
+	}
+	
+	@Test
+	public void testBlackPawnCanMoveDownTwoSquaresIfThisIsFirstMove() {
+		Square currentSquare = new Square("a7");
+		Square emptySquare = new Square("a5");
+		assertTrue(blackPawn.canMove(currentSquare, emptySquare));
+	}
+	
+	@Test 
+	public void testBlackPawnCannotMoveDownThreeSquares() {
+		Square currentSquare = new Square("a7");
+		Square emptySquare = new Square("a4");
+		assertFalse(blackPawn.canMove(currentSquare, emptySquare));		
+	}
+	
+	@Test
+	public void testBlackPawnCanAttackDownAndLeftOneSquare() {
+		Square currentSquare = new Square("b7");
+		Square occupiedSquare = new Square("a6");
+		assertTrue(blackPawn.canAttack(currentSquare, occupiedSquare));
+	}
+	
+	@Test
+	public void testBlackPawnCanAttackDownAndRightOneSquare() {
+		Square currentSquare = new Square("b7");
+		Square occupiedSquare = new Square("c6");
+		assertTrue(blackPawn.canAttack(currentSquare, occupiedSquare));
+	}
+	
+	@Test
+	public void testPawnCannotMoveTwoSquaresTwice() {
+		Square currentSquare = new Square("a4");
+		Square emptySquare = new Square("a6");
+		whitePawn.updateHasMoved();
+		assertFalse(whitePawn.canMove(currentSquare, emptySquare));
+	}
+	
+	@Test
+	public void testPawnCannotMoveSideways() {
+		Square currentSquare = new Square("a2");
+		Square emptySquare = new Square("b2");
+		assertFalse(whitePawn.canMove(currentSquare, emptySquare));		
+	}
+	
+	@Test
+	public void testPawnCannotMoveDiagonally() {
+		Square currentSquare = new Square("a2");
+		Square emptySquare = new Square("b3");
+		assertFalse(whitePawn.canMove(currentSquare, emptySquare));		
+	}
+
 
 }
