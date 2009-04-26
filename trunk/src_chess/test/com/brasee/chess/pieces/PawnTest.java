@@ -122,6 +122,19 @@ public class PawnTest {
 		Square emptySquare = new Square("b3");
 		assertFalse(whitePawn.canMove(currentSquare, emptySquare));		
 	}
+	
+	@Test
+	public void testPawnCannotAttackForward() {
+		Square currentSquare = new Square("a2");
+		Square occupiedSquare = new Square("a3");
+		assertFalse(whitePawn.canAttack(currentSquare, occupiedSquare));		
+	}
 
+	@Test
+	public void testPawnCannotAttackSideways() {
+		Square currentSquare = new Square("a2");
+		Square occupiedSquare = new Square("b2");
+		assertFalse(whitePawn.canAttack(currentSquare, occupiedSquare));		
+	}
 
 }
