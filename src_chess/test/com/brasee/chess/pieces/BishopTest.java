@@ -85,4 +85,17 @@ public class BishopTest {
 		assertFalse(bishop.canMove(currentSquare, emptySquare));		
 	}
 	
+	@Test
+	public void testCannotMoveToSameSquare() {
+		Square currentSquare = new Square("a1");
+		Square emptySquare = new Square("a1");
+		assertFalse(bishop.canMove(currentSquare, emptySquare));
+	}
+	
+	@Test
+	public void testCannotAttackSameSquare() {
+		Square currentSquare = new Square("a1");
+		Square occupiedSquare = new Square("a1");
+		assertFalse(bishop.canAttack(currentSquare, occupiedSquare));
+	}
 }

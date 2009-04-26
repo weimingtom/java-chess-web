@@ -17,34 +17,6 @@ public class QueenTest {
 	}
 	
 	@Test
-	public void testCanMoveDiagonallyUpAndLeft() {
-		Square currentSquare = new Square("d5");
-		Square emptySquare = new Square("c6");
-		assertTrue(queen.canMove(currentSquare, emptySquare));
-	}
-	
-	@Test
-	public void testCanMoveDiagonallyUpAndRight() {
-		Square currentSquare = new Square("d5");
-		Square emptySquare = new Square("e6");
-		assertTrue(queen.canMove(currentSquare, emptySquare));
-	}
-	
-	@Test
-	public void testCanMoveDiagonallyDownAndLeft() {
-		Square currentSquare = new Square("d5");
-		Square emptySquare = new Square("c4");
-		assertTrue(queen.canMove(currentSquare, emptySquare));
-	}
-	
-	@Test
-	public void testCanMoveDiagonallyDownAndRight() {
-		Square currentSquare = new Square("d5");
-		Square emptySquare = new Square("e4");
-		assertTrue(queen.canMove(currentSquare, emptySquare));
-	}
-	
-	@Test
 	public void testCanMoveStraightUp() {
 		Square currentSquare = new Square("d5");
 		Square emptySquare = new Square("d8");
@@ -73,31 +45,31 @@ public class QueenTest {
 	}
 	
 	@Test
-	public void testCanAttackDiagonallyUpAndLeft() {
+	public void testCanMoveDiagonallyUpAndLeft() {
 		Square currentSquare = new Square("d5");
-		Square occupiedSquare = new Square("c6");
-		assertTrue(queen.canAttack(currentSquare, occupiedSquare));
+		Square emptySquare = new Square("b7");
+		assertTrue(queen.canMove(currentSquare, emptySquare));
 	}
 	
 	@Test
-	public void testCanAttackDiagonallyUpAndRight() {
+	public void testCanMoveDiagonallyUpAndRight() {
 		Square currentSquare = new Square("d5");
-		Square occupiedSquare = new Square("e6");
-		assertTrue(queen.canAttack(currentSquare, occupiedSquare));
+		Square emptySquare = new Square("f7");
+		assertTrue(queen.canMove(currentSquare, emptySquare));
 	}
 	
 	@Test
-	public void testCanAttackDiagonallyDownAndLeft() {
+	public void testCanMoveDiagonallyDownAndLeft() {
 		Square currentSquare = new Square("d5");
-		Square occupiedSquare = new Square("c4");
-		assertTrue(queen.canAttack(currentSquare, occupiedSquare));
+		Square emptySquare = new Square("b3");
+		assertTrue(queen.canMove(currentSquare, emptySquare));
 	}
 	
 	@Test
-	public void testCanAttackDiagonallyDownAndRight() {
+	public void testCanMoveDiagonallyDownAndRight() {
 		Square currentSquare = new Square("d5");
-		Square occupiedSquare = new Square("e4");
-		assertTrue(queen.canAttack(currentSquare, occupiedSquare));
+		Square emptySquare = new Square("f3");
+		assertTrue(queen.canMove(currentSquare, emptySquare));
 	}
 	
 	@Test
@@ -129,6 +101,34 @@ public class QueenTest {
 	}
 	
 	@Test
+	public void testCanAttackDiagonallyUpAndLeft() {
+		Square currentSquare = new Square("d5");
+		Square occupiedSquare = new Square("b7");
+		assertTrue(queen.canAttack(currentSquare, occupiedSquare));
+	}
+	
+	@Test
+	public void testCanAttackDiagonallyUpAndRight() {
+		Square currentSquare = new Square("d5");
+		Square occupiedSquare = new Square("f7");
+		assertTrue(queen.canAttack(currentSquare, occupiedSquare));
+	}
+	
+	@Test
+	public void testCanAttackDiagonallyDownAndLeft() {
+		Square currentSquare = new Square("d5");
+		Square occupiedSquare = new Square("b3");
+		assertTrue(queen.canAttack(currentSquare, occupiedSquare));
+	}
+	
+	@Test
+	public void testCanAttackDiagonallyDownAndRight() {
+		Square currentSquare = new Square("d5");
+		Square occupiedSquare = new Square("f3");
+		assertTrue(queen.canAttack(currentSquare, occupiedSquare));
+	}
+	
+	@Test
 	public void testCannotMoveToNonStraightOrDiagonalSquare() {
 		Square currentSquare = new Square("a1");
 		Square emptySquare = new Square("b8");
@@ -140,5 +140,19 @@ public class QueenTest {
 		Square currentSquare = new Square("a1");
 		Square occupiedSquare = new Square("b8");
 		assertFalse(queen.canMove(currentSquare, occupiedSquare));
+	}
+	
+	@Test
+	public void testCannotMoveToSameSquare() {
+		Square currentSquare = new Square("a1");
+		Square emptySquare = new Square("a1");
+		assertFalse(queen.canMove(currentSquare, emptySquare));
+	}
+	
+	@Test
+	public void testCannotAttackSameSquare() {
+		Square currentSquare = new Square("a1");
+		Square occupiedSquare = new Square("a1");
+		assertFalse(queen.canAttack(currentSquare, occupiedSquare));
 	}
 }

@@ -140,4 +140,11 @@ public class KingTest {
 		Square emptySquare = new Square("a1");
 		assertFalse(king.canMove(currentSquare, emptySquare));
 	}
+	
+	@Test
+	public void testCannotAttackSameSquare() {
+		Square currentSquare = new Square("a1");
+		Square occupiedSquare = new Square("a1");
+		assertFalse(king.canAttack(currentSquare, occupiedSquare));
+	}
 }
