@@ -18,65 +18,70 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void testBoardCanCheckForAPieceAtPosition() {
+	public void testCanCheckForAPieceAtPosition() {
 		Piece pawn = new Pawn();
-		String square = "A2";
+		Square square = new Square("a2");
 		board.placePiece(square, pawn);
 		assertTrue(board.isPieceOn(square));
 	}
 	
 	@Test
-	public void testBoardCanCheckForNoPieceAtPosition() {
+	public void testCanCheckForNoPieceAtPosition() {
 		Piece pawn = new Pawn();
-		String pawnSquare = "A2";
-		String emptySquare = "A3";
+		Square pawnSquare = new Square("a2");
+		Square emptySquare =  new Square("a3");
 		board.placePiece(pawnSquare, pawn);
 		assertFalse(board.isPieceOn(emptySquare));
 	}
 	
 	@Test
-	public void testBoardCanCheckForWhichPieceIsAtPosition() {
+	public void testCanCheckForWhichPieceIsAtPosition() {
 		Piece pawn = new Pawn();
-		String square = "A2";
+		Square square = new Square("a2");
 		board.placePiece(square, pawn);
 		assertTrue(pawn.equals(board.pieceOn(square)));
 	}
 	
 	@Test
-	public void testBoardKeepsOnlyTheLastPiecePlacedAtAPosition() {
+	public void testThrowsExceptionIfPiecePlacedAtAnOccupiedPosition() {
 		Piece pawn1 = new Pawn();
 		Piece pawn2 = new Pawn();
-		String square = "A2";
+		Square square = new Square("a2");
 		board.placePiece(square, pawn1);
-		board.placePiece(square, pawn2);
-		assertTrue(board.isPieceOn(square) && pawn2.equals(board.pieceOn(square)));
+		try {
+			board.placePiece(square, pawn2);
+		}
+		catch (SquareAlreadyOccupiedException e) { 
+			return;
+		}
+		fail("Should throw a SquareAlreadyOccupiedException");
 	}
 	
 	@Test
-	public void testBoardMoveRemovesAPieceFromASquare() {
+	public void testMoveRemovesAPieceFromASquare() {
 		Piece pawn = new Pawn();
-		String startSquare = "A2";
-		String endSquare = "A3";
+		Square startSquare = new Square("a2");
+		Square endSquare = new Square("a3");
 		board.placePiece(startSquare, pawn);
 		board.movePiece(pawn, startSquare, endSquare);
 		assertFalse(board.isPieceOn(startSquare));
 	}
 	
 	@Test
-	public void testBoardMoveOccupiesASquare() {
+	public void testMoveOccupiesASquare() {
 		Piece pawn = new Pawn();
-		String startSquare = "A2";
-		String endSquare = "A3";
+		Square startSquare = new Square("a2");
+		Square endSquare = new Square("a3");
 		board.placePiece(startSquare, pawn);
 		board.movePiece(pawn, startSquare, endSquare);
 		assertTrue(board.isPieceOn(endSquare));
 	}
 	
 	@Test
-	public void testBoardMoveMovesAPieceToASquare() {
+	public void testMoveMovesAPieceToASquare() {
 		Piece pawn = new Pawn();
-		String startSquare = "A2";
-		String endSquare = "A3";
+		Square startSquare = new Square("a2");
+		Square endSquare = new Square("a3");
 		board.placePiece(startSquare, pawn);
 		board.movePiece(pawn, startSquare, endSquare);
 		assertTrue(pawn.equals(board.pieceOn(endSquare)));

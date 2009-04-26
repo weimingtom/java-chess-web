@@ -7,21 +7,26 @@ import com.brasee.chess.pieces.Piece;
 
 public class Board {
 
-	Map<String, Piece> pieceLocations = new HashMap<String, Piece>();
+	Map<Square, Piece> pieceLocations = new HashMap<Square, Piece>();
 	
-	public void placePiece(String square, Piece piece) {
-		pieceLocations.put(square, piece);
+	public void placePiece(Square square, Piece piece) {
+		if (pieceLocations.get(square) == null) {
+			pieceLocations.put(square, piece);
+		}
+		else {
+			throw new SquareAlreadyOccupiedException();
+		}
 	}
 
-	public boolean isPieceOn(String square) {
+	public boolean isPieceOn(Square square) {
 		return pieceOn(square) != null;
 	}
 
-	public Piece pieceOn(String square) {
+	public Piece pieceOn(Square square) {
 		return pieceLocations.get(square);
 	}
 
-	public void movePiece(Piece piece, String startSquare, String endSquare) {
+	public void movePiece(Piece piece, Square startSquare, Square endSquare) {
 		if (piece != null && piece.equals(pieceOn(startSquare))) {
 			pieceLocations.remove(startSquare);
 			pieceLocations.put(endSquare, piece);
