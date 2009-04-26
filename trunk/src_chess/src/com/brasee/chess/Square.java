@@ -2,13 +2,14 @@ package com.brasee.chess;
 
 public class Square {
 
-	public static char MIN_RANK = '1';
-	public static char MAX_RANK = '8';
-	public static char MIN_FILE = 'a';
-	public static char MAX_FILE = 'h';
+	private static char MIN_RANK = '1';
+	private static char MAX_RANK = '8';
+	private static char MIN_FILE = 'a';
+	private static char MAX_FILE = 'h';
 	
 	private static int FILE_INDEX = 0;
 	private static int RANK_INDEX = 1;
+	
 	public char[] fileAndRank = new char[2];
 	
 		
@@ -18,6 +19,27 @@ public class Square {
 		fileAndRank[RANK_INDEX] = squareString.charAt(RANK_INDEX);
 	}
 
+	public int distanceBetweenRank(Square otherSquare) {
+		return this.fileAndRank[RANK_INDEX] - otherSquare.fileAndRank[RANK_INDEX];
+	}
+	
+	public int distanceBetweenFile(Square otherSquare) {
+		return this.fileAndRank[FILE_INDEX] - otherSquare.fileAndRank[FILE_INDEX];
+	}
+
+	public boolean inSameRankAs(Square otherSquare) {
+		return distanceBetweenRank(otherSquare) == 0;
+	}
+	
+	public boolean inSameFileAs(Square otherSquare) {
+		return distanceBetweenFile(otherSquare) == 0;
+	}
+	
+	public boolean inDiagonalPathWith(Square otherSquare) {
+		return Math.abs(distanceBetweenFile(otherSquare)) == 
+			   Math.abs(distanceBetweenRank(otherSquare));
+	}
+	
 	private void throwExceptionForInvalidSquareString(String squareString) {
 		if (isNullOrIncorrectLength(squareString)) {
 			throw new InvalidSquareException("Square String must be length 2");
@@ -64,12 +86,4 @@ public class Square {
 		}
 	}
 	
-	public int distanceBetweenRank(Square otherSquare) {
-		return this.fileAndRank[RANK_INDEX] - otherSquare.fileAndRank[RANK_INDEX];
-	}
-	
-	public int distanceBetweenFile(Square otherSquare) {
-		return this.fileAndRank[FILE_INDEX] - otherSquare.fileAndRank[FILE_INDEX];
-	}
-
 }
