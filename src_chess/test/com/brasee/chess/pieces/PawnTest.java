@@ -14,8 +14,8 @@ public class PawnTest {
 	
 	@Before
 	public void setUp() {
-		whitePawn = new Pawn(Piece.WHITE);
-		blackPawn = new Pawn(Piece.BLACK);
+		whitePawn = new Pawn(Piece.Color.WHITE);
+		blackPawn = new Pawn(Piece.Color.BLACK);
 	}
 	
 	@Test

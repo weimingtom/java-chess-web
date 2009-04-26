@@ -4,7 +4,7 @@ import com.brasee.chess.Square;
 
 public class Rook extends AbstractPiece {
 
-	public Rook(int color) {
+	public Rook(Piece.Color color) {
 		super(color);
 	}
 	
