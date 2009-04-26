@@ -17,6 +17,7 @@ public class PawnTest {
 		whitePawn = new Pawn(Piece.WHITE);
 		blackPawn = new Pawn(Piece.BLACK);
 	}
+	
 	@Test
 	public void testWhitePawnCanMoveUpOneSquare() {
 		Square currentSquare = new Square("a2");
