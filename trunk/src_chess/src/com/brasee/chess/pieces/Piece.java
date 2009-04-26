@@ -4,7 +4,7 @@ import com.brasee.chess.Square;
 
 public interface Piece {
 
-	enum Color {
+	public enum Color {
 		WHITE, BLACK
 	}
 	
