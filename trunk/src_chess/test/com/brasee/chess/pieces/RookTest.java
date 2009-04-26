@@ -12,7 +12,7 @@ public class RookTest {
 	
 	@Before
 	public void setUp() {
-		rook = new Rook(Piece.WHITE);
+		rook = new Rook(Piece.Color.WHITE);
 	}
 	
 	@Test

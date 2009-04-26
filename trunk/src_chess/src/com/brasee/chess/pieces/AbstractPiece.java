@@ -3,10 +3,10 @@ package com.brasee.chess.pieces;
 public abstract class AbstractPiece implements Piece {
 
 	private boolean hasMoved = false;
-	private int color = Piece.WHITE;
+	private Piece.Color color;
 	
-	public AbstractPiece(int color) {
-		if (color == Piece.WHITE || color == Piece.BLACK) {
+	public AbstractPiece(Piece.Color color) {
+		if (color == Piece.Color.WHITE || color == Piece.Color.BLACK) {
 			this.color = color;
 		}
 		else {
@@ -25,7 +25,7 @@ public abstract class AbstractPiece implements Piece {
 	}
 	
 	@Override
-	public int color() {
+	public Piece.Color color() {
 		return color;
 	}
 

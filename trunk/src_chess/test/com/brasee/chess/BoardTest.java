@@ -19,7 +19,7 @@ public class BoardTest {
 	
 	@Test
 	public void testCanCheckForAPieceAtPosition() {
-		Piece pawn = new Pawn(Piece.WHITE);
+		Piece pawn = new Pawn(Piece.Color.WHITE);
 		Square square = new Square("a2");
 		board.placePiece(square, pawn);
 		assertTrue(board.isPieceOn(square));
@@ -27,7 +27,7 @@ public class BoardTest {
 	
 	@Test
 	public void testCanCheckForNoPieceAtPosition() {
-		Piece pawn = new Pawn(Piece.WHITE);
+		Piece pawn = new Pawn(Piece.Color.WHITE);
 		Square pawnSquare = new Square("a2");
 		Square emptySquare =  new Square("a3");
 		board.placePiece(pawnSquare, pawn);
@@ -36,7 +36,7 @@ public class BoardTest {
 	
 	@Test
 	public void testCanCheckForWhichPieceIsAtPosition() {
-		Piece pawn = new Pawn(Piece.WHITE);
+		Piece pawn = new Pawn(Piece.Color.WHITE);
 		Square square = new Square("a2");
 		board.placePiece(square, pawn);
 		assertTrue(pawn.equals(board.pieceOn(square)));
@@ -44,8 +44,8 @@ public class BoardTest {
 	
 	@Test
 	public void testThrowsExceptionIfPiecePlacedAtAnOccupiedPosition() {
-		Piece pawn1 = new Pawn(Piece.WHITE);
-		Piece pawn2 = new Pawn(Piece.WHITE);
+		Piece pawn1 = new Pawn(Piece.Color.WHITE);
+		Piece pawn2 = new Pawn(Piece.Color.WHITE);
 		Square square = new Square("a2");
 		board.placePiece(square, pawn1);
 		try {
@@ -59,7 +59,7 @@ public class BoardTest {
 	
 	@Test
 	public void testMoveRemovesAPieceFromASquare() {
-		Piece pawn = new Pawn(Piece.WHITE);
+		Piece pawn = new Pawn(Piece.Color.WHITE);
 		Square startSquare = new Square("a2");
 		Square endSquare = new Square("a3");
 		board.placePiece(startSquare, pawn);
@@ -69,7 +69,7 @@ public class BoardTest {
 	
 	@Test
 	public void testMoveOccupiesASquare() {
-		Piece pawn = new Pawn(Piece.WHITE);
+		Piece pawn = new Pawn(Piece.Color.WHITE);
 		Square startSquare = new Square("a2");
 		Square endSquare = new Square("a3");
 		board.placePiece(startSquare, pawn);
@@ -79,7 +79,7 @@ public class BoardTest {
 	
 	@Test
 	public void testMoveMovesAPieceToASquare() {
-		Piece pawn = new Pawn(Piece.WHITE);
+		Piece pawn = new Pawn(Piece.Color.WHITE);
 		Square startSquare = new Square("a2");
 		Square endSquare = new Square("a3");
 		board.placePiece(startSquare, pawn);

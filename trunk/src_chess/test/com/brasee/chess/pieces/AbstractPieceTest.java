@@ -8,27 +8,27 @@ public class AbstractPieceTest {
 	@Test
 	public void testWhiteIsAValidColor() {
 		try {
-			new Pawn(Piece.WHITE);
+			new Pawn(Piece.Color.WHITE);
 		}
 		catch (InvalidPieceColorException e) {
-			fail("No exception should be thrown, Piece.WHITE is a valid color");
+			fail("No exception should be thrown, Piece.Color.WHITE is a valid color");
 		}
 	}
 	
 	@Test
 	public void testBlackIsAValidColor() {
 		try {
-			new Pawn(Piece.BLACK);
+			new Pawn(Piece.Color.BLACK);
 		}
 		catch (InvalidPieceColorException e) {
-			fail("No exception should be thrown, Piece.BLACK is a valid color");
+			fail("No exception should be thrown, Piece.Color.BLACK is a valid color");
 		}
 	}
 	
 	@Test
 	public void testExceptionThrownForInvalidColor() {
 		try {
-			new Pawn(2);
+			new Pawn(null);
 		}
 		catch (InvalidPieceColorException e) { 
 			return;
