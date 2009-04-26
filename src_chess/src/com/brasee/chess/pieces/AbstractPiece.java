@@ -3,7 +3,7 @@ package com.brasee.chess.pieces;
 public abstract class AbstractPiece implements Piece {
 
 	private boolean hasMoved = false;
-	protected int color = Piece.WHITE;
+	private int color = Piece.WHITE;
 	
 	public AbstractPiece(int color) {
 		if (color == Piece.WHITE || color == Piece.BLACK) {

@@ -39,7 +39,7 @@ public class Pawn extends AbstractPiece {
 	}
 	
 	private int forwardDistanceForColor(int forwardDistance) {
-		if (color == Piece.WHITE) {
+		if (color() == Piece.WHITE) {
 			return forwardDistance;
 		}
 		else {
