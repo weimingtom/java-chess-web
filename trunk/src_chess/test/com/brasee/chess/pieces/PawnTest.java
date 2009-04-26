@@ -137,5 +137,19 @@ public class PawnTest {
 		Square occupiedSquare = new Square("b2");
 		assertFalse(whitePawn.canAttack(currentSquare, occupiedSquare));		
 	}
+	
+	@Test
+	public void testCannotMoveToSameSquare() {
+		Square currentSquare = new Square("a1");
+		Square emptySquare = new Square("a1");
+		assertFalse(whitePawn.canMove(currentSquare, emptySquare));
+	}
+	
+	@Test
+	public void testCannotAttackSameSquare() {
+		Square currentSquare = new Square("a1");
+		Square occupiedSquare = new Square("a1");
+		assertFalse(whitePawn.canAttack(currentSquare, occupiedSquare));
+	}
 
 }
