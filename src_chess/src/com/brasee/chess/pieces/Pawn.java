@@ -11,12 +11,12 @@ public class Pawn extends AbstractPiece {
 	@Override
 	public boolean canMove(Square currentSquare, Square emptySquare) {
 		if (emptySquare.distanceBetweenRank(currentSquare) == forwardDistanceForColor(1) &&
-			emptySquare.distanceBetweenFile(currentSquare) == 0) {
+			emptySquare.inSameFileAs(currentSquare)) {
 			return true;
 		}
 		else if (isFirstMove() && 
 				 emptySquare.distanceBetweenRank(currentSquare) == forwardDistanceForColor(2) &&
-				 emptySquare.distanceBetweenFile(currentSquare) == 0) {
+				 emptySquare.inSameFileAs(currentSquare)) {
 			return true;
 		}
 		else {

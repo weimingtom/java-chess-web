@@ -99,5 +99,5 @@ public class SquareTest {
 	public void testSquareEqualToTheSameSquare() {
 		assertTrue(new Square("a1").equals(new Square("a1")));
 	}
-	
+
 }
