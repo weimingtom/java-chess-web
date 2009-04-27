@@ -86,4 +86,9 @@ public class Square {
 		}
 	}
 	
+	@Override
+	public int hashCode() {
+		return this.toString().hashCode();
+	}
+	
 }
