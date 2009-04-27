@@ -29,8 +29,7 @@ public class Game {
 		board.placePiece(new Square("f1"), new Bishop(Piece.Color.WHITE));
 		board.placePiece(new Square("g1"), new Knight(Piece.Color.WHITE));
 		board.placePiece(new Square("h1"), new Rook(Piece.Color.WHITE));
-		for (int i = 0; i < 8; i++) {
-			char row = (char) ('a' + i);
+		for (char row : new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'}) {
 			board.placePiece(new Square(Character.toString(row) + "2"), new Pawn(Piece.Color.WHITE));
 		}		
 	}
@@ -44,8 +43,7 @@ public class Game {
 		board.placePiece(new Square("f8"), new Bishop(Piece.Color.BLACK));
 		board.placePiece(new Square("g8"), new Knight(Piece.Color.BLACK));
 		board.placePiece(new Square("h8"), new Rook(Piece.Color.BLACK));
-		for (int i = 0; i < 8; i++) {
-			char row = (char) ('a' + i);
+		for (char row : new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'}) {
 			board.placePiece(new Square(Character.toString(row) + "7"), new Pawn(Piece.Color.BLACK));
 		}
 	}

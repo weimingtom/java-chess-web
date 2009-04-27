@@ -43,8 +43,7 @@ public class GameTest {
 		assertTrue(whiteRightKnight != null && whiteRightKnight.color().equals(Piece.Color.WHITE) && whiteRightKnight instanceof Knight);
 		Piece whiteRightRook = game.board().pieceOn(new Square("h1"));
 		assertTrue(whiteRightRook != null && whiteRightRook.color().equals(Piece.Color.WHITE) && whiteRightRook instanceof Rook);
-		for (int i = 0; i < 8; i++) {
-			char row = (char) ('a' + i);
+		for (char row : new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'}) {
 			Piece pawn = game.board().pieceOn(new Square(row + "2"));
 			assertTrue(pawn != null && pawn.color().equals(Piece.Color.WHITE) && pawn instanceof Pawn);
 		}
@@ -66,8 +65,7 @@ public class GameTest {
 		assertTrue(blackRightKnight != null && blackRightKnight.color().equals(Piece.Color.BLACK) && blackRightKnight instanceof Knight);
 		Piece blackRightRook = game.board().pieceOn(new Square("h8"));
 		assertTrue(blackRightRook != null && blackRightRook.color().equals(Piece.Color.BLACK) && blackRightRook instanceof Rook);
-		for (int i = 0; i < 8; i++) {
-			char row = (char) ('a' + i);
+		for (char row : new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'}) {
 			Piece pawn = game.board().pieceOn(new Square(row + "7"));
 			assertTrue(pawn != null && pawn.color().equals(Piece.Color.BLACK) && pawn instanceof Pawn);
 		}
