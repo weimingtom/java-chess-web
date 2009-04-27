@@ -24,6 +24,8 @@ public class GameTest {
 	
 	@Test
 	public void testInitializeSetsUpCorrectBoard() {
+		game.initializeBoard();
+		
 		// test white setup
 		Piece whiteLeftRook = game.board().pieceOn(new Square("a1"));
 		assertTrue(whiteLeftRook != null && whiteLeftRook.color().equals(Piece.Color.WHITE) && whiteLeftRook instanceof Rook);

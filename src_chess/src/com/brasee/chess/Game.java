@@ -12,11 +12,9 @@ public class Game {
 
 	private Board board;
 	
-	public Game() {
-		initializeBoard();
-	}
+	public Game() {	}
 	
-	private void initializeBoard() {
+	public void initializeBoard() {
 		board = new Board();
 		placeWhitePieces();
 		placeBlackPieces();
