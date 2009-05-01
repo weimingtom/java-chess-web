@@ -46,6 +46,16 @@ public class PawnTest {
 	}
 	
 	@Test
+	public void testWhitePawnCannotMoveUpTwoSquaresOnFirstMoveIfBlocked() {
+		Square currentSquare = new Square("a2");
+		Square emptySquare = new Square("a4");
+		Square occupiedSquare = new Square("a3");
+		board.placePiece(currentSquare, whitePawn);
+		board.placePiece(occupiedSquare, blackPawn);
+		assertFalse(whitePawn.canMove(board, currentSquare, emptySquare));
+	}
+	
+	@Test
 	public void testWhitePawnCannotMoveUpThreeSquares() {
 		Square currentSquare = new Square("a2");
 		Square emptySquare = new Square("a5");

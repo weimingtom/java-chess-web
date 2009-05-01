@@ -87,4 +87,76 @@ public class BoardTest {
 		assertTrue(pawn.equals(board.pieceOn(endSquare)));
 	}
 	
+	@Test
+	public void testClearPathInFileOneSquareApartLowToHigh() {
+		Square square1 = new Square("a1");
+		Square square2 = new Square("a2");
+		assertTrue(board.clearPathBetween(square1, square2));
+	}
+	
+	@Test
+	public void testClearPathInFileOneSquareApartHighToLow() {
+		Square square1 = new Square("a2");
+		Square square2 = new Square("a1");
+		assertTrue(board.clearPathBetween(square1, square2));
+	}
+	
+	@Test
+	public void testClearPathInFileMultipleSquaresApartLowToHigh() {
+		Square square1 = new Square("a1");
+		Square square2 = new Square("a8");
+		assertTrue(board.clearPathBetween(square1, square2));
+	}
+	
+	@Test
+	public void testClearPathInFileMultipleSquaresApartHighToLow() {
+		Square square1 = new Square("a8");
+		Square square2 = new Square("a1");
+		assertTrue(board.clearPathBetween(square1, square2));
+	}
+	
+	@Test
+	public void testNotClearPathInFileWithBlockingPiece() {
+		Square square1 = new Square("a1");
+		Square square2 = new Square("a3");
+		board.placePiece(new Square("a2"), new Pawn(Piece.Color.WHITE));
+		assertFalse(board.clearPathBetween(square1, square2));
+	}
+
+	@Test
+	public void testClearPathInRankOneSquareApartLowToHigh() {
+		Square square1 = new Square("a1");
+		Square square2 = new Square("b1");
+		assertTrue(board.clearPathBetween(square1, square2));
+	}
+
+	@Test
+	public void testClearPathInRankOneSquareApartHighToLow() {
+		Square square1 = new Square("b1");
+		Square square2 = new Square("a1");
+		assertTrue(board.clearPathBetween(square1, square2));
+	}
+	
+	@Test
+	public void testClearPathInRankMultipleSquaresApartLowToHigh() {
+		Square square1 = new Square("a1");
+		Square square2 = new Square("h1");
+		assertTrue(board.clearPathBetween(square1, square2));
+	}
+
+	@Test
+	public void testClearPathInRankMultipleSquaresApartHighToLow() {
+		Square square1 = new Square("h1");
+		Square square2 = new Square("a1");
+		assertTrue(board.clearPathBetween(square1, square2));
+	}
+	
+	@Test
+	public void testNotClearPathInRankWithBlockingPiece() {
+		Square square1 = new Square("a1");
+		Square square2 = new Square("c1");
+		board.placePiece(new Square("b1"), new Pawn(Piece.Color.WHITE));
+		assertFalse(board.clearPathBetween(square1, square2));
+	}
+	
 }
