@@ -22,7 +22,7 @@ public class BoardTest {
 		Piece pawn = new Pawn(Piece.Color.WHITE);
 		Square square = new Square("a2");
 		board.placePiece(square, pawn);
-		assertTrue(board.isPieceOn(square));
+		assertTrue(board.hasPieceOn(square));
 	}
 	
 	@Test
@@ -31,7 +31,7 @@ public class BoardTest {
 		Square pawnSquare = new Square("a2");
 		Square emptySquare =  new Square("a3");
 		board.placePiece(pawnSquare, pawn);
-		assertFalse(board.isPieceOn(emptySquare));
+		assertFalse(board.hasPieceOn(emptySquare));
 	}
 	
 	@Test
@@ -64,7 +64,7 @@ public class BoardTest {
 		Square endSquare = new Square("a3");
 		board.placePiece(startSquare, pawn);
 		board.movePiece(pawn, startSquare, endSquare);
-		assertFalse(board.isPieceOn(startSquare));
+		assertFalse(board.hasPieceOn(startSquare));
 	}
 	
 	@Test
@@ -74,7 +74,7 @@ public class BoardTest {
 		Square endSquare = new Square("a3");
 		board.placePiece(startSquare, pawn);
 		board.movePiece(pawn, startSquare, endSquare);
-		assertTrue(board.isPieceOn(endSquare));
+		assertTrue(board.hasPieceOn(endSquare));
 	}
 	
 	@Test
