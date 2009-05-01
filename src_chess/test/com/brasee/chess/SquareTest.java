@@ -99,5 +99,50 @@ public class SquareTest {
 	public void testSquareEqualToTheSameSquare() {
 		assertTrue(new Square("a1").equals(new Square("a1")));
 	}
+	
+	@Test
+	public void testSquaresInDiagonalPath1() {
+		assertTrue(new Square("a3").inDiagonalPathWith(new Square("f8")));
+	}
+	
+	@Test
+	public void testSquaresInDiagonalPath2() {
+		assertTrue(new Square("f8").inDiagonalPathWith(new Square("a3")));
+	}
+	
+	@Test
+	public void testSquaresNotInDiagonalPath() {
+		assertFalse(new Square("a1").inDiagonalPathWith(new Square("h7")));
+	}
+	
+	@Test
+	public void testSquaresInSameRank1() {
+		assertTrue(new Square("a3").inSameRankAs(new Square("h3")));
+	}
+	
+	@Test
+	public void testSquaresInSameRank2() {
+		assertTrue(new Square("h3").inSameRankAs(new Square("a3")));
+	}
+	
+	@Test
+	public void testSquaresNotInSameRank() {
+		assertFalse(new Square("a3").inSameRankAs(new Square("h4")));
+	}
+	
+	@Test
+	public void testSquaresInSameFile1() {
+		assertTrue(new Square("a1").inSameFileAs(new Square("a8")));
+	}
+	
+	@Test
+	public void testSquaresInSameFile2() {
+		assertTrue(new Square("a8").inSameFileAs(new Square("a1")));
+	}
+	
+	@Test
+	public void testSquaresNotInSameFile() {
+		assertFalse(new Square("a1").inSameFileAs(new Square("b2")));
+	}
 
 }
