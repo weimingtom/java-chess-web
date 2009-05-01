@@ -54,13 +54,13 @@ public class Board {
 		return clearPathExists;
 	}
 
-	private boolean clearPathInFile(Square startSquare, Square endSquare) {
+	private boolean clearPathInRank(Square startSquare, Square endSquare) {
 		boolean clearPathExists = true;
 		
 		Set<Square> squaresBetween = new HashSet<Square>();
-		for (char rank = 'a'; rank <= 'h'; rank++) {
-			if (rankBetween(rank, startSquare.rank(), endSquare.rank())) {
-				squaresBetween.add(new Square(Character.toString(rank) + Character.toString(startSquare.file())));
+		for (char file = 'a'; file <= 'h'; file++) {
+			if (fileBetween(file, startSquare.file(), endSquare.file())) {
+				squaresBetween.add(new Square(Character.toString(file) + Character.toString(startSquare.rank())));
 			}
 		}
 		
@@ -73,13 +73,13 @@ public class Board {
 		return clearPathExists;
 	}
 
-	private boolean clearPathInRank(Square startSquare, Square endSquare) {
+	private boolean clearPathInFile(Square startSquare, Square endSquare) {
 		boolean clearPathExists = true;
 		
 		Set<Square> squaresBetween = new HashSet<Square>();
-		for (char file = '1'; file <= '8'; file++) {
-			if (fileBetween(file, startSquare.file(), endSquare.file())) {
-				squaresBetween.add(new Square(Character.toString(startSquare.rank()) + Character.toString(file)));
+		for (char rank = '1'; rank <= '8'; rank++) {
+			if (rankBetween(rank, startSquare.rank(), endSquare.rank())) {
+				squaresBetween.add(new Square(Character.toString(startSquare.file()) + Character.toString(rank)));
 			}
 		}
 		
