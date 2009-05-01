@@ -1,5 +1,6 @@
 package com.brasee.chess.pieces;
 
+import com.brasee.chess.Board;
 import com.brasee.chess.Square;
 
 public class Bishop extends AbstractPiece {
@@ -9,12 +10,12 @@ public class Bishop extends AbstractPiece {
 	}
 	
 	@Override
-	public boolean canAttack(Square currentSquare, Square occupiedSquare) {
+	public boolean canAttack(Board board, Square currentSquare, Square occupiedSquare) {
 		return !currentSquare.equals(occupiedSquare) && currentSquare.inDiagonalPathWith(occupiedSquare);
 	}
 
 	@Override
-	public boolean canMove(Square currentSquare, Square emptySquare) {
+	public boolean canMove(Board board, Square currentSquare, Square emptySquare) {
 		return !currentSquare.equals(emptySquare) && currentSquare.inDiagonalPathWith(emptySquare);
 	}
 

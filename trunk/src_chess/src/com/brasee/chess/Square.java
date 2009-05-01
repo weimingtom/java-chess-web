@@ -18,6 +18,14 @@ public class Square {
 		fileAndRank[FILE_INDEX] = squareString.charAt(FILE_INDEX);
 		fileAndRank[RANK_INDEX] = squareString.charAt(RANK_INDEX);
 	}
+	
+	public char rank() {
+		return fileAndRank[RANK_INDEX];
+	}
+	
+	public char file() {
+		return fileAndRank[FILE_INDEX];
+	}
 
 	public int distanceBetweenRank(Square otherSquare) {
 		return this.fileAndRank[RANK_INDEX] - otherSquare.fileAndRank[RANK_INDEX];
