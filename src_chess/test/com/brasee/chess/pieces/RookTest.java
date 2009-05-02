@@ -147,4 +147,12 @@ public class RookTest {
 		assertFalse(rook.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
+	@Test
+	public void testCannotAttackEmptySquare() {
+		Square currentSquare = new Square("a1");
+		Square emptySquare = new Square("a2");
+		board.placePiece(currentSquare, rook);
+		assertFalse(rook.canAttack(board, currentSquare, emptySquare));
+	}
+	
 }

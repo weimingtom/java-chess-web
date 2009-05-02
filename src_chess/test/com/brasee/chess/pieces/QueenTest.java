@@ -215,4 +215,12 @@ public class QueenTest {
 		board.placePiece(occupiedSquare, new Queen(Piece.Color.BLACK));
 		assertFalse(queen.canAttack(board, currentSquare, occupiedSquare));		
 	}
+	
+	@Test
+	public void testCannotAttackEmptySquare() {
+		Square currentSquare = new Square("a1");
+		Square emptySquare = new Square("c1");
+		board.placePiece(currentSquare, queen);
+		assertFalse(queen.canAttack(board, currentSquare, emptySquare));
+	}
 }

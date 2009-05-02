@@ -152,5 +152,13 @@ public class BishopTest {
 		board.placePiece(new Square("b2"), new Bishop(Piece.Color.WHITE));
 		board.placePiece(new Square("h8"), new Bishop(Piece.Color.BLACK));
 		assertFalse(bishop.canAttack(board, currentSquare, occupiedSquare));	
-	}	
+	}
+	
+	@Test
+	public void testCannotAttackEmptySquare() {
+		Square currentSquare = new Square("a1");
+		Square emptySquare = new Square("h8");
+		board.placePiece(currentSquare, bishop);
+		assertFalse(bishop.canAttack(board, currentSquare, emptySquare));		
+	}
 }
