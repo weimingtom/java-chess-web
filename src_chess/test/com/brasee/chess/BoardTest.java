@@ -159,4 +159,40 @@ public class BoardTest {
 		assertFalse(board.clearPathBetween(square1, square2));
 	}
 	
+	@Test
+	public void testDiagonalClearPathBottomLeftToTopRight() {
+		Square square1 = new Square("a1");
+		Square square2 = new Square("h8");
+		assertTrue(board.clearPathBetween(square1, square2));
+	}
+	
+	@Test
+	public void testDiagonalClearPathTopRightToBottomLeft() {
+		Square square1 = new Square("h8");
+		Square square2 = new Square("a1");
+		assertTrue(board.clearPathBetween(square1, square2));
+	}
+	
+	@Test
+	public void testDiagonalClearPathBottomRightToTopLeft() {
+		Square square1 = new Square("a8");
+		Square square2 = new Square("h1");
+		assertTrue(board.clearPathBetween(square1, square2));
+	}
+	
+	@Test
+	public void testDiagonalClearPathTopLeftToBottomRight() {
+		Square square1 = new Square("h1");
+		Square square2 = new Square("a8");
+		assertTrue(board.clearPathBetween(square1, square2));
+	}
+	
+	@Test
+	public void testDiagonalPathNotClearWithBlockingPiece() {
+		Square square1 = new Square("a1");
+		Square square2 = new Square("c3");
+		board.placePiece(new Square("b2"), new Pawn(Piece.Color.WHITE));
+		assertFalse(board.clearPathBetween(square1, square2));
+	}
+	
 }
