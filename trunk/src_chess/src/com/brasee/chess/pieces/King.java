@@ -11,12 +11,14 @@ public class King extends AbstractPiece {
 	
 	@Override
 	public boolean canAttack(Board board, Square currentSquare, Square occupiedSquare) {
-		return areAdjacentSquares(currentSquare, occupiedSquare);
+		return (validSetupForAttack(board, currentSquare, occupiedSquare) &&
+				areAdjacentSquares(currentSquare, occupiedSquare));
 	}
 
 	@Override
 	public boolean canMove(Board board, Square currentSquare, Square emptySquare) {
-		return areAdjacentSquares(currentSquare, emptySquare);
+		return (validSetupForMove(board, currentSquare, emptySquare) &&
+				areAdjacentSquares(currentSquare, emptySquare));
 	}
 	
 	private boolean areAdjacentSquares(Square square1, Square square2) {
