@@ -11,14 +11,16 @@ public class Knight extends AbstractPiece {
 	
 	@Override
 	public boolean canAttack(Board board, Square currentSquare, Square occupiedSquare) {
-		return differByTwoVerticalAndOneHorizontal(currentSquare, occupiedSquare) ||
-			differByOneVerticalAndTwoHorizontal(currentSquare, occupiedSquare);
+		return validSetupForAttack(board, currentSquare, occupiedSquare) && 
+			(differByTwoVerticalAndOneHorizontal(currentSquare, occupiedSquare) ||
+			differByOneVerticalAndTwoHorizontal(currentSquare, occupiedSquare));
 	}
 
 	@Override
 	public boolean canMove(Board board, Square currentSquare, Square emptySquare) {
-		return differByTwoVerticalAndOneHorizontal(currentSquare, emptySquare) ||
-			differByOneVerticalAndTwoHorizontal(currentSquare, emptySquare);
+		return validSetupForMove(board, currentSquare, emptySquare) &&
+			(differByTwoVerticalAndOneHorizontal(currentSquare, emptySquare) ||
+			differByOneVerticalAndTwoHorizontal(currentSquare, emptySquare));
 	}
 
 	private boolean differByOneVerticalAndTwoHorizontal(Square square1, Square square2) {
