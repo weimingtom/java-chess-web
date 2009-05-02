@@ -11,12 +11,16 @@ public class Rook extends AbstractPiece {
 	
 	@Override
 	public boolean canAttack(Board board, Square currentSquare, Square occupiedSquare) {
-		return differentSquareInSameRankOrFile(currentSquare, occupiedSquare);
+		return (validSetupForAttack(board, currentSquare, occupiedSquare) &&
+				board.clearPathBetween(currentSquare, occupiedSquare) &&
+				differentSquareInSameRankOrFile(currentSquare, occupiedSquare));
 	}
 
 	@Override
 	public boolean canMove(Board board, Square currentSquare, Square emptySquare) {
-		return differentSquareInSameRankOrFile(currentSquare, emptySquare);
+		return (validSetupForMove(board, currentSquare, emptySquare) &&
+				board.clearPathBetween(currentSquare, emptySquare) &&
+				differentSquareInSameRankOrFile(currentSquare, emptySquare));
 	}
 	
 	private boolean differentSquareInSameRankOrFile(Square square1, Square square2) {
