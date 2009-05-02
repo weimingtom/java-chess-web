@@ -93,7 +93,20 @@ public class Board {
 	}
 
 	private boolean clearPathInDiagonal(Square startSquare, Square endSquare) {
-		boolean clearPathExists = false;
+		boolean clearPathExists = true;
+		
+		int rankAdjustment = (startSquare.rank() < endSquare.rank() ? 1 : -1);
+		int fileAdjustment = (startSquare.file() < endSquare.file() ? 1 : -1);
+		char rank = (char) (startSquare.rank() + rankAdjustment);
+		char file = (char) (startSquare.file() + fileAdjustment);
+		
+		while (rank != endSquare.rank()) {
+			if (hasPieceOn(new Square(Character.toString(file) + Character.toString(rank)))) {
+				clearPathExists = false;
+			}
+			rank = (char) (rank + rankAdjustment);
+			file = (char) (file + fileAdjustment);
+		}
 		
 		return clearPathExists;
 	}
