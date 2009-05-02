@@ -11,16 +11,14 @@ public class Queen extends AbstractPiece {
 	
 	@Override
 	public boolean canAttack(Board board, Square currentSquare, Square occupiedSquare) {
-		return !currentSquare.equals(occupiedSquare) && 
-			(currentSquare.inSameFileAs(occupiedSquare) || currentSquare.inSameRankAs(occupiedSquare) ||
-		     currentSquare.inDiagonalPathWith(occupiedSquare));
+		return (validSetupForAttack(board, currentSquare, occupiedSquare) &&
+				board.clearPathBetween(currentSquare, occupiedSquare));
 	}
 
 	@Override
 	public boolean canMove(Board board, Square currentSquare, Square emptySquare) {
-		return !currentSquare.equals(emptySquare) && 
-			(currentSquare.inSameFileAs(emptySquare) || currentSquare.inSameRankAs(emptySquare) ||
-			 currentSquare.inDiagonalPathWith(emptySquare));
+		return (validSetupForMove(board, currentSquare, emptySquare) &&
+				board.clearPathBetween(currentSquare, emptySquare));
 	}
 
 }
