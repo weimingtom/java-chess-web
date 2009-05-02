@@ -11,15 +11,67 @@ import com.brasee.chess.pieces.Rook;
 public class Game {
 
 	private Board board;
+	private Piece.Color playersTurn;
 	
-	public Game() {	}
+	public enum MoveType {
+		INVALID, NORMAL
+	}
+	
+	public Game() {
+		board = new Board();
+		playersTurn = Piece.Color.WHITE;
+	}
 	
 	public void initializeBoard() {
 		board = new Board();
+		playersTurn = Piece.Color.WHITE;
 		placeWhitePieces();
 		placeBlackPieces();
 	}
 	
+	public MoveType move(Square startSquare, Square endSquare) {
+		MoveType moveType = MoveType.INVALID;
+		
+		if (board.hasPieceOn(startSquare) && board.pieceOn(startSquare).color().equals(playersTurn)) {
+			moveType = executeMoveOrAttack(startSquare, endSquare);
+			if (!moveType.equals(MoveType.INVALID)) {
+				changePlayersTurn();
+			}
+		}
+		
+		return moveType;
+	}
+	
+	public Board board() {
+		return board;
+	}
+
+	private MoveType executeMoveOrAttack(Square startSquare, Square endSquare) {
+		MoveType moveType = MoveType.INVALID;
+		
+		if (board().hasPieceOn(startSquare)) {
+			Piece piece = board().pieceOn(startSquare);
+			if (piece.canMove(board, startSquare, endSquare)) {
+				board.movePiece(piece, startSquare, endSquare);
+				moveType = MoveType.NORMAL;
+			}
+			else if (piece.canAttack(board, startSquare, endSquare)) {
+				// TODO: implement this!
+			}
+		}
+		
+		return moveType;
+	}
+
+	private void changePlayersTurn() {
+		if (playersTurn.equals(Piece.Color.WHITE)) {
+			playersTurn = Piece.Color.BLACK;
+		}
+		else {
+			playersTurn = Piece.Color.WHITE;
+		}
+	}
+
 	private void placeWhitePieces() {
 		board.placePiece(new Square("a1"), new Rook(Piece.Color.WHITE));
 		board.placePiece(new Square("b1"), new Knight(Piece.Color.WHITE));
@@ -47,10 +99,4 @@ public class Game {
 			board.placePiece(new Square(Character.toString(row) + "7"), new Pawn(Piece.Color.BLACK));
 		}
 	}
-
-	public Board board() {
-		return board;
-	}
-	
-	
 }
