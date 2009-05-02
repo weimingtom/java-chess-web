@@ -13,14 +13,14 @@ public class Bishop extends AbstractPiece {
 	public boolean canAttack(Board board, Square currentSquare, Square occupiedSquare) {
 		return (validSetupForAttack(board, currentSquare, occupiedSquare) &&
 				board.clearPathBetween(currentSquare, occupiedSquare) &&
-				!currentSquare.equals(occupiedSquare) && currentSquare.inDiagonalPathWith(occupiedSquare));
+				currentSquare.inDiagonalPathWith(occupiedSquare));
 	}
 
 	@Override
 	public boolean canMove(Board board, Square currentSquare, Square emptySquare) {
 		return (validSetupForMove(board, currentSquare, emptySquare) && 
 				board.clearPathBetween(currentSquare, emptySquare) &&
-				!currentSquare.equals(emptySquare) && currentSquare.inDiagonalPathWith(emptySquare));
+				currentSquare.inDiagonalPathWith(emptySquare));
 	}
 
 }
