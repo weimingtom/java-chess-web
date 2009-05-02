@@ -9,36 +9,33 @@ public class Pawn extends AbstractPiece {
 		super(color);
 	}
 	
+	/**
+	 * TODO: still need to add en passant logic.
+	 */
 	@Override
-	public boolean canMove(Board board, Square currentSquare, Square emptySquare) {
-		if (this == board.pieceOn(currentSquare) &&
-			!board.hasPieceOn(emptySquare) &&
-			emptySquare.distanceBetweenRank(currentSquare) == forwardDistanceForColor(1) &&
-			emptySquare.inSameFileAs(currentSquare)) {
-			return true;
-		}
-		else if (isFirstMove() && 
-				this == board.pieceOn(currentSquare) &&
-				!board.hasPieceOn(emptySquare) &&
-				board.clearPathBetween(currentSquare, emptySquare) &&
-				emptySquare.distanceBetweenRank(currentSquare) == forwardDistanceForColor(2) &&
-				emptySquare.inSameFileAs(currentSquare)) {
+	public boolean canAttack(Board board, Square currentSquare, Square occupiedSquare) {
+		if (validSetupForAttack(board, currentSquare, occupiedSquare) &&
+			occupiedSquare.distanceBetweenRank(currentSquare) == forwardDistanceForColor(1) && 
+				Math.abs(occupiedSquare.distanceBetweenFile(currentSquare)) == 1) {
 			return true;
 		}
 		else {
 			return false;
 		}
 	}
-
-	/**
-	 * TODO: still need to add en passant logic.
-	 */
+	
 	@Override
-	public boolean canAttack(Board board, Square currentSquare, Square occupiedSquare) {
-		if (this == board.pieceOn(currentSquare) &&
-			board.hasPieceOn(occupiedSquare) && !this.color().equals(board.pieceOn(occupiedSquare).color()) &&
-			occupiedSquare.distanceBetweenRank(currentSquare) == forwardDistanceForColor(1) && 
-				Math.abs(occupiedSquare.distanceBetweenFile(currentSquare)) == 1) {
+	public boolean canMove(Board board, Square currentSquare, Square emptySquare) {
+		if (validSetupForMove(board, currentSquare, emptySquare) &&
+			emptySquare.inSameFileAs(currentSquare) &&
+			emptySquare.distanceBetweenRank(currentSquare) == forwardDistanceForColor(1)) {
+			return true;
+		}
+		else if (isFirstMove() && 
+				validSetupForMove(board, currentSquare, emptySquare) &&
+				board.clearPathBetween(currentSquare, emptySquare) &&
+				emptySquare.distanceBetweenRank(currentSquare) == forwardDistanceForColor(2) &&
+				emptySquare.inSameFileAs(currentSquare)) {
 			return true;
 		}
 		else {
