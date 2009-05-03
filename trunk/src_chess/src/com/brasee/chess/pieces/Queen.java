@@ -5,7 +5,7 @@ import com.brasee.chess.Square;
 
 public class Queen extends AbstractPiece {
 
-	public Queen(Piece.Color color) {
+	public Queen(Color color) {
 		super(color);
 	}
 	

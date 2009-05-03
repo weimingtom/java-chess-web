@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import com.brasee.chess.Board;
 import com.brasee.chess.Square;
+import com.brasee.chess.pieces.Piece.Color;
 
 import static org.junit.Assert.*;
 
@@ -16,8 +17,8 @@ public class PawnTest {
 	
 	@Before
 	public void setUp() {
-		whitePawn = new Pawn(Piece.Color.WHITE);
-		blackPawn = new Pawn(Piece.Color.BLACK);
+		whitePawn = new Pawn(Color.WHITE);
+		blackPawn = new Pawn(Color.BLACK);
 		board = new Board();
 	}
 	

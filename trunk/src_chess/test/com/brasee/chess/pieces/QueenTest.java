@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import com.brasee.chess.Board;
 import com.brasee.chess.Square;
+import com.brasee.chess.pieces.Piece.Color;
 
 import static org.junit.Assert.*;
 
@@ -15,7 +16,7 @@ public class QueenTest {
 	
 	@Before
 	public void setUp() {
-		queen = new Queen(Piece.Color.WHITE);
+		queen = new Queen(Color.WHITE);
 		board = new Board();
 	}
 	
@@ -88,7 +89,7 @@ public class QueenTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("d8");
 		board.placePiece(currentSquare, queen);
-		board.placePiece(occupiedSquare, new Queen(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Queen(Color.BLACK));
 		assertTrue(queen.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -97,7 +98,7 @@ public class QueenTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("d1");
 		board.placePiece(currentSquare, queen);
-		board.placePiece(occupiedSquare, new Queen(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Queen(Color.BLACK));
 		assertTrue(queen.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -106,7 +107,7 @@ public class QueenTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("a5");
 		board.placePiece(currentSquare, queen);
-		board.placePiece(occupiedSquare, new Queen(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Queen(Color.BLACK));
 		assertTrue(queen.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -115,7 +116,7 @@ public class QueenTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("h5");
 		board.placePiece(currentSquare, queen);
-		board.placePiece(occupiedSquare, new Queen(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Queen(Color.BLACK));
 		assertTrue(queen.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -124,7 +125,7 @@ public class QueenTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("b7");
 		board.placePiece(currentSquare, queen);
-		board.placePiece(occupiedSquare, new Queen(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Queen(Color.BLACK));
 		assertTrue(queen.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -133,7 +134,7 @@ public class QueenTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("f7");
 		board.placePiece(currentSquare, queen);
-		board.placePiece(occupiedSquare, new Queen(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Queen(Color.BLACK));
 		assertTrue(queen.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -142,7 +143,7 @@ public class QueenTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("b3");
 		board.placePiece(currentSquare, queen);
-		board.placePiece(occupiedSquare, new Queen(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Queen(Color.BLACK));
 		assertTrue(queen.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -151,7 +152,7 @@ public class QueenTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("f3");
 		board.placePiece(currentSquare, queen);
-		board.placePiece(occupiedSquare, new Queen(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Queen(Color.BLACK));
 		assertTrue(queen.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -168,7 +169,7 @@ public class QueenTest {
 		Square currentSquare = new Square("a1");
 		Square occupiedSquare = new Square("b8");
 		board.placePiece(currentSquare, queen);
-		board.placePiece(occupiedSquare, new Queen(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Queen(Color.BLACK));
 		assertFalse(queen.canMove(board, currentSquare, occupiedSquare));
 	}
 	
@@ -193,7 +194,7 @@ public class QueenTest {
 		Square currentSquare = new Square("a1");
 		Square occupiedSquare = new Square("b1");
 		board.placePiece(currentSquare, queen);
-		board.placePiece(occupiedSquare, new Queen(Piece.Color.WHITE));
+		board.placePiece(occupiedSquare, new Queen(Color.WHITE));
 		assertFalse(queen.canMove(board, currentSquare, occupiedSquare));		
 	}
 	
@@ -202,7 +203,7 @@ public class QueenTest {
 		Square currentSquare = new Square("a1");
 		Square emptySquare = new Square("c1");
 		board.placePiece(currentSquare, queen);
-		board.placePiece(new Square("b1"), new Queen(Piece.Color.WHITE));
+		board.placePiece(new Square("b1"), new Queen(Color.WHITE));
 		assertFalse(queen.canMove(board, currentSquare, emptySquare));		
 	}
 	
@@ -211,8 +212,8 @@ public class QueenTest {
 		Square currentSquare = new Square("a1");
 		Square occupiedSquare = new Square("c1");
 		board.placePiece(currentSquare, queen);
-		board.placePiece(new Square("b1"), new Queen(Piece.Color.WHITE));
-		board.placePiece(occupiedSquare, new Queen(Piece.Color.BLACK));
+		board.placePiece(new Square("b1"), new Queen(Color.WHITE));
+		board.placePiece(occupiedSquare, new Queen(Color.BLACK));
 		assertFalse(queen.canAttack(board, currentSquare, occupiedSquare));		
 	}
 	

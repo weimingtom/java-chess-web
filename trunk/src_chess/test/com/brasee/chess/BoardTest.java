@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import com.brasee.chess.pieces.Pawn;
 import com.brasee.chess.pieces.Piece;
+import com.brasee.chess.pieces.Piece.Color;
 
 import static org.junit.Assert.*;
 
@@ -19,7 +20,7 @@ public class BoardTest {
 	
 	@Test
 	public void testCanCheckForAPieceAtPosition() {
-		Piece pawn = new Pawn(Piece.Color.WHITE);
+		Piece pawn = new Pawn(Color.WHITE);
 		Square square = new Square("a2");
 		board.placePiece(square, pawn);
 		assertTrue(board.hasPieceOn(square));
@@ -27,7 +28,7 @@ public class BoardTest {
 	
 	@Test
 	public void testCanCheckForNoPieceAtPosition() {
-		Piece pawn = new Pawn(Piece.Color.WHITE);
+		Piece pawn = new Pawn(Color.WHITE);
 		Square pawnSquare = new Square("a2");
 		Square emptySquare =  new Square("a3");
 		board.placePiece(pawnSquare, pawn);
@@ -36,7 +37,7 @@ public class BoardTest {
 	
 	@Test
 	public void testCanCheckForWhichPieceIsAtPosition() {
-		Piece pawn = new Pawn(Piece.Color.WHITE);
+		Piece pawn = new Pawn(Color.WHITE);
 		Square square = new Square("a2");
 		board.placePiece(square, pawn);
 		assertTrue(pawn.equals(board.pieceOn(square)));
@@ -44,8 +45,8 @@ public class BoardTest {
 	
 	@Test
 	public void testThrowsExceptionIfPiecePlacedAtAnOccupiedPosition() {
-		Piece pawn1 = new Pawn(Piece.Color.WHITE);
-		Piece pawn2 = new Pawn(Piece.Color.WHITE);
+		Piece pawn1 = new Pawn(Color.WHITE);
+		Piece pawn2 = new Pawn(Color.WHITE);
 		Square square = new Square("a2");
 		board.placePiece(square, pawn1);
 		try {
@@ -59,7 +60,7 @@ public class BoardTest {
 	
 	@Test
 	public void testMoveRemovesAPieceFromASquare() {
-		Piece pawn = new Pawn(Piece.Color.WHITE);
+		Piece pawn = new Pawn(Color.WHITE);
 		Square startSquare = new Square("a2");
 		Square endSquare = new Square("a3");
 		board.placePiece(startSquare, pawn);
@@ -69,7 +70,7 @@ public class BoardTest {
 	
 	@Test
 	public void testMoveOccupiesASquare() {
-		Piece pawn = new Pawn(Piece.Color.WHITE);
+		Piece pawn = new Pawn(Color.WHITE);
 		Square startSquare = new Square("a2");
 		Square endSquare = new Square("a3");
 		board.placePiece(startSquare, pawn);
@@ -79,7 +80,7 @@ public class BoardTest {
 	
 	@Test
 	public void testMoveMovesAPieceToASquare() {
-		Piece pawn = new Pawn(Piece.Color.WHITE);
+		Piece pawn = new Pawn(Color.WHITE);
 		Square startSquare = new Square("a2");
 		Square endSquare = new Square("a3");
 		board.placePiece(startSquare, pawn);
@@ -119,7 +120,7 @@ public class BoardTest {
 	public void testNotClearPathInFileWithBlockingPiece() {
 		Square square1 = new Square("a1");
 		Square square2 = new Square("a3");
-		board.placePiece(new Square("a2"), new Pawn(Piece.Color.WHITE));
+		board.placePiece(new Square("a2"), new Pawn(Color.WHITE));
 		assertFalse(board.clearPathBetween(square1, square2));
 	}
 
@@ -155,7 +156,7 @@ public class BoardTest {
 	public void testNotClearPathInRankWithBlockingPiece() {
 		Square square1 = new Square("a1");
 		Square square2 = new Square("c1");
-		board.placePiece(new Square("b1"), new Pawn(Piece.Color.WHITE));
+		board.placePiece(new Square("b1"), new Pawn(Color.WHITE));
 		assertFalse(board.clearPathBetween(square1, square2));
 	}
 	
@@ -191,7 +192,7 @@ public class BoardTest {
 	public void testDiagonalPathNotClearWithBlockingPiece() {
 		Square square1 = new Square("a1");
 		Square square2 = new Square("c3");
-		board.placePiece(new Square("b2"), new Pawn(Piece.Color.WHITE));
+		board.placePiece(new Square("b2"), new Pawn(Color.WHITE));
 		assertFalse(board.clearPathBetween(square1, square2));
 	}
 	

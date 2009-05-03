@@ -5,7 +5,7 @@ import com.brasee.chess.Square;
 
 public class Bishop extends AbstractPiece {
 
-	public Bishop(Piece.Color color) {
+	public Bishop(Color color) {
 		super(color);
 	}
 	

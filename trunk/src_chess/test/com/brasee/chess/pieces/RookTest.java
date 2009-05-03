@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 
 import com.brasee.chess.Board;
 import com.brasee.chess.Square;
+import com.brasee.chess.pieces.Piece.Color;
 
 public class RookTest {
 
@@ -14,7 +15,7 @@ public class RookTest {
 	
 	@Before
 	public void setUp() {
-		rook = new Rook(Piece.Color.WHITE);
+		rook = new Rook(Color.WHITE);
 		board = new Board();
 	}
 	
@@ -63,7 +64,7 @@ public class RookTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("a5");
 		board.placePiece(currentSquare, rook);
-		board.placePiece(occupiedSquare, new Rook(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Rook(Color.BLACK));
 		assertTrue(rook.canAttack(board, currentSquare, occupiedSquare));	
 	}
 	
@@ -72,7 +73,7 @@ public class RookTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("h5");
 		board.placePiece(currentSquare, rook);
-		board.placePiece(occupiedSquare, new Rook(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Rook(Color.BLACK));
 		assertTrue(rook.canAttack(board, currentSquare, occupiedSquare));			
 	}
 	
@@ -81,7 +82,7 @@ public class RookTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("d8");
 		board.placePiece(currentSquare, rook);
-		board.placePiece(occupiedSquare, new Rook(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Rook(Color.BLACK));
 		assertTrue(rook.canAttack(board, currentSquare, occupiedSquare));	
 	}
 	
@@ -90,7 +91,7 @@ public class RookTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("d1");
 		board.placePiece(currentSquare, rook);
-		board.placePiece(occupiedSquare, new Rook(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Rook(Color.BLACK));
 		assertTrue(rook.canAttack(board, currentSquare, occupiedSquare));	
 	}
 	
@@ -99,7 +100,7 @@ public class RookTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("e6");
 		board.placePiece(currentSquare, rook);
-		board.placePiece(occupiedSquare, new Rook(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Rook(Color.BLACK));
 		assertFalse(rook.canAttack(board, currentSquare, occupiedSquare));	
 	}
 	
@@ -124,7 +125,7 @@ public class RookTest {
 		Square currentSquare = new Square("a1");
 		Square occupiedSquare = new Square("a2");
 		board.placePiece(currentSquare, rook);
-		board.placePiece(occupiedSquare, new Rook(Piece.Color.WHITE));
+		board.placePiece(occupiedSquare, new Rook(Color.WHITE));
 		assertFalse(rook.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -133,7 +134,7 @@ public class RookTest {
 		Square currentSquare = new Square("a1");
 		Square emptySquare = new Square("a8");
 		board.placePiece(currentSquare, rook);
-		board.placePiece(new Square("a4"), new Rook(Piece.Color.WHITE));
+		board.placePiece(new Square("a4"), new Rook(Color.WHITE));
 		assertFalse(rook.canMove(board, currentSquare, emptySquare));
 	}
 	
@@ -142,8 +143,8 @@ public class RookTest {
 		Square currentSquare = new Square("a1");
 		Square occupiedSquare = new Square("a8");
 		board.placePiece(currentSquare, rook);
-		board.placePiece(occupiedSquare, new Rook(Piece.Color.BLACK));
-		board.placePiece(new Square("a4"), new Rook(Piece.Color.WHITE));
+		board.placePiece(occupiedSquare, new Rook(Color.BLACK));
+		board.placePiece(new Square("a4"), new Rook(Color.WHITE));
 		assertFalse(rook.canAttack(board, currentSquare, occupiedSquare));
 	}
 	

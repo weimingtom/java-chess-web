@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 
 import com.brasee.chess.Board;
 import com.brasee.chess.Square;
+import com.brasee.chess.pieces.Piece.Color;
 
 public class BishopTest {
 
@@ -14,7 +15,7 @@ public class BishopTest {
 	
 	@Before
 	public void setUp() {
-		bishop = new Bishop(Piece.Color.WHITE);
+		bishop = new Bishop(Color.WHITE);
 		board = new Board();
 	}
 	
@@ -55,7 +56,7 @@ public class BishopTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("c6");
 		board.placePiece(currentSquare, bishop);
-		board.placePiece(occupiedSquare, new Bishop(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Bishop(Color.BLACK));
 		assertTrue(bishop.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -64,7 +65,7 @@ public class BishopTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("e6");
 		board.placePiece(currentSquare, bishop);
-		board.placePiece(occupiedSquare, new Bishop(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Bishop(Color.BLACK));
 		assertTrue(bishop.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -73,7 +74,7 @@ public class BishopTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("c4");
 		board.placePiece(currentSquare, bishop);
-		board.placePiece(occupiedSquare, new Bishop(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Bishop(Color.BLACK));
 		assertTrue(bishop.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -82,7 +83,7 @@ public class BishopTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("e4");
 		board.placePiece(currentSquare, bishop);
-		board.placePiece(occupiedSquare, new Bishop(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new Bishop(Color.BLACK));
 		assertTrue(bishop.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -131,7 +132,7 @@ public class BishopTest {
 		Square currentSquare = new Square("a1");
 		Square occupiedSquare = new Square("b2");
 		board.placePiece(currentSquare, bishop);
-		board.placePiece(occupiedSquare, new Bishop(Piece.Color.WHITE));
+		board.placePiece(occupiedSquare, new Bishop(Color.WHITE));
 		assertFalse(bishop.canMove(board, currentSquare, occupiedSquare));		
 	}
 	
@@ -140,7 +141,7 @@ public class BishopTest {
 		Square currentSquare = new Square("a1");
 		Square emptySquare = new Square("h8");
 		board.placePiece(currentSquare, bishop);
-		board.placePiece(new Square("b2"), new Bishop(Piece.Color.WHITE));
+		board.placePiece(new Square("b2"), new Bishop(Color.WHITE));
 		assertFalse(bishop.canMove(board, currentSquare, emptySquare));		
 	}
 	
@@ -149,8 +150,8 @@ public class BishopTest {
 		Square currentSquare = new Square("a1");
 		Square occupiedSquare = new Square("h8");
 		board.placePiece(currentSquare, bishop);
-		board.placePiece(new Square("b2"), new Bishop(Piece.Color.WHITE));
-		board.placePiece(new Square("h8"), new Bishop(Piece.Color.BLACK));
+		board.placePiece(new Square("b2"), new Bishop(Color.WHITE));
+		board.placePiece(new Square("h8"), new Bishop(Color.BLACK));
 		assertFalse(bishop.canAttack(board, currentSquare, occupiedSquare));	
 	}
 	
