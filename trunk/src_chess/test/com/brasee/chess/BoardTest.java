@@ -196,4 +196,11 @@ public class BoardTest {
 		assertFalse(board.clearPathBetween(square1, square2));
 	}
 	
+	@Test
+	public void testSameSquareDoesNotHaveAClearPath() {
+		Square square = new Square("a1");
+		board.placePiece(square, new Pawn(Color.WHITE));
+		assertFalse(board.clearPathBetween(square, square));
+	}
+	
 }
