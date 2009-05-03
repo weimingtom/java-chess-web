@@ -13,6 +13,6 @@ public interface Piece {
 	public boolean canAttack(Board board, Square currentSquare, Square occupiedSquare);
 	public boolean isFirstMove();
 	public void updateHasMoved();
-	public Piece.Color color();
+	public Color color();
 	
 }

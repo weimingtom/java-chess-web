@@ -5,7 +5,7 @@ import com.brasee.chess.Square;
 
 public class Pawn extends AbstractPiece {
 
-	public Pawn(Piece.Color color) {
+	public Pawn(Color color) {
 		super(color);
 	}
 	
@@ -44,7 +44,7 @@ public class Pawn extends AbstractPiece {
 	}
 	
 	private int forwardDistanceForColor(int forwardDistance) {
-		if (color() == Piece.Color.WHITE) {
+		if (color() == Color.WHITE) {
 			return forwardDistance;
 		}
 		else {

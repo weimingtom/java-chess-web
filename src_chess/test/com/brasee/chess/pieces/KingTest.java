@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 
 import com.brasee.chess.Board;
 import com.brasee.chess.Square;
+import com.brasee.chess.pieces.Piece.Color;
 
 public class KingTest {
 
@@ -14,7 +15,7 @@ public class KingTest {
 	
 	@Before
 	public void setUp() {
-		king = new King(Piece.Color.WHITE);
+		king = new King(Color.WHITE);
 		board = new Board();
 	}
 	
@@ -87,7 +88,7 @@ public class KingTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("d6");
 		board.placePiece(currentSquare, king);
-		board.placePiece(occupiedSquare, new King(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new King(Color.BLACK));
 		assertTrue(king.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -96,7 +97,7 @@ public class KingTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("d4");
 		board.placePiece(currentSquare, king);
-		board.placePiece(occupiedSquare, new King(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new King(Color.BLACK));
 		assertTrue(king.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -105,7 +106,7 @@ public class KingTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("c5");
 		board.placePiece(currentSquare, king);
-		board.placePiece(occupiedSquare, new King(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new King(Color.BLACK));
 		assertTrue(king.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -114,7 +115,7 @@ public class KingTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("e5");
 		board.placePiece(currentSquare, king);
-		board.placePiece(occupiedSquare, new King(Piece.Color.BLACK));		
+		board.placePiece(occupiedSquare, new King(Color.BLACK));		
 		assertTrue(king.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -123,7 +124,7 @@ public class KingTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("c6");
 		board.placePiece(currentSquare, king);
-		board.placePiece(occupiedSquare, new King(Piece.Color.BLACK));
+		board.placePiece(occupiedSquare, new King(Color.BLACK));
 		assertTrue(king.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -132,7 +133,7 @@ public class KingTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("e6");
 		board.placePiece(currentSquare, king);
-		board.placePiece(occupiedSquare, new King(Piece.Color.BLACK));		
+		board.placePiece(occupiedSquare, new King(Color.BLACK));		
 		assertTrue(king.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -141,7 +142,7 @@ public class KingTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("c4");
 		board.placePiece(currentSquare, king);
-		board.placePiece(occupiedSquare, new King(Piece.Color.BLACK));	
+		board.placePiece(occupiedSquare, new King(Color.BLACK));	
 		assertTrue(king.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -150,7 +151,7 @@ public class KingTest {
 		Square currentSquare = new Square("d5");
 		Square occupiedSquare = new Square("e4");
 		board.placePiece(currentSquare, king);
-		board.placePiece(occupiedSquare, new King(Piece.Color.BLACK));		
+		board.placePiece(occupiedSquare, new King(Color.BLACK));		
 		assertTrue(king.canAttack(board, currentSquare, occupiedSquare));
 	}
 	
@@ -188,7 +189,7 @@ public class KingTest {
 		Square currentSquare = new Square("a1");
 		Square occupiedSquare = new Square("a2");
 		board.placePiece(currentSquare, king);
-		board.placePiece(occupiedSquare, new King(Piece.Color.WHITE));
+		board.placePiece(occupiedSquare, new King(Color.WHITE));
 		assertFalse(king.canMove(board, currentSquare, occupiedSquare));
 	}
 

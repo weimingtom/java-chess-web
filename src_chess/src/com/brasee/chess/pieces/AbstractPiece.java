@@ -6,10 +6,10 @@ import com.brasee.chess.Square;
 public abstract class AbstractPiece implements Piece {
 
 	private boolean hasMoved = false;
-	private Piece.Color color;
+	private Color color;
 	
-	public AbstractPiece(Piece.Color color) {
-		if (color == Piece.Color.WHITE || color == Piece.Color.BLACK) {
+	public AbstractPiece(Color color) {
+		if (color == Color.WHITE || color == Color.BLACK) {
 			this.color = color;
 		}
 		else {
@@ -28,7 +28,7 @@ public abstract class AbstractPiece implements Piece {
 	}
 	
 	@Override
-	public Piece.Color color() {
+	public Color color() {
 		return color;
 	}
 	

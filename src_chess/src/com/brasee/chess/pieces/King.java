@@ -5,7 +5,7 @@ import com.brasee.chess.Square;
 
 public class King extends AbstractPiece {
 
-	public King(Piece.Color color) {
+	public King(Color color) {
 		super(color);
 	}
 	
