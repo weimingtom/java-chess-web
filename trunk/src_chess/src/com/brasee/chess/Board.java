@@ -11,6 +11,14 @@ public class Board {
 
 	Map<Square, Piece> pieceLocations = new HashMap<Square, Piece>();
 	
+	public boolean hasPieceOn(Square square) {
+		return pieceOn(square) != null;
+	}
+
+	public Piece pieceOn(Square square) {
+		return pieceLocations.get(square);
+	}
+	
 	public void placePiece(Square square, Piece piece) {
 		if (pieceLocations.get(square) == null) {
 			pieceLocations.put(square, piece);
@@ -20,18 +28,16 @@ public class Board {
 		}
 	}
 
-	public boolean hasPieceOn(Square square) {
-		return pieceOn(square) != null;
-	}
-
-	public Piece pieceOn(Square square) {
-		return pieceLocations.get(square);
-	}
-
 	public void movePiece(Piece piece, Square startSquare, Square endSquare) {
 		if (piece != null && piece.equals(pieceOn(startSquare))) {
 			pieceLocations.remove(startSquare);
 			pieceLocations.put(endSquare, piece);
+		}
+	}
+	
+	public void removePiece(Square square) {
+		if (pieceLocations.containsKey(square)) {
+			pieceLocations.remove(square);
 		}
 	}
 	
