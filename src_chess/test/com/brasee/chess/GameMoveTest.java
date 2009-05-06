@@ -120,6 +120,16 @@ public class GameMoveTest {
 		assertMoveFails(knight, currentSquare, emptySquare);
 	}
 	
+	@Test
+	public void testIsFirstMoveIsFalseAfterPieceMoves() {
+		Square currentSquare = new Square("a2");
+		Square emptySquare = new Square("a3");
+		Piece pawn = new Pawn(Color.WHITE);
+		game.board().placePiece(currentSquare, pawn);
+		game.move(currentSquare, emptySquare);
+		assertFalse(pawn.isFirstMove());
+	}
+	
 	private void assertMoveSucceeds(Piece piece, Square currentSquare, Square emptySquare) {
 		game.board().placePiece(currentSquare, piece);
 		MoveType moveType = game.move(currentSquare, emptySquare);

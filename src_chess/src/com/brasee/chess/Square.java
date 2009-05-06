@@ -12,11 +12,17 @@ public class Square {
 	
 	public char[] fileAndRank = new char[2];
 	
-		
 	public Square(String squareString) {
 		throwExceptionForInvalidSquareString(squareString);
 		fileAndRank[FILE_INDEX] = squareString.charAt(FILE_INDEX);
 		fileAndRank[RANK_INDEX] = squareString.charAt(RANK_INDEX);
+	}
+	
+	public Square(char file, char rank) {
+		String squareString = Character.toString(file) + Character.toString(rank);
+		throwExceptionForInvalidSquareString(squareString);
+		fileAndRank[FILE_INDEX] = file;
+		fileAndRank[RANK_INDEX] = rank;
 	}
 	
 	public char rank() {

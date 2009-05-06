@@ -120,6 +120,18 @@ public class GameAttackTest {
 		assertAttackFails(knight, currentSquare, occupiedSquare);		
 	}
 	
+	@Test
+	public void testIsFirstMoveIsFalseAfterPieceAttacks() {
+		Square currentSquare = new Square("a2");
+		Square occupiedSquare = new Square("b3");
+		Piece pawn = new Pawn(Color.WHITE);
+		Piece blackPawn = new Pawn(Color.BLACK);
+		game.board().placePiece(currentSquare, pawn);
+		game.board().placePiece(occupiedSquare, blackPawn);
+		game.move(currentSquare, occupiedSquare);
+		assertFalse(pawn.isFirstMove());
+	}
+	
 	private void assertAttackSucceeds(Piece piece, Square currentSquare, Square occupiedSquare) {
 		game.board().placePiece(currentSquare, piece);
 		Piece enemyPiece = new Pawn(Color.BLACK);
