@@ -21,7 +21,7 @@ public class Game {
 	private Map<Color, Set<Piece>> capturedPieces;
 	
 	public enum MoveType {
-		INVALID, NORMAL, CAPTURE
+		INVALID, NORMAL, CAPTURE, CASTLING
 	}
 	
 	public Game() {
@@ -62,15 +62,16 @@ public class Game {
 		
 		if (board().hasPieceOn(startSquare)) {
 			Piece piece = board().pieceOn(startSquare);
-			if (piece.canMove(board, startSquare, endSquare)) {
-				board.movePiece(piece, startSquare, endSquare);
+			if (validCastlingMove(startSquare, endSquare)) {
+				performCastlingMove(startSquare, endSquare);
+				moveType = MoveType.CASTLING;
+			}
+			else if (piece.canMove(board, startSquare, endSquare)) {
+				performNormalMove(piece, startSquare, endSquare);
 				moveType = MoveType.NORMAL;
 			}
 			else if (piece.canAttack(board, startSquare, endSquare)) {
-				Piece enemyPiece = board.pieceOn(endSquare);
-				capturedPieces.get(enemyPiece.color()).add(enemyPiece);
-				board.removePiece(endSquare);
-				board.movePiece(piece, startSquare, endSquare);
+				performCaptureMove(piece, startSquare, endSquare);
 				moveType = MoveType.CAPTURE;
 			}
 		}
@@ -87,6 +88,58 @@ public class Game {
 		}
 	}
 
+	private void performNormalMove(Piece piece, Square startSquare, Square endSquare) {
+		board.movePiece(piece, startSquare, endSquare);
+		piece.updateHasMoved();
+	}
+	
+	private void performCaptureMove(Piece piece, Square startSquare, Square endSquare) {
+		Piece enemyPiece = board.pieceOn(endSquare);
+		capturedPieces.get(enemyPiece.color()).add(enemyPiece);
+		board.removePiece(endSquare);
+		board.movePiece(piece, startSquare, endSquare);		
+		piece.updateHasMoved();
+	}
+	
+	/** TODO: need to add logic to disallow castling if king is currently in check */
+	private boolean validCastlingMove(Square startSquare, Square endSquare) {
+		boolean validCastlingMove = false;
+		
+		Piece king = board.pieceOn(startSquare);
+		if (king != null && king instanceof King && king.isFirstMove()) {
+			int horizontalSquaresMove = endSquare.distanceBetweenFile(startSquare);
+			if (endSquare.inSameRankAs(startSquare) && Math.abs(horizontalSquaresMove) == 2) {
+				char rookFile = (horizontalSquaresMove == 2 ? 'h' : 'a');
+				Square rookSquare = new Square(rookFile, startSquare.rank());
+				Piece rook = board.pieceOn(rookSquare);
+				if (rook != null && rook instanceof Rook && rook.isFirstMove() &&
+					board.clearPathBetween(startSquare, rookSquare)) {
+					validCastlingMove = true;
+				}
+			}
+		}
+		
+		return validCastlingMove;
+	}
+	
+	private void performCastlingMove(Square kingStartSquare, Square kingEndSquare) {
+		Square rookStartSquare = null, rookEndSquare = null;
+		if (kingEndSquare.distanceBetweenFile(kingStartSquare) == 2) {
+			rookStartSquare = new Square('h', kingStartSquare.rank());
+			rookEndSquare = new Square('f', kingStartSquare.rank());
+		}
+		else {
+			rookStartSquare = new Square('a', kingStartSquare.rank());
+			rookEndSquare = new Square('d', kingStartSquare.rank());
+		}
+		Piece king = board.pieceOn(kingStartSquare);
+		Piece rook = board.pieceOn(rookStartSquare);
+		board.movePiece(king, kingStartSquare, kingEndSquare);
+		board.movePiece(rook, rookStartSquare, rookEndSquare);
+		king.updateHasMoved();
+		rook.updateHasMoved();
+	}
+	
 	private void placeWhitePieces() {
 		board.placePiece(new Square("a1"), new Rook(Color.WHITE));
 		board.placePiece(new Square("b1"), new Knight(Color.WHITE));
