@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import com.brasee.chess.Game.MoveType;
+import com.brasee.chess.Move.MoveType;
 import com.brasee.chess.pieces.King;
 import com.brasee.chess.pieces.Knight;
 import com.brasee.chess.pieces.Pawn;
@@ -27,7 +27,7 @@ public class GameCastlingTest {
 		Piece king = new King(Color.WHITE);
 		game.board().placePiece(new Square("e1"), king);
 		game.board().placePiece(new Square("h1"), rook);
-		assertEquals(MoveType.CASTLING, game.move(new Square("e1"), new Square("g1")));
+		assertEquals(MoveType.CASTLING, game.move(new Square("e1"), new Square("g1")).moveType());
 		assertTrue(king.equals(game.board().pieceOn(new Square("g1"))));
 		assertTrue(rook.equals(game.board().pieceOn(new Square("f1"))));
 		assertFalse(king.isFirstMove());
@@ -45,7 +45,7 @@ public class GameCastlingTest {
 		Piece king = new King(Color.BLACK);
 		game.board().placePiece(new Square("e8"), king);
 		game.board().placePiece(new Square("h8"), rook);
-		assertEquals(MoveType.CASTLING, game.move(new Square("e8"), new Square("g8")));
+		assertEquals(MoveType.CASTLING, game.move(new Square("e8"), new Square("g8")).moveType());
 		assertTrue(king.equals(game.board().pieceOn(new Square("g8"))));
 		assertTrue(rook.equals(game.board().pieceOn(new Square("f8"))));
 		assertFalse(king.isFirstMove());
@@ -58,7 +58,7 @@ public class GameCastlingTest {
 		Piece king = new King(Color.WHITE);
 		game.board().placePiece(new Square("e1"), king);
 		game.board().placePiece(new Square("a1"), rook);
-		assertEquals(MoveType.CASTLING, game.move(new Square("e1"), new Square("c1")));
+		assertEquals(MoveType.CASTLING, game.move(new Square("e1"), new Square("c1")).moveType());
 		assertTrue(king.equals(game.board().pieceOn(new Square("c1"))));
 		assertTrue(rook.equals(game.board().pieceOn(new Square("d1"))));
 		assertFalse(king.isFirstMove());
@@ -76,7 +76,7 @@ public class GameCastlingTest {
 		Piece king = new King(Color.BLACK);
 		game.board().placePiece(new Square("e8"), king);
 		game.board().placePiece(new Square("a8"), rook);
-		assertEquals(MoveType.CASTLING, game.move(new Square("e8"), new Square("c8")));
+		assertEquals(MoveType.CASTLING, game.move(new Square("e8"), new Square("c8")).moveType());
 		assertTrue(king.equals(game.board().pieceOn(new Square("c8"))));
 		assertTrue(rook.equals(game.board().pieceOn(new Square("d8"))));
 		assertFalse(king.isFirstMove());
@@ -90,7 +90,7 @@ public class GameCastlingTest {
 		rook.updateHasMoved();
 		game.board().placePiece(new Square("e1"), king);
 		game.board().placePiece(new Square("h1"), rook);
-		assertEquals(MoveType.INVALID, game.move(new Square("e1"), new Square("g1")));
+		assertEquals(MoveType.INVALID, game.move(new Square("e1"), new Square("g1")).moveType());
 	}
 	
 	@Test
@@ -101,7 +101,23 @@ public class GameCastlingTest {
 		game.board().placePiece(new Square("e1"), king);
 		game.board().placePiece(new Square("h1"), rook);
 		game.board().placePiece(new Square("g1"), knight);
-		assertEquals(MoveType.INVALID, game.move(new Square("e1"), new Square("h1")));
+		assertEquals(MoveType.INVALID, game.move(new Square("e1"), new Square("h1")).moveType());
+	}
+	
+	@Test
+	public void testCastlingHistorySavedForASingleCastling() {
+		Piece rook = new Rook(Color.WHITE);
+		Piece king = new King(Color.WHITE);
+		game.board().placePiece(new Square("e1"), king);
+		game.board().placePiece(new Square("h1"), rook);
+		game.move(new Square("e1"), new Square("g1"));
+		
+		assertEquals(1, game.moves().size());
+		Move move = game.moves().get(0);
+		assertEquals(MoveType.CASTLING, move.moveType());
+		assertEquals(king, move.piece());
+		assertEquals(new Square("e1"), move.startSquare());
+		assertEquals(new Square("g1"), move.endSquare());		
 	}
 	
 }

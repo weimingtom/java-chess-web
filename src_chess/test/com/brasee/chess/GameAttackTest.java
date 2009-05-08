@@ -3,7 +3,7 @@ package com.brasee.chess;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.brasee.chess.Game.MoveType;
+import com.brasee.chess.Move.MoveType;
 import com.brasee.chess.pieces.Bishop;
 import com.brasee.chess.pieces.King;
 import com.brasee.chess.pieces.Knight;
@@ -132,22 +132,52 @@ public class GameAttackTest {
 		assertFalse(pawn.isFirstMove());
 	}
 	
+	@Test
+	public void testAttackHistoryIsSavedForASingleMove() {
+		Square currentSquare = new Square("a2");
+		Square occupiedSquare = new Square("b3");
+		Piece pawn = new Pawn(Color.WHITE);
+		assertAttackSucceeds(pawn, currentSquare, occupiedSquare);
+		assertEquals(1, game.moves().size());
+		Move lastMove = game.moves().get(0);
+		assertSame(pawn, lastMove.piece());
+		assertEquals(currentSquare, lastMove.startSquare());
+		assertEquals(occupiedSquare, lastMove.endSquare());
+	}
+	
+	@Test
+	public void testAttackHistoryIsNotSavedForAnInvalidAttack() {
+		Square currentSquare = new Square("a2");
+		Square occupiedSquare = new Square("b2");
+		Piece pawn = new Pawn(Color.WHITE);
+		game.board().placePiece(currentSquare, pawn);
+		Piece enemyPiece = new Pawn(Color.BLACK);
+		game.board().placePiece(occupiedSquare, enemyPiece);
+		
+		Move move = game.move(currentSquare, occupiedSquare);
+		assertEquals(MoveType.INVALID, move.moveType());
+		assertEquals(0, game.moves().size());
+	}
+	
 	private void assertAttackSucceeds(Piece piece, Square currentSquare, Square occupiedSquare) {
 		game.board().placePiece(currentSquare, piece);
 		Piece enemyPiece = new Pawn(Color.BLACK);
 		game.board().placePiece(occupiedSquare, enemyPiece);
-		MoveType moveType = game.move(currentSquare, occupiedSquare);
-		assertEquals(MoveType.CAPTURE, moveType);
+		Move move = game.move(currentSquare, occupiedSquare);
 		assertTrue(piece.equals(game.board().pieceOn(occupiedSquare)));
 		assertTrue(game.capturedPieces(Color.BLACK).contains(enemyPiece));
+		assertEquals(MoveType.CAPTURE, move.moveType());
+		assertEquals(currentSquare, move.startSquare());
+		assertEquals(occupiedSquare, move.endSquare());
+		assertEquals(piece, move.piece());
 	}
 	
 	private void assertAttackFails(Piece piece, Square currentSquare, Square occupiedSquare) {
 		game.board().placePiece(currentSquare, piece);
 		Piece enemyPiece = new Pawn(Color.BLACK);
 		game.board().placePiece(occupiedSquare, enemyPiece);
-		MoveType moveType = game.move(currentSquare, occupiedSquare);
-		assertEquals(MoveType.INVALID, moveType);
+		Move move = game.move(currentSquare, occupiedSquare);
+		assertEquals(MoveType.INVALID, move.moveType());
 		assertTrue(piece.equals(game.board().pieceOn(currentSquare)));
 		assertTrue(enemyPiece.equals(game.board().pieceOn(occupiedSquare)));
 		assertEquals(0, game.capturedPieces(Color.BLACK).size());

@@ -1,10 +1,13 @@
 package com.brasee.chess;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.brasee.chess.Move.MoveType;
 import com.brasee.chess.pieces.Bishop;
 import com.brasee.chess.pieces.King;
 import com.brasee.chess.pieces.Knight;
@@ -17,36 +20,35 @@ import com.brasee.chess.pieces.Piece.Color;
 public class Game {
 
 	private Board board;
+	private List<Move> moves; 
 	private Color playersTurn;
 	private Map<Color, Set<Piece>> capturedPieces;
 	
-	public enum MoveType {
-		INVALID, NORMAL, CAPTURE, CASTLING
-	}
-	
 	public Game() {
 		board = new Board();
+		moves = new ArrayList<Move>();
 		playersTurn = Color.WHITE;
 		clearCapturedPieces();
 	}
 
 	public void initializeBoard() {
 		board = new Board();
+		moves = new ArrayList<Move>();
 		playersTurn = Color.WHITE;
 		placeWhitePieces();
 		placeBlackPieces();
 		clearCapturedPieces();
 	}
 	
-	public MoveType move(Square startSquare, Square endSquare) {
-		MoveType moveType = MoveType.INVALID;	
+	public Move move(Square startSquare, Square endSquare) {
+		Move move = new Move(MoveType.INVALID);	
 		if (board.hasPieceOn(startSquare) && board.pieceOn(startSquare).color().equals(playersTurn)) {
-			moveType = executeMoveOrAttack(startSquare, endSquare);
-			if (!moveType.equals(MoveType.INVALID)) {
+			move = executeMoveOrAttack(startSquare, endSquare);
+			if (!move.moveType().equals(MoveType.INVALID)) {
 				changePlayersTurn();
 			}
 		}
-		return moveType;
+		return move;
 	}
 	
 	public Set<Piece> capturedPieces(Color color) {
@@ -57,26 +59,33 @@ public class Game {
 		return board;
 	}
 	
-	private MoveType executeMoveOrAttack(Square startSquare, Square endSquare) {
-		MoveType moveType = MoveType.INVALID;
+	protected List<Move> moves() {
+		return moves;
+	}
+	
+	private Move executeMoveOrAttack(Square startSquare, Square endSquare) {
+		Move move = new Move(MoveType.INVALID);
 		
 		if (board().hasPieceOn(startSquare)) {
 			Piece piece = board().pieceOn(startSquare);
 			if (validCastlingMove(startSquare, endSquare)) {
 				performCastlingMove(startSquare, endSquare);
-				moveType = MoveType.CASTLING;
+				move = new Move(MoveType.CASTLING, piece, startSquare, endSquare);
 			}
 			else if (piece.canMove(board, startSquare, endSquare)) {
 				performNormalMove(piece, startSquare, endSquare);
-				moveType = MoveType.NORMAL;
+				move = new Move(MoveType.NORMAL, piece, startSquare, endSquare);
 			}
 			else if (piece.canAttack(board, startSquare, endSquare)) {
 				performCaptureMove(piece, startSquare, endSquare);
-				moveType = MoveType.CAPTURE;
+				move = new Move(MoveType.CAPTURE, piece, startSquare, endSquare);
 			}
 		}
 		
-		return moveType;
+		if (!MoveType.INVALID.equals(move.moveType())) {
+			moves().add(move);
+		}
+		return move;
 	}
 
 	private void changePlayersTurn() {
