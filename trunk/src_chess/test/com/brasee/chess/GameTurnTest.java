@@ -3,7 +3,7 @@ package com.brasee.chess;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.brasee.chess.Game.MoveType;
+import com.brasee.chess.Move.MoveType;
 
 import static org.junit.Assert.*; 
 
@@ -20,14 +20,14 @@ public class GameTurnTest {
 	public void testWhitePlayerCanMoveFirst() {
 		game.initializeBoard();
 		// try to move white pawn
-		assertTrue(MoveType.NORMAL.equals(game.move(new Square("a2"), new Square("a3"))));
+		assertEquals(MoveType.NORMAL, game.move(new Square("a2"), new Square("a3")).moveType());
 	}
 	
 	@Test
 	public void testBlackPlayerCannotMoveFirst() {
 		game.initializeBoard();
 		// try to move black pawn
-		assertTrue(MoveType.INVALID.equals(game.move(new Square("a7"), new Square("a6"))));
+		assertEquals(MoveType.INVALID, game.move(new Square("a7"), new Square("a6")).moveType());
 	}
 	
 	@Test
@@ -36,7 +36,7 @@ public class GameTurnTest {
 		// move white pawn
 		game.move(new Square("a2"), new Square("a3"));
 		// try to move black pawn
-		assertTrue(MoveType.NORMAL.equals(game.move(new Square("a7"), new Square("a6"))));
+		assertEquals(MoveType.NORMAL, game.move(new Square("a7"), new Square("a6")).moveType());
 	}
 	
 	@Test
@@ -47,7 +47,7 @@ public class GameTurnTest {
 		// move black pawn
 		game.move(new Square("a7"), new Square("a6"));
 		// try to move another white pawn
-		assertTrue(MoveType.NORMAL.equals(game.move(new Square("h2"), new Square("h3"))));		
+		assertEquals(MoveType.NORMAL, game.move(new Square("h2"), new Square("h3")).moveType());		
 	}
 	
 	@Test
@@ -56,7 +56,7 @@ public class GameTurnTest {
 		// move white pawn
 		game.move(new Square("a2"), new Square("a3"));
 		// try to move white pawn again
-		assertTrue(MoveType.INVALID.equals(game.move(new Square("a3"), new Square("a4"))));
+		assertEquals(MoveType.INVALID, game.move(new Square("a3"), new Square("a4")).moveType());
 	}
 		
 }
