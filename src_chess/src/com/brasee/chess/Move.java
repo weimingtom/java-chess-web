@@ -10,7 +10,7 @@ public class Move {
 	private Square endSquare;
 	
 	public enum MoveType {
-		INVALID, NORMAL, CAPTURE, CASTLING
+		INVALID, NORMAL, CAPTURE, CASTLING, EN_PASSANT
 	}
 	
 	public Move(MoveType moveType) {

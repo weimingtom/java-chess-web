@@ -178,6 +178,25 @@ public class GameMoveTest {
 		
 		assertEquals(0, game.moves().size());
 	}
+	
+	@Test
+	public void testLastMoveIsNullIfNoMovesHaveBeenMade() {
+		game.initializeBoard();
+		assertNull(game.lastMove());
+	}
+	
+	@Test
+	public void testLastMoveIsReturnedIfAMoveHasBeenMade() {
+		game.initializeBoard();
+		Square startSquare = new Square("a2");
+		Square endSquare = new Square("a3");
+		Piece piece = game.board().pieceOn(startSquare);
+		Move move = game.move(startSquare, endSquare);
+		assertSame(move, game.lastMove());
+		assertSame(piece, move.piece());
+		assertEquals(startSquare, move.startSquare());
+		assertEquals(endSquare, move.endSquare());
+	}
 		
 	private void assertMoveEquals(Move move, MoveType normal, Piece piece, Square startSquare, Square endSquare) {
 		assertEquals(piece, move.piece());
