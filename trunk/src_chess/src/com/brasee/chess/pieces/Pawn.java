@@ -43,6 +43,17 @@ public class Pawn extends AbstractPiece {
 		}
 	}
 	
+	public boolean canMoveEnPassant(Board board, Square currentSquare, Square emptySquare) {
+		if (validSetupForMove(board, currentSquare, emptySquare) && 
+				Math.abs(emptySquare.distanceBetweenFile(currentSquare)) == 1 &&
+				emptySquare.distanceBetweenRank(currentSquare) == forwardDistanceForColor(1)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	private int forwardDistanceForColor(int forwardDistance) {
 		if (color() == Color.WHITE) {
 			return forwardDistance;

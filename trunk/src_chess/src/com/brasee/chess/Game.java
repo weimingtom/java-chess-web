@@ -45,6 +45,7 @@ public class Game {
 		if (board.hasPieceOn(startSquare) && board.pieceOn(startSquare).color().equals(playersTurn)) {
 			move = executeMoveOrAttack(startSquare, endSquare);
 			if (!move.moveType().equals(MoveType.INVALID)) {
+				moves.add(move);
 				changePlayersTurn();
 			}
 		}
@@ -63,11 +64,19 @@ public class Game {
 		return moves;
 	}
 	
+	protected Move lastMove() {
+		return (moves.size() > 0 ? moves.get(moves.size() - 1) : null);
+	}
+	
 	private Move executeMoveOrAttack(Square startSquare, Square endSquare) {
 		Move move = new Move(MoveType.INVALID);
 		
 		if (board().hasPieceOn(startSquare)) {
 			Piece piece = board().pieceOn(startSquare);
+			if (validEnPassantMove(startSquare, endSquare)) {
+				performEnPassantMove(startSquare, endSquare);
+				move = new Move(MoveType.EN_PASSANT, piece, startSquare, endSquare);
+			}
 			if (validCastlingMove(startSquare, endSquare)) {
 				performCastlingMove(startSquare, endSquare);
 				move = new Move(MoveType.CASTLING, piece, startSquare, endSquare);
@@ -81,10 +90,7 @@ public class Game {
 				move = new Move(MoveType.CAPTURE, piece, startSquare, endSquare);
 			}
 		}
-		
-		if (!MoveType.INVALID.equals(move.moveType())) {
-			moves().add(move);
-		}
+
 		return move;
 	}
 
@@ -147,6 +153,35 @@ public class Game {
 		board.movePiece(rook, rookStartSquare, rookEndSquare);
 		king.updateHasMoved();
 		rook.updateHasMoved();
+	}
+	
+	private boolean validEnPassantMove(Square startSquare, Square endSquare) {
+		boolean validEnPassantMove = false;
+		
+		Piece piece = board.pieceOn(startSquare);
+		if (piece != null && piece instanceof Pawn) {
+			Pawn pawn = (Pawn) piece;
+			if (pawn.canMoveEnPassant(board, startSquare, endSquare)) {
+				Piece opposingPawn = board.pieceOn(new Square(endSquare.file(), startSquare.rank()));
+				if (opposingPawn != null && opposingPawn instanceof Pawn &&
+					lastMove().piece() == opposingPawn && 
+					Math.abs(lastMove().startSquare().distanceBetweenRank(lastMove().endSquare())) == 2) {
+					validEnPassantMove = true;
+				}
+			}
+		}
+		
+		return validEnPassantMove;
+	}
+
+	private void performEnPassantMove(Square startSquare, Square endSquare) {
+		Piece pawn = board.pieceOn(startSquare);
+		Square opposingPawnSquare = new Square(endSquare.file(), startSquare.rank());
+		Piece opposingPawn = board.pieceOn(opposingPawnSquare);
+		board.movePiece(pawn, startSquare, endSquare);
+		capturedPieces.get(opposingPawn.color()).add(opposingPawn);
+		board.removePiece(opposingPawnSquare);
+		pawn.updateHasMoved();
 	}
 	
 	private void placeWhitePieces() {
