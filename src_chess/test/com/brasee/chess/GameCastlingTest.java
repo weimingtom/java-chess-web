@@ -4,7 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import com.brasee.chess.Move.MoveType;
+import com.brasee.chess.moves.Move;
+import com.brasee.chess.moves.Move.MoveType;
 import com.brasee.chess.pieces.King;
 import com.brasee.chess.pieces.Knight;
 import com.brasee.chess.pieces.Pawn;

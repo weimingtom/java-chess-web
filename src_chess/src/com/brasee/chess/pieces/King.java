@@ -31,4 +31,9 @@ public class King extends AbstractPiece {
 		return adjacentHorizontally || adjacentVertically || adjacentDiagonally;
 	}
 
+	@Override
+	public PieceType pieceType() {
+		return PieceType.KING;
+	}
+
 }

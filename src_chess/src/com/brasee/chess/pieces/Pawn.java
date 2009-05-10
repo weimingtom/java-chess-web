@@ -9,9 +9,6 @@ public class Pawn extends AbstractPiece {
 		super(color);
 	}
 	
-	/**
-	 * TODO: still need to add en passant logic.
-	 */
 	@Override
 	public boolean canAttack(Board board, Square currentSquare, Square occupiedSquare) {
 		if (validSetupForAttack(board, currentSquare, occupiedSquare) &&
@@ -61,6 +58,11 @@ public class Pawn extends AbstractPiece {
 		else {
 			return forwardDistance * -1;
 		}
+	}
+
+	@Override
+	public PieceType pieceType() {
+		return PieceType.PAWN;
 	}
 	
 }

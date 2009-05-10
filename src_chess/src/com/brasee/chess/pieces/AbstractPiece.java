@@ -31,6 +31,9 @@ public abstract class AbstractPiece implements Piece {
 	public Color color() {
 		return color;
 	}
+
+	@Override
+	public abstract PieceType pieceType();
 	
 	protected boolean validSetupForMove(Board board, Square currentSquare, Square emptySquare) {
 		return (this == board.pieceOn(currentSquare) && !board.hasPieceOn(emptySquare));

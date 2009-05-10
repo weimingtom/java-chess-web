@@ -9,10 +9,15 @@ public interface Piece {
 		WHITE, BLACK
 	}
 	
+	public enum PieceType {
+		PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING
+	}
+	
 	public boolean canMove(Board board, Square currentSquare, Square emptySquare);
 	public boolean canAttack(Board board, Square currentSquare, Square occupiedSquare);
 	public boolean isFirstMove();
 	public void updateHasMoved();
 	public Color color();
+	public PieceType pieceType();
 	
 }

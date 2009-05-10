@@ -3,7 +3,7 @@ package com.brasee.chess;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.brasee.chess.Move.MoveType;
+import com.brasee.chess.moves.Move.MoveType;
 
 import static org.junit.Assert.*; 
 
