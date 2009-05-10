@@ -27,4 +27,8 @@ public class Rook extends AbstractPiece {
 		return !square1.equals(square2) && (square1.inSameRankAs(square2) || square1.inSameFileAs(square2));
 	}
 
+	@Override
+	public PieceType pieceType() {
+		return PieceType.ROOK;
+	}
 }

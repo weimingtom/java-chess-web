@@ -33,4 +33,9 @@ public class Knight extends AbstractPiece {
 			Math.abs(square1.distanceBetweenFile(square2)) == 2;
 	}
 
+	@Override
+	public PieceType pieceType() {
+		return PieceType.KNIGHT;
+	}
+
 }

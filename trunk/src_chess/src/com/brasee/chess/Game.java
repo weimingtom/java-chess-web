@@ -7,7 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.brasee.chess.Move.MoveType;
+import com.brasee.chess.moves.CaptureMove;
+import com.brasee.chess.moves.CastlingMove;
+import com.brasee.chess.moves.EnPassantMove;
+import com.brasee.chess.moves.InvalidMove;
+import com.brasee.chess.moves.Move;
+import com.brasee.chess.moves.NormalMove;
+import com.brasee.chess.moves.Move.MoveType;
 import com.brasee.chess.pieces.Bishop;
 import com.brasee.chess.pieces.King;
 import com.brasee.chess.pieces.Knight;
@@ -41,9 +47,9 @@ public class Game {
 	}
 	
 	public Move move(Square startSquare, Square endSquare) {
-		Move move = new Move(MoveType.INVALID);	
+		Move move = InvalidMove.execute();	
 		if (board.hasPieceOn(startSquare) && board.pieceOn(startSquare).color().equals(playersTurn)) {
-			move = executeMoveOrAttack(startSquare, endSquare);
+			move = executeMove(startSquare, endSquare);
 			if (!move.moveType().equals(MoveType.INVALID)) {
 				moves.add(move);
 				changePlayersTurn();
@@ -68,27 +74,27 @@ public class Game {
 		return (moves.size() > 0 ? moves.get(moves.size() - 1) : null);
 	}
 	
-	private Move executeMoveOrAttack(Square startSquare, Square endSquare) {
-		Move move = new Move(MoveType.INVALID);
+	private Move executeMove(Square startSquare, Square endSquare) {
+		Move move = InvalidMove.execute();
 		
-		if (board().hasPieceOn(startSquare)) {
-			Piece piece = board().pieceOn(startSquare);
-			if (validEnPassantMove(startSquare, endSquare)) {
-				performEnPassantMove(startSquare, endSquare);
-				move = new Move(MoveType.EN_PASSANT, piece, startSquare, endSquare);
-			}
-			if (validCastlingMove(startSquare, endSquare)) {
-				performCastlingMove(startSquare, endSquare);
-				move = new Move(MoveType.CASTLING, piece, startSquare, endSquare);
-			}
-			else if (piece.canMove(board, startSquare, endSquare)) {
-				performNormalMove(piece, startSquare, endSquare);
-				move = new Move(MoveType.NORMAL, piece, startSquare, endSquare);
-			}
-			else if (piece.canAttack(board, startSquare, endSquare)) {
-				performCaptureMove(piece, startSquare, endSquare);
-				move = new Move(MoveType.CAPTURE, piece, startSquare, endSquare);
-			}
+		if (!validPieceOnStartSquare(startSquare)) {
+			move = InvalidMove.execute();
+		}
+		else if (EnPassantMove.canBeExecuted(board, startSquare, endSquare, lastMove())) {
+			move = EnPassantMove.execute(board, startSquare, endSquare);
+			EnPassantMove enPassantMove = (EnPassantMove) move;
+			capturedPieces.get(enPassantMove.opposingPiece().color()).add(enPassantMove.opposingPiece());
+		}
+		else if (CastlingMove.canBeExecuted(board, startSquare, endSquare)) {
+			move = CastlingMove.execute(board, startSquare, endSquare);
+		}
+		else if (NormalMove.canBeExecuted(board, startSquare, endSquare)) {
+			move = NormalMove.execute(board, startSquare, endSquare);
+		}
+		else if (CaptureMove.canBeExecuted(board, startSquare, endSquare)) {
+			move = CaptureMove.execute(board, startSquare, endSquare);
+			CaptureMove captureMove = (CaptureMove) move;
+			capturedPieces.get(captureMove.opposingPiece().color()).add(captureMove.opposingPiece());
 		}
 
 		return move;
@@ -102,88 +108,20 @@ public class Game {
 			playersTurn = Color.WHITE;
 		}
 	}
-
-	private void performNormalMove(Piece piece, Square startSquare, Square endSquare) {
-		board.movePiece(piece, startSquare, endSquare);
-		piece.updateHasMoved();
-	}
 	
-	private void performCaptureMove(Piece piece, Square startSquare, Square endSquare) {
-		Piece enemyPiece = board.pieceOn(endSquare);
-		capturedPieces.get(enemyPiece.color()).add(enemyPiece);
-		board.removePiece(endSquare);
-		board.movePiece(piece, startSquare, endSquare);		
-		piece.updateHasMoved();
-	}
-	
-	/** TODO: need to add logic to disallow castling if king is currently in check */
-	private boolean validCastlingMove(Square startSquare, Square endSquare) {
-		boolean validCastlingMove = false;
+	private boolean validPieceOnStartSquare(Square startSquare) {
+		boolean validPieceOnStartSquare = true;
 		
-		Piece king = board.pieceOn(startSquare);
-		if (king != null && king instanceof King && king.isFirstMove()) {
-			int horizontalSquaresMove = endSquare.distanceBetweenFile(startSquare);
-			if (endSquare.inSameRankAs(startSquare) && Math.abs(horizontalSquaresMove) == 2) {
-				char rookFile = (horizontalSquaresMove == 2 ? 'h' : 'a');
-				Square rookSquare = new Square(rookFile, startSquare.rank());
-				Piece rook = board.pieceOn(rookSquare);
-				if (rook != null && rook instanceof Rook && rook.isFirstMove() &&
-					board.clearPathBetween(startSquare, rookSquare)) {
-					validCastlingMove = true;
-				}
-			}
+		if (board().pieceOn(startSquare) == null) {
+			validPieceOnStartSquare = false;
+		}
+		else if (!board().pieceOn(startSquare).color().equals(playersTurn)) {
+			validPieceOnStartSquare = false;
 		}
 		
-		return validCastlingMove;
-	}
-	
-	private void performCastlingMove(Square kingStartSquare, Square kingEndSquare) {
-		Square rookStartSquare = null, rookEndSquare = null;
-		if (kingEndSquare.distanceBetweenFile(kingStartSquare) == 2) {
-			rookStartSquare = new Square('h', kingStartSquare.rank());
-			rookEndSquare = new Square('f', kingStartSquare.rank());
-		}
-		else {
-			rookStartSquare = new Square('a', kingStartSquare.rank());
-			rookEndSquare = new Square('d', kingStartSquare.rank());
-		}
-		Piece king = board.pieceOn(kingStartSquare);
-		Piece rook = board.pieceOn(rookStartSquare);
-		board.movePiece(king, kingStartSquare, kingEndSquare);
-		board.movePiece(rook, rookStartSquare, rookEndSquare);
-		king.updateHasMoved();
-		rook.updateHasMoved();
-	}
-	
-	private boolean validEnPassantMove(Square startSquare, Square endSquare) {
-		boolean validEnPassantMove = false;
-		
-		Piece piece = board.pieceOn(startSquare);
-		if (piece != null && piece instanceof Pawn) {
-			Pawn pawn = (Pawn) piece;
-			if (pawn.canMoveEnPassant(board, startSquare, endSquare)) {
-				Piece opposingPawn = board.pieceOn(new Square(endSquare.file(), startSquare.rank()));
-				if (opposingPawn != null && opposingPawn instanceof Pawn &&
-					lastMove().piece() == opposingPawn && 
-					Math.abs(lastMove().startSquare().distanceBetweenRank(lastMove().endSquare())) == 2) {
-					validEnPassantMove = true;
-				}
-			}
-		}
-		
-		return validEnPassantMove;
+		return validPieceOnStartSquare;
 	}
 
-	private void performEnPassantMove(Square startSquare, Square endSquare) {
-		Piece pawn = board.pieceOn(startSquare);
-		Square opposingPawnSquare = new Square(endSquare.file(), startSquare.rank());
-		Piece opposingPawn = board.pieceOn(opposingPawnSquare);
-		board.movePiece(pawn, startSquare, endSquare);
-		capturedPieces.get(opposingPawn.color()).add(opposingPawn);
-		board.removePiece(opposingPawnSquare);
-		pawn.updateHasMoved();
-	}
-	
 	private void placeWhitePieces() {
 		board.placePiece(new Square("a1"), new Rook(Color.WHITE));
 		board.placePiece(new Square("b1"), new Knight(Color.WHITE));

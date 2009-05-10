@@ -23,4 +23,9 @@ public class Bishop extends AbstractPiece {
 				currentSquare.inDiagonalPathWith(emptySquare));
 	}
 
+	@Override
+	public PieceType pieceType() {
+		return PieceType.BISHOP;
+	}
+
 }

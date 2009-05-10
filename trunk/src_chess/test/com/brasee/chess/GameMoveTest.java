@@ -3,7 +3,8 @@ package com.brasee.chess;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.brasee.chess.Move.MoveType;
+import com.brasee.chess.moves.Move;
+import com.brasee.chess.moves.Move.MoveType;
 import com.brasee.chess.pieces.Bishop;
 import com.brasee.chess.pieces.King;
 import com.brasee.chess.pieces.Knight;

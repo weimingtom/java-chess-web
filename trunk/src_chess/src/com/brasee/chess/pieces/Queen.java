@@ -20,5 +20,10 @@ public class Queen extends AbstractPiece {
 		return (validSetupForMove(board, currentSquare, emptySquare) &&
 				board.clearPathBetween(currentSquare, emptySquare));
 	}
+	
+	@Override
+	public PieceType pieceType() {
+		return PieceType.QUEEN;
+	}
 
 }
