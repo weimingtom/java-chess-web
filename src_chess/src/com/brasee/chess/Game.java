@@ -48,7 +48,7 @@ public class Game {
 	
 	public Move move(Square startSquare, Square endSquare) {
 		Move move = InvalidMove.execute();	
-		if (board.hasPieceOn(startSquare) && board.pieceOn(startSquare).color().equals(playersTurn)) {
+		if (validPieceOnStartSquare(startSquare)) {
 			move = executeMove(startSquare, endSquare);
 			if (!move.moveType().equals(MoveType.INVALID)) {
 				moves.add(move);
@@ -77,10 +77,7 @@ public class Game {
 	private Move executeMove(Square startSquare, Square endSquare) {
 		Move move = InvalidMove.execute();
 		
-		if (!validPieceOnStartSquare(startSquare)) {
-			move = InvalidMove.execute();
-		}
-		else if (EnPassantMove.canBeExecuted(board, startSquare, endSquare, lastMove())) {
+		if (EnPassantMove.canBeExecuted(board, startSquare, endSquare, lastMove())) {
 			move = EnPassantMove.execute(board, startSquare, endSquare);
 			EnPassantMove enPassantMove = (EnPassantMove) move;
 			capturedPieces.get(enPassantMove.opposingPiece().color()).add(enPassantMove.opposingPiece());
