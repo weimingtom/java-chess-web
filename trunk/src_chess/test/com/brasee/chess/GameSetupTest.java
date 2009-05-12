@@ -3,13 +3,7 @@ package com.brasee.chess;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.brasee.chess.pieces.Bishop;
-import com.brasee.chess.pieces.King;
-import com.brasee.chess.pieces.Knight;
-import com.brasee.chess.pieces.Pawn;
 import com.brasee.chess.pieces.Piece;
-import com.brasee.chess.pieces.Queen;
-import com.brasee.chess.pieces.Rook;
 import com.brasee.chess.pieces.Piece.Color;
 import com.brasee.chess.pieces.Piece.PieceType;
 
