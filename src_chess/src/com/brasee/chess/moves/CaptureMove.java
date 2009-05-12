@@ -2,7 +2,6 @@ package com.brasee.chess.moves;
 
 import com.brasee.chess.Board;
 import com.brasee.chess.Square;
-import com.brasee.chess.moves.Move.MoveType;
 import com.brasee.chess.pieces.Piece;
 
 public class CaptureMove extends AbstractMove {
