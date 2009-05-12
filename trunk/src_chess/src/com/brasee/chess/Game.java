@@ -129,7 +129,7 @@ public class Game {
 		board.placePiece(new Square("g1"), new Knight(Color.WHITE));
 		board.placePiece(new Square("h1"), new Rook(Color.WHITE));
 		for (char row : new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'}) {
-			board.placePiece(new Square(Character.toString(row) + "2"), new Pawn(Color.WHITE));
+			board.placePiece(new Square(row, '2'), new Pawn(Color.WHITE));
 		}		
 	}
 	
@@ -143,7 +143,7 @@ public class Game {
 		board.placePiece(new Square("g8"), new Knight(Color.BLACK));
 		board.placePiece(new Square("h8"), new Rook(Color.BLACK));
 		for (char row : new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'}) {
-			board.placePiece(new Square(Character.toString(row) + "7"), new Pawn(Color.BLACK));
+			board.placePiece(new Square(row, '7'), new Pawn(Color.BLACK));
 		}
 	}
 	

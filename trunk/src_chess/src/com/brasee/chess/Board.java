@@ -66,7 +66,7 @@ public class Board {
 		Set<Square> squaresBetween = new HashSet<Square>();
 		for (char file = 'a'; file <= 'h'; file++) {
 			if (fileBetween(file, startSquare.file(), endSquare.file())) {
-				squaresBetween.add(new Square(Character.toString(file) + Character.toString(startSquare.rank())));
+				squaresBetween.add(new Square(file, startSquare.rank()));
 			}
 		}
 		
@@ -85,7 +85,7 @@ public class Board {
 		Set<Square> squaresBetween = new HashSet<Square>();
 		for (char rank = '1'; rank <= '8'; rank++) {
 			if (rankBetween(rank, startSquare.rank(), endSquare.rank())) {
-				squaresBetween.add(new Square(Character.toString(startSquare.file()) + Character.toString(rank)));
+				squaresBetween.add(new Square(startSquare.file(), rank));
 			}
 		}
 		
@@ -107,7 +107,7 @@ public class Board {
 		char file = (char) (startSquare.file() + fileAdjustment);
 		
 		while (rank != endSquare.rank()) {
-			if (hasPieceOn(new Square(Character.toString(file) + Character.toString(rank)))) {
+			if (hasPieceOn(new Square(file, rank))) {
 				clearPathExists = false;
 			}
 			rank = (char) (rank + rankAdjustment);
