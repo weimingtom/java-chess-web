@@ -2,10 +2,13 @@ package com.brasee.chess;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 import com.brasee.chess.pieces.Piece;
+import com.brasee.chess.pieces.Piece.Color;
+import com.brasee.chess.pieces.Piece.PieceType;
 
 public class Board {
 
@@ -58,6 +61,39 @@ public class Board {
 		}
 		
 		return clearPathExists;
+	}
+	
+	public boolean inCheck(Color color) {
+		boolean inCheck = false;
+
+		Square kingSquare = findKingSquare(color);
+		Set<Square> squares = pieceLocations.keySet();
+		for (Iterator<Square> squareIter = squares.iterator(); squareIter.hasNext() && !inCheck; ) {
+			Square square = squareIter.next();
+			if (!pieceOn(square).color().equals(color)) {
+				Piece attackPiece = pieceOn(square);
+				if (attackPiece.canAttack(this, square, kingSquare)) {
+					inCheck = true;
+				}
+			}
+		}
+
+		return inCheck;
+	}
+
+	private Square findKingSquare(Color color) {
+		Square kingSquare = null;
+		
+		Set<Square> squares = pieceLocations.keySet();
+		for (Iterator<Square> squareIter = squares.iterator(); squareIter.hasNext() && kingSquare == null; ) {
+			Square square = squareIter.next();
+			Piece piece = pieceOn(square);
+			if (piece.pieceType().equals(PieceType.KING) && piece.color().equals(color)) {
+				kingSquare = square;
+			}
+		}
+		
+		return kingSquare;
 	}
 
 	private boolean clearPathInRank(Square startSquare, Square endSquare) {
