@@ -64,15 +64,18 @@ public class Board {
 	}
 	
 	public boolean inCheck(Color color) {
+		return squareInCheck(findKingSquare(color), color);
+	}
+
+	public boolean squareInCheck(Square checkSquare, Color color) {
 		boolean inCheck = false;
 
-		Square kingSquare = findKingSquare(color);
 		Set<Square> squares = pieceLocations.keySet();
 		for (Iterator<Square> squareIter = squares.iterator(); squareIter.hasNext() && !inCheck; ) {
 			Square square = squareIter.next();
 			if (!pieceOn(square).color().equals(color)) {
 				Piece attackPiece = pieceOn(square);
-				if (attackPiece.canAttack(this, square, kingSquare)) {
+				if (attackPiece.canAttack(this, square, checkSquare)) {
 					inCheck = true;
 				}
 			}
@@ -176,5 +179,5 @@ public class Board {
 			return false;
 		}
 	}
-
+	
 }

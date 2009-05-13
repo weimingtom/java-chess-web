@@ -36,6 +36,13 @@ public class CaptureMove extends AbstractMove {
 		piece.updateHasMoved();
 		return new CaptureMove(piece, startSquare, endSquare, opposingPiece);
 	}
+	
+	@Override
+	public void undo(Board board) {
+		piece.undoLastMove();
+		board.movePiece(piece, endSquare, startSquare);
+		board.placePiece(endSquare, opposingPiece);
+	}
 
 	@Override
 	public MoveType moveType() {

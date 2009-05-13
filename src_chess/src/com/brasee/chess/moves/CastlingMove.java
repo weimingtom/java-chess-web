@@ -1,10 +1,14 @@
 package com.brasee.chess.moves;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.brasee.chess.Board;
 import com.brasee.chess.Square;
 import com.brasee.chess.pieces.King;
 import com.brasee.chess.pieces.Piece;
 import com.brasee.chess.pieces.Rook;
+import com.brasee.chess.pieces.Piece.Color;
 
 public class CastlingMove extends AbstractMove {
 
@@ -33,13 +37,28 @@ public class CastlingMove extends AbstractMove {
 				Square rookSquare = new Square(rookFile, startSquare.rank());
 				Piece rook = board.pieceOn(rookSquare);
 				if (rook != null && rook instanceof Rook && rook.isFirstMove() &&
-					board.clearPathBetween(startSquare, rookSquare)) {
+					board.clearPathBetween(startSquare, rookSquare) &&
+					!castlingSquaresInCheck(board, king.color(), startSquare, endSquare)) {
 					canBeExecuted = true;
 				}
 			}
 		}
 		
 		return canBeExecuted;
+	}
+
+	private static boolean castlingSquaresInCheck(Board board, Color color, Square startSquare, Square endSquare) {
+		boolean castlingSquareInCheck = false;
+		
+		char fileBetweenStartAndEnd = (endSquare.file() > startSquare.file() ? 'f' : 'd');
+		Square squareBetweenStartAndEnd = new Square(fileBetweenStartAndEnd, startSquare.rank());
+		for (Square square : new Square[] {startSquare, squareBetweenStartAndEnd, endSquare}) {
+			if (!castlingSquareInCheck && board.squareInCheck(square, color)) {
+				castlingSquareInCheck = true;
+			}
+		}
+		
+		return castlingSquareInCheck;
 	}
 
 	public static CastlingMove execute(Board board, Square kingStartSquare, Square kingEndSquare) {
@@ -59,6 +78,14 @@ public class CastlingMove extends AbstractMove {
 		king.updateHasMoved();
 		rook.updateHasMoved();
 		return new CastlingMove(king, kingStartSquare, kingEndSquare, rook, rookStartSquare, rookEndSquare);
+	}
+	
+	@Override
+	public void undo(Board board) {
+		piece.undoLastMove();
+		rook.undoLastMove();
+		board.movePiece(piece, endSquare, startSquare);
+		board.movePiece(rook, rookEndSquare, rookStartSquare);
 	}
 
 	@Override
