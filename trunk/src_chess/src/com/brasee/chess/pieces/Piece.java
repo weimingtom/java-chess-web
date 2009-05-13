@@ -17,6 +17,7 @@ public interface Piece {
 	public boolean canAttack(Board board, Square currentSquare, Square occupiedSquare);
 	public boolean isFirstMove();
 	public void updateHasMoved();
+	public void undoLastMove();
 	public Color color();
 	public PieceType pieceType();
 	

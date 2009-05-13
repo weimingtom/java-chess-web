@@ -31,6 +31,12 @@ public class NormalMove extends AbstractMove {
 		piece.updateHasMoved();
 		return new NormalMove(piece, startSquare, endSquare);
 	}
+	
+	@Override
+	public void undo(Board board) {
+		board.movePiece(piece, endSquare, startSquare);
+		piece.undoLastMove();
+	}
 
 	@Override
 	public MoveType moveType() {

@@ -5,7 +5,7 @@ import com.brasee.chess.Square;
 
 public abstract class AbstractPiece implements Piece {
 
-	private boolean hasMoved = false;
+	private int timesMoved = 0;
 	private Color color;
 	
 	public AbstractPiece(Color color) {
@@ -19,12 +19,19 @@ public abstract class AbstractPiece implements Piece {
 	
 	@Override
 	public boolean isFirstMove() {
-		return !hasMoved;
+		return timesMoved == 0;
 	}
 	
 	@Override
 	public void updateHasMoved() {
-		hasMoved = true;
+		timesMoved += 1;
+	}
+	
+	@Override
+	public void undoLastMove() {
+		if (timesMoved > 0) {
+			timesMoved -= 1;
+		}
 	}
 	
 	@Override

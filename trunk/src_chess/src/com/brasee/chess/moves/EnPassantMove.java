@@ -54,6 +54,13 @@ public class EnPassantMove extends AbstractMove {
 		return MoveType.EN_PASSANT;
 	}
 
+	@Override
+	public void undo(Board board) {
+		piece.undoLastMove();
+		board.movePiece(piece, endSquare, startSquare);
+		board.placePiece(opposingPieceSquare, opposingPiece);
+	}
+	
 	public Piece opposingPiece() {
 		return opposingPiece;
 	}

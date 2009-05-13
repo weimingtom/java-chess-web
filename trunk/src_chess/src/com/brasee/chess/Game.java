@@ -93,8 +93,28 @@ public class Game {
 			CaptureMove captureMove = (CaptureMove) move;
 			capturedPieces.get(captureMove.opposingPiece().color()).add(captureMove.opposingPiece());
 		}
+		
+		if (board.inCheck(playersTurn)) {
+			move.undo(board);
+			removeCapturedPiece(move);
+			move = InvalidMove.execute();
+		}
 
 		return move;
+	}
+
+	private void removeCapturedPiece(Move move) {
+		Piece capturedPiece = null;
+		if (MoveType.CAPTURE.equals(move.moveType())) {
+			capturedPiece = ((CaptureMove)move).opposingPiece();
+		}
+		else if (MoveType.EN_PASSANT.equals(move.moveType())) {
+			capturedPiece = ((EnPassantMove)move).opposingPiece();
+		}
+		
+		if (capturedPiece != null) {
+			capturedPieces.get(capturedPiece.color()).remove(capturedPiece);
+		}
 	}
 
 	private void changePlayersTurn() {
