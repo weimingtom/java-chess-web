@@ -1,8 +1,5 @@
 package com.brasee.chess.moves;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.brasee.chess.Board;
 import com.brasee.chess.Square;
 import com.brasee.chess.pieces.King;
