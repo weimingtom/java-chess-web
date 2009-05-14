@@ -48,15 +48,39 @@ public class CastlingMove extends AbstractMove {
 	}
 
 	private static boolean castlingSquaresInCheck(Board board, Color color, Square startSquare, Square endSquare) {
-		boolean castlingSquareInCheck = false;
+		boolean castlingSquaresInCheck = false;
 		
-		char fileBetweenStartAndEnd = (endSquare.file() > startSquare.file() ? 'f' : 'd');
-		Square squareBetweenStartAndEnd = new Square(fileBetweenStartAndEnd, startSquare.rank());
-		for (Square square : new Square[] {startSquare, squareBetweenStartAndEnd, endSquare}) {
-			if (!castlingSquareInCheck && board.squareInCheck(square, color)) {
-				castlingSquareInCheck = true;
+		// check the square the king is on now
+		if (board.inCheck(color)) {
+			castlingSquaresInCheck = true;
+		}
+		else {
+			// check the pass-through square and the end square
+			char fileBetweenStartAndEnd = (endSquare.file() > startSquare.file() ? 'f' : 'd');
+			Square squareBetweenStartAndEnd = new Square(fileBetweenStartAndEnd, startSquare.rank());
+			for (Square square : new Square[] {squareBetweenStartAndEnd, endSquare}) {
+				if (!castlingSquaresInCheck && castlingSquareInCheck(board, square, color)) {
+					castlingSquaresInCheck = true;
+				}
 			}
 		}
+		
+		return castlingSquaresInCheck;
+	}
+
+	private static boolean castlingSquareInCheck(Board board, Square square, Color color) {
+		boolean castlingSquareInCheck = false;
+		
+		// place a temp piece on square so that canAttack evaluates correctly
+		Piece tempPiece = new King(color);
+		board.placePiece(square, tempPiece);
+		
+		if (board.squareInCheck(square, color)) {
+			castlingSquareInCheck = true;
+		}
+		
+		// remove the temp piece
+		board.removePiece(square);
 		
 		return castlingSquareInCheck;
 	}
