@@ -13,6 +13,7 @@ import com.brasee.chess.moves.EnPassantMove;
 import com.brasee.chess.moves.InvalidMove;
 import com.brasee.chess.moves.Move;
 import com.brasee.chess.moves.NormalMove;
+import com.brasee.chess.moves.StartPromotionMove;
 import com.brasee.chess.moves.Move.MoveType;
 import com.brasee.chess.pieces.Bishop;
 import com.brasee.chess.pieces.King;
@@ -50,7 +51,7 @@ public class Game {
 		Move move = InvalidMove.execute();	
 		if (validPieceOnStartSquare(startSquare)) {
 			move = executeMove(startSquare, endSquare);
-			if (!move.moveType().equals(MoveType.INVALID)) {
+			if (!move.moveType().equals(MoveType.INVALID) && !move.moveType().equals(MoveType.START_PROMOTION)) {
 				moves.add(move);
 				changePlayersTurn();
 			}
@@ -70,6 +71,10 @@ public class Game {
 		return moves;
 	}
 	
+	protected Color playersTurn() {
+		return playersTurn;
+	}
+	
 	protected Move lastMove() {
 		return (moves.size() > 0 ? moves.get(moves.size() - 1) : null);
 	}
@@ -77,7 +82,14 @@ public class Game {
 	private Move executeMove(Square startSquare, Square endSquare) {
 		Move move = InvalidMove.execute();
 		
-		if (EnPassantMove.canBeExecuted(board, startSquare, endSquare, lastMove())) {
+		if (StartPromotionMove.canBeExecuted(board, startSquare, endSquare)) {
+			move = StartPromotionMove.execute(board, startSquare, endSquare);
+			StartPromotionMove startPromotionMove = (StartPromotionMove) move;
+			if (startPromotionMove.opposingPiece() != null) {
+				capturedPieces.get(startPromotionMove.opposingPiece().color()).add(startPromotionMove.opposingPiece());
+			}
+		}
+		else if (EnPassantMove.canBeExecuted(board, startSquare, endSquare, lastMove())) {
 			move = EnPassantMove.execute(board, startSquare, endSquare);
 			EnPassantMove enPassantMove = (EnPassantMove) move;
 			capturedPieces.get(enPassantMove.opposingPiece().color()).add(enPassantMove.opposingPiece());
