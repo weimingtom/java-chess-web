@@ -136,4 +136,22 @@ public class GamePreventCheckMovesTest {
 		assertTrue(whiteRook.isFirstMove());
 	}
 	
+	@Test
+	public void testPreventCastlingMoveIfKingPassesThroughCheck() {
+		Piece whiteRook = new Rook(Color.WHITE);
+		Piece whiteKing = new King(Color.WHITE);
+		Piece blackQueen = new Queen(Color.BLACK);
+		
+		game.board().placePiece(new Square("e1"), whiteKing);
+		game.board().placePiece(new Square("h1"), whiteRook);
+		game.board().placePiece(new Square("f8"), blackQueen);
+		
+		Move move = game.move(new Square("e1"), new Square("g1"));
+		assertEquals(MoveType.INVALID, move.moveType());
+		assertEquals(whiteKing, game.board().pieceOn(new Square("e1")));
+		assertEquals(whiteRook, game.board().pieceOn(new Square("h1")));
+		assertTrue(whiteKing.isFirstMove());
+		assertTrue(whiteRook.isFirstMove());
+	}
+	
 }
