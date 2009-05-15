@@ -7,7 +7,7 @@ import com.brasee.chess.pieces.Piece;
 public interface Move {
 
 	public enum MoveType {
-		INVALID, NORMAL, CAPTURE, CASTLING, EN_PASSANT, START_PROMOTION
+		INVALID, NORMAL, CAPTURE, CASTLING, EN_PASSANT, START_PROMOTION, PROMOTION
 	}
 	
 	public Piece piece();
