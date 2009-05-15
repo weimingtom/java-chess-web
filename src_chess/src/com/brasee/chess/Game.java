@@ -13,6 +13,7 @@ import com.brasee.chess.moves.EnPassantMove;
 import com.brasee.chess.moves.InvalidMove;
 import com.brasee.chess.moves.Move;
 import com.brasee.chess.moves.NormalMove;
+import com.brasee.chess.moves.PromotionMove;
 import com.brasee.chess.moves.StartPromotionMove;
 import com.brasee.chess.moves.Move.MoveType;
 import com.brasee.chess.pieces.Bishop;
@@ -23,6 +24,7 @@ import com.brasee.chess.pieces.Piece;
 import com.brasee.chess.pieces.Queen;
 import com.brasee.chess.pieces.Rook;
 import com.brasee.chess.pieces.Piece.Color;
+import com.brasee.chess.pieces.Piece.PieceType;
 
 public class Game {
 
@@ -48,13 +50,24 @@ public class Game {
 	}
 	
 	public Move move(Square startSquare, Square endSquare) {
-		Move move = InvalidMove.execute();	
-		if (validPieceOnStartSquare(startSquare)) {
+		Move move = InvalidMove.execute();
+		if (startSquareContainsPlayersPiece(startSquare) && !promotionInProgress()) {
 			move = executeMove(startSquare, endSquare);
-			if (!move.moveType().equals(MoveType.INVALID) && !move.moveType().equals(MoveType.START_PROMOTION)) {
+			if (!move.moveType().equals(MoveType.INVALID)) {
 				moves.add(move);
+			}
+			if (!move.moveType().equals(MoveType.INVALID) && !move.moveType().equals(MoveType.START_PROMOTION)) {
 				changePlayersTurn();
 			}
+		}
+		return move;
+	}
+	
+	public Move promote(PieceType pieceType, Square square) {
+		Move move = InvalidMove.execute();
+		if (PromotionMove.canBeExecuted(board, pieceType, square, lastMove())) {
+			move = PromotionMove.execute(board, pieceType, square, lastMove());
+			changePlayersTurn();
 		}
 		return move;
 	}
@@ -138,7 +151,7 @@ public class Game {
 		}
 	}
 	
-	private boolean validPieceOnStartSquare(Square startSquare) {
+	private boolean startSquareContainsPlayersPiece(Square startSquare) {
 		boolean validPieceOnStartSquare = true;
 		
 		if (board().pieceOn(startSquare) == null) {
@@ -149,6 +162,16 @@ public class Game {
 		}
 		
 		return validPieceOnStartSquare;
+	}
+	
+	private boolean promotionInProgress() {
+		boolean promotionInProgress = false;
+		
+		if (lastMove() != null && MoveType.START_PROMOTION.equals(lastMove().moveType())) {
+			promotionInProgress = true;
+		}
+		
+		return promotionInProgress;
 	}
 
 	private void placeWhitePieces() {
@@ -184,4 +207,5 @@ public class Game {
 		capturedPieces.put(Color.WHITE, new HashSet<Piece>());
 		capturedPieces.put(Color.BLACK, new HashSet<Piece>());
 	}
+
 }
