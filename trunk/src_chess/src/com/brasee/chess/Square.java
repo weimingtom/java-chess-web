@@ -1,5 +1,7 @@
 package com.brasee.chess;
 
+import com.brasee.chess.pieces.Piece.Color;
+
 public class Square {
 
 	private static char MIN_RANK = '1';
@@ -52,6 +54,16 @@ public class Square {
 	public boolean inDiagonalPathWith(Square otherSquare) {
 		return Math.abs(distanceBetweenFile(otherSquare)) == 
 			   Math.abs(distanceBetweenRank(otherSquare));
+	}
+	
+	public boolean inLastRowForColor(Color color) {
+		if ((color.equals(Color.WHITE) && rank() == '8') ||
+			(color.equals(Color.BLACK) && rank() == '1')) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	private void throwExceptionForInvalidSquareString(String squareString) {

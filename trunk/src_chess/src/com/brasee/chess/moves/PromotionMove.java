@@ -37,32 +37,52 @@ public class PromotionMove extends AbstractMove {
 
 	@Override
 	public void undo(Board board) {
-		// TODO Implement this!
+		board.removePiece(endSquare);
+		if (opposingPiece != null) {
+			board.placePiece(endSquare, opposingPiece);
+		}
+		board.placePiece(startSquare, piece);
 	}
 
-	public static boolean canBeExecuted(Board board, PieceType pieceType, Square promotionSquare, Move lastMove) {
+	public static boolean canBeExecuted(Board board, Square startSquare, Square endSquare, PieceType pieceType) {
 		boolean canBeExecuted = false;
 		
-		if (lastMove != null && lastMove.moveType().equals(MoveType.START_PROMOTION) &&
-			promotionSquare != null && promotionSquare.equals(lastMove.endSquare())) {
-			if (promotionPieceTypes.contains(pieceType)) {
-				canBeExecuted = true;
+		if (board != null) {
+			Piece piece = board.pieceOn(startSquare);
+			if (piece != null && PieceType.PAWN.equals(piece.pieceType()) && endSquare.inLastRowForColor(piece.color())) {
+				if (piece.canMove(board, startSquare, endSquare) ||
+					piece.canAttack(board, startSquare, endSquare)) {
+					if (promotionPieceTypes.contains(pieceType)) {
+						canBeExecuted = true;
+					}
+				}
 			}
 		}
-		
+
 		return canBeExecuted;
 	}
 
-	public static Move execute(Board board, PieceType pieceType, Square promotionSquare, Move lastMove) {
-		StartPromotionMove startPromotionMove = (StartPromotionMove) lastMove;
-		Piece piece = board.pieceOn(promotionSquare);
+	public static Move execute(Board board, Square startSquare, Square endSquare, PieceType pieceType) {
+		Piece piece = board.pieceOn(startSquare);
 		Piece promotionPiece = createPromotionPiece(pieceType, piece.color());
+		Piece opposingPiece = null;
 		
-		board.removePiece(promotionSquare);
-		board.placePiece(promotionSquare, promotionPiece);
+		if (board.hasPieceOn(endSquare)) {
+			opposingPiece = board.pieceOn(endSquare);
+			board.removePiece(endSquare);
+		}	
+		board.removePiece(startSquare);
+		board.placePiece(endSquare, promotionPiece);
 		
-		return new PromotionMove(piece, startPromotionMove.startSquare(), promotionSquare,
-				promotionPiece, startPromotionMove.opposingPiece());
+		return new PromotionMove(piece, startSquare, endSquare, promotionPiece, opposingPiece);
+	}
+	
+	public Piece promotionPiece() {
+		return promotionPiece;
+	}
+	
+	public Piece opposingPiece() {
+		return opposingPiece;
 	}
 
 	private static Piece createPromotionPiece(PieceType pieceType, Color color) {
