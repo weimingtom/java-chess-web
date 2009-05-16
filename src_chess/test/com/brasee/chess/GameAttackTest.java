@@ -160,6 +160,17 @@ public class GameAttackTest {
 		assertEquals(0, game.moves().size());
 	}
 	
+	@Test
+	public void testPawnCannotPerformNormalAttackToLastRow() {
+		Square startSquare = new Square("a7");
+		Square endSquare = new Square("b8");
+		Piece pawn = new Pawn(Color.WHITE);
+		Piece queen = new Queen(Color.BLACK);
+		game.board().placePiece(startSquare, pawn);
+		game.board().placePiece(endSquare, queen);
+		assertEquals(MoveType.INVALID, game.move(startSquare, endSquare).moveType());
+	}
+	
 	private void assertAttackSucceeds(Piece piece, Square currentSquare, Square occupiedSquare) {
 		game.board().placePiece(currentSquare, piece);
 		Piece enemyPiece = new Pawn(Color.BLACK);

@@ -198,6 +198,15 @@ public class GameMoveTest {
 		assertEquals(startSquare, move.startSquare());
 		assertEquals(endSquare, move.endSquare());
 	}
+	
+	@Test
+	public void testPawnCannotPerformNormalMoveToLastRow() {
+		Square startSquare = new Square("a7");
+		Square endSquare = new Square("a8");
+		Piece pawn = new Pawn(Color.WHITE);
+		game.board().placePiece(startSquare, pawn);
+		assertEquals(MoveType.INVALID, game.move(startSquare, endSquare).moveType());
+	}
 		
 	private void assertMoveEquals(Move move, MoveType normal, Piece piece, Square startSquare, Square endSquare) {
 		assertEquals(piece, move.piece());
