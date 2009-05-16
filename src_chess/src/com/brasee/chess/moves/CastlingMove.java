@@ -68,16 +68,17 @@ public class CastlingMove extends AbstractMove {
 	private static boolean castlingSquareInCheck(Board board, Square square, Color color) {
 		boolean castlingSquareInCheck = false;
 		
-		// place a temp piece on square so that canAttack evaluates correctly
-		Piece tempPiece = new King(color);
-		board.placePiece(square, tempPiece);
+		if (!board.hasPieceOn(square)) {
+			// place a temp piece on square so that canAttack evaluates correctly
+			Piece tempPiece = new King(color);
+			board.placePiece(square, tempPiece);
+			if (board.squareInCheck(square, color)) {
+				castlingSquareInCheck = true;
+			}
 		
-		if (board.squareInCheck(square, color)) {
-			castlingSquareInCheck = true;
+			// remove the temp piece
+			board.removePiece(square);
 		}
-		
-		// remove the temp piece
-		board.removePiece(square);
 		
 		return castlingSquareInCheck;
 	}
@@ -96,15 +97,15 @@ public class CastlingMove extends AbstractMove {
 		Piece rook = board.pieceOn(rookStartSquare);
 		board.movePiece(king, kingStartSquare, kingEndSquare);
 		board.movePiece(rook, rookStartSquare, rookEndSquare);
-		king.updateHasMoved();
-		rook.updateHasMoved();
+		king.incrementTimesMoved();
+		rook.incrementTimesMoved();
 		return new CastlingMove(king, kingStartSquare, kingEndSquare, rook, rookStartSquare, rookEndSquare);
 	}
 	
 	@Override
 	public void undo(Board board) {
-		piece.undoLastMove();
-		rook.undoLastMove();
+		piece.decrementTimesMove();
+		rook.decrementTimesMove();
 		board.movePiece(piece, endSquare, startSquare);
 		board.movePiece(rook, rookEndSquare, rookStartSquare);
 	}

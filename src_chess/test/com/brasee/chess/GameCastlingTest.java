@@ -88,7 +88,7 @@ public class GameCastlingTest {
 	public void testCastlingFailsWhenAPieceHasAlreadyMoved() {
 		Piece rook = new Rook(Color.WHITE);
 		Piece king = new King(Color.WHITE);
-		rook.updateHasMoved();
+		rook.incrementTimesMoved();
 		game.board().placePiece(new Square("e1"), king);
 		game.board().placePiece(new Square("h1"), rook);
 		assertEquals(MoveType.INVALID, game.move(new Square("e1"), new Square("g1")).moveType());
@@ -119,6 +119,24 @@ public class GameCastlingTest {
 		assertEquals(king, move.piece());
 		assertEquals(new Square("e1"), move.startSquare());
 		assertEquals(new Square("g1"), move.endSquare());		
+	}
+	
+	@Test
+	public void testCastlingUndoWorksCorrectly() {
+		Piece rook = new Rook(Color.WHITE);
+		Piece king = new King(Color.WHITE);
+		game.board().placePiece(new Square("e1"), king);
+		game.board().placePiece(new Square("h1"), rook);
+		Move move = game.move(new Square("e1"), new Square("g1"));
+
+		move.undo(game.board());
+		
+		assertTrue(king.equals(game.board().pieceOn(new Square("e1"))));
+		assertTrue(rook.equals(game.board().pieceOn(new Square("h1"))));
+		assertFalse(game.board().hasPieceOn(new Square("g1")));
+		assertFalse(game.board().hasPieceOn(new Square("f1")));
+		assertTrue(king.isFirstMove());
+		assertTrue(rook.isFirstMove());
 	}
 	
 }

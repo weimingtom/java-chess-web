@@ -136,7 +136,7 @@ public class PawnTest {
 	public void testPawnCannotMoveTwoSquaresTwice() {
 		Square currentSquare = new Square("a4");
 		Square emptySquare = new Square("a6");
-		whitePawn.updateHasMoved();
+		whitePawn.incrementTimesMoved();
 		board.placePiece(currentSquare, whitePawn);
 		assertFalse(whitePawn.canMove(board, currentSquare, emptySquare));
 	}

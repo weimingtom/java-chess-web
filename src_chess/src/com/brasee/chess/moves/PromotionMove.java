@@ -49,12 +49,11 @@ public class PromotionMove extends AbstractMove {
 		
 		if (board != null) {
 			Piece piece = board.pieceOn(startSquare);
-			if (piece != null && PieceType.PAWN.equals(piece.pieceType()) && endSquare.inLastRowForColor(piece.color())) {
+			if (piece != null && PieceType.PAWN.equals(piece.pieceType()) 
+				&& promotionPieceTypes.contains(pieceType) && endSquare.inLastRowForColor(piece.color())) {
 				if (piece.canMove(board, startSquare, endSquare) ||
 					piece.canAttack(board, startSquare, endSquare)) {
-					if (promotionPieceTypes.contains(pieceType)) {
-						canBeExecuted = true;
-					}
+					canBeExecuted = true;
 				}
 			}
 		}

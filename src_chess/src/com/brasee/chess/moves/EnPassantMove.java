@@ -45,7 +45,7 @@ public class EnPassantMove extends AbstractMove {
 		Piece opposingPawn = board.pieceOn(opposingPawnSquare);
 		board.movePiece(pawn, startSquare, endSquare);
 		board.removePiece(opposingPawnSquare);
-		pawn.updateHasMoved();
+		pawn.incrementTimesMoved();
 		return new EnPassantMove(pawn, startSquare, endSquare, opposingPawn, opposingPawnSquare);
 	}
 
@@ -56,7 +56,7 @@ public class EnPassantMove extends AbstractMove {
 
 	@Override
 	public void undo(Board board) {
-		piece.undoLastMove();
+		piece.decrementTimesMove();
 		board.movePiece(piece, endSquare, startSquare);
 		board.placePiece(opposingPieceSquare, opposingPiece);
 	}

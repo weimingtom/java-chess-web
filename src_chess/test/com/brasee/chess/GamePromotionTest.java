@@ -150,7 +150,7 @@ public class GamePromotionTest {
 		Move move = performSimplePromotion(PieceType.PAWN);
 		assertEquals(MoveType.INVALID, move.moveType());
 	}
-		
+			
 	private Move performSimplePromotion() {
 		Piece whitePawn = new Pawn(Color.WHITE);
 		Piece blackKing = new King(Color.BLACK);

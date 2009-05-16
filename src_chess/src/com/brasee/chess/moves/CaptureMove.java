@@ -33,13 +33,13 @@ public class CaptureMove extends AbstractMove {
 		Piece opposingPiece = board.pieceOn(endSquare);
 		board.removePiece(endSquare);
 		board.movePiece(piece, startSquare, endSquare);		
-		piece.updateHasMoved();
+		piece.incrementTimesMoved();
 		return new CaptureMove(piece, startSquare, endSquare, opposingPiece);
 	}
 	
 	@Override
 	public void undo(Board board) {
-		piece.undoLastMove();
+		piece.decrementTimesMove();
 		board.movePiece(piece, endSquare, startSquare);
 		board.placePiece(endSquare, opposingPiece);
 	}

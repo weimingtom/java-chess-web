@@ -3,6 +3,7 @@ package com.brasee.chess;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.brasee.chess.moves.InvalidMove;
 import com.brasee.chess.moves.Move;
 import com.brasee.chess.moves.Move.MoveType;
 import com.brasee.chess.pieces.Bishop;
@@ -25,6 +26,10 @@ public class GameMoveTest {
 		this.game = new Game();
 	}
 	
+	@Test
+	public void testInvalidMovesCannotBeExecuted() {
+		assertFalse(InvalidMove.canBeExecuted());
+	}
 	@Test
 	public void testPawnCanMoveToValidSquare() {
 		Square currentSquare = new Square("a2");
