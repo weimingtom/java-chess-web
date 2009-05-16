@@ -23,12 +23,12 @@ public abstract class AbstractPiece implements Piece {
 	}
 	
 	@Override
-	public void updateHasMoved() {
+	public void incrementTimesMoved() {
 		timesMoved += 1;
 	}
 	
 	@Override
-	public void undoLastMove() {
+	public void decrementTimesMove() {
 		if (timesMoved > 0) {
 			timesMoved -= 1;
 		}

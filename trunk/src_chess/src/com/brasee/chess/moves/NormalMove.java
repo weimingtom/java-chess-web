@@ -28,14 +28,14 @@ public class NormalMove extends AbstractMove {
 	public static NormalMove execute(Board board, Square startSquare, Square endSquare) {
 		Piece piece = board.pieceOn(startSquare);
 		board.movePiece(piece, startSquare, endSquare);
-		piece.updateHasMoved();
+		piece.incrementTimesMoved();
 		return new NormalMove(piece, startSquare, endSquare);
 	}
 	
 	@Override
 	public void undo(Board board) {
 		board.movePiece(piece, endSquare, startSquare);
-		piece.undoLastMove();
+		piece.decrementTimesMove();
 	}
 
 	@Override
