@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<project name="src_chess" basedir="." default="jar">
+    <property name="src" value="src"/>
+    <property name="output" value="."/>
+
+    <target name="compile">
+        <javac destdir="bin">            
+            <src path="${src}"/>            
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="src_chess.jar">
+            <fileset dir="bin"/>
+        </jar>
+    </target>
+
+</project>
