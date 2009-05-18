@@ -1,18 +1,23 @@
 <?xml version="1.0"?>
 <project name="src_chess" basedir="." default="jar">
     <property name="src" value="src"/>
-    <property name="output" value="."/>
+    <property name="output" value="dist"/>
 
-    <target name="compile">
+    <target name="jar" depends="compile">
+        <jar destfile="${output}/src_chess.jar">
+            <fileset dir="bin"/>
+        </jar>
+    </target>
+        	
+    <target name="compile" depends="clean">
         <javac destdir="bin">            
             <src path="${src}"/>            
         </javac>
     </target>
 
-    <target name="jar" depends="compile">
-        <jar destfile="src_chess.jar">
-            <fileset dir="bin"/>
-        </jar>
+    <target name="clean">
+        <delete dir="${output}"/>
+    	<mkdir dir="${output}"/>
     </target>
 
 </project>
