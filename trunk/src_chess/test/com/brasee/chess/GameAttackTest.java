@@ -171,6 +171,24 @@ public class GameAttackTest {
 		assertEquals(MoveType.INVALID, game.move(startSquare, endSquare).moveType());
 	}
 	
+	@Test
+	public void testCaptureMoveReturnsCorrectClearedAndUpdatedSquares() {
+		Square currentSquare = new Square("a2");
+		Square occupiedSquare = new Square("b3");
+		Piece pawn = new Pawn(Color.WHITE);
+		Piece blackPawn = new Pawn(Color.BLACK);
+		game.board().placePiece(currentSquare, pawn);
+		game.board().placePiece(occupiedSquare, blackPawn);
+		Move move = game.move(currentSquare, occupiedSquare);
+		
+		assertEquals(1, move.clearedSquares().size());
+		assertEquals(currentSquare, move.clearedSquares().get(0));
+		assertEquals(1, move.updatedSquares().keySet().size());
+		Square updatedSquare = move.updatedSquares().keySet().iterator().next();
+		assertEquals(occupiedSquare, updatedSquare);
+		assertEquals(pawn, move.updatedSquares().get(updatedSquare));
+	}
+	
 	private void assertAttackSucceeds(Piece piece, Square currentSquare, Square occupiedSquare) {
 		game.board().placePiece(currentSquare, piece);
 		Piece enemyPiece = new Pawn(Color.BLACK);

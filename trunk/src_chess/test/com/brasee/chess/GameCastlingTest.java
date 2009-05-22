@@ -139,4 +139,19 @@ public class GameCastlingTest {
 		assertTrue(rook.isFirstMove());
 	}
 	
+	@Test
+	public void testCastlingReturnsCorrectClearedAndUpdatedSquares() {
+		Piece rook = new Rook(Color.WHITE);
+		Piece king = new King(Color.WHITE);
+		game.board().placePiece(new Square("e1"), king);
+		game.board().placePiece(new Square("h1"), rook);
+		Move move = game.move(new Square("e1"), new Square("g1"));
+		
+		assertEquals(2, move.clearedSquares().size());
+		assertTrue(move.clearedSquares().contains(new Square("e1")));
+		assertTrue(move.clearedSquares().contains(new Square("h1")));
+		assertEquals(2, move.updatedSquares().keySet().size());
+		assertEquals(king, move.updatedSquares().get(new Square("g1")));
+		assertEquals(rook, move.updatedSquares().get(new Square("f1")));
+	}
 }

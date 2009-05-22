@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import com.brasee.chess.moves.InvalidMove;
 import com.brasee.chess.moves.Move;
+import com.brasee.chess.moves.NormalMove;
 import com.brasee.chess.moves.Move.MoveType;
 import com.brasee.chess.pieces.Bishop;
 import com.brasee.chess.pieces.King;
@@ -211,6 +212,21 @@ public class GameMoveTest {
 		Piece pawn = new Pawn(Color.WHITE);
 		game.board().placePiece(startSquare, pawn);
 		assertEquals(MoveType.INVALID, game.move(startSquare, endSquare).moveType());
+	}
+	
+	@Test
+	public void testNormalMoveReturnsCorrectClearedAndUpdatedSquares() {
+		Square currentSquare = new Square("a2");
+		Square emptySquare = new Square("a3");
+		Piece pawn = new Pawn(Color.WHITE);
+		game.board().placePiece(currentSquare, pawn);
+		Move move = game.move(currentSquare, emptySquare);
+		assertEquals(1, move.clearedSquares().size());
+		assertEquals(currentSquare, move.clearedSquares().get(0));
+		assertEquals(1, move.updatedSquares().keySet().size());
+		Square updatedSquare = move.updatedSquares().keySet().iterator().next();
+		assertEquals(emptySquare, updatedSquare);
+		assertEquals(pawn, move.updatedSquares().get(updatedSquare));
 	}
 		
 	private void assertMoveEquals(Move move, MoveType normal, Piece piece, Square startSquare, Square endSquare) {

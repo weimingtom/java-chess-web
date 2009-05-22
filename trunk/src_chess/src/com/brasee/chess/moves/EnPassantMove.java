@@ -1,5 +1,10 @@
 package com.brasee.chess.moves;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.brasee.chess.Board;
 import com.brasee.chess.Square;
 import com.brasee.chess.pieces.Pawn;
@@ -67,6 +72,21 @@ public class EnPassantMove extends AbstractMove {
 	
 	public Square opposingPieceSquare() {
 		return opposingPieceSquare;
+	}
+
+	@Override
+	public List<Square> clearedSquares() {
+		List<Square> clearedSquares = new ArrayList<Square>();
+		clearedSquares.add(startSquare);
+		clearedSquares.add(opposingPieceSquare);
+		return clearedSquares;
+	}
+
+	@Override
+	public Map<Square, Piece> updatedSquares() {
+		Map<Square, Piece> updatedSquares = new HashMap<Square, Piece>();
+		updatedSquares.put(endSquare, piece);
+		return updatedSquares;
 	}
 
 }

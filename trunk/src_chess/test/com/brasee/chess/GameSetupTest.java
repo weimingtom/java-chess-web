@@ -51,10 +51,10 @@ public class GameSetupTest {
 		assertTrue(blackLeftKnight != null && blackLeftKnight.color().equals(Color.BLACK) && blackLeftKnight.pieceType().equals(PieceType.KNIGHT));
 		Piece blackLeftBishop = game.board().pieceOn(new Square("c8"));
 		assertTrue(blackLeftBishop != null && blackLeftBishop.color().equals(Color.BLACK) && blackLeftBishop.pieceType().equals(PieceType.BISHOP));
-		Piece blackKing = game.board().pieceOn(new Square("d8"));
-		assertTrue(blackKing != null && blackKing.color().equals(Color.BLACK) && blackKing.pieceType().equals(PieceType.KING));
-		Piece blackQueen = game.board().pieceOn(new Square("e8"));
+		Piece blackQueen = game.board().pieceOn(new Square("d8"));
 		assertTrue(blackQueen != null && blackQueen.color().equals(Color.BLACK) && blackQueen.pieceType().equals(PieceType.QUEEN));		
+		Piece blackKing = game.board().pieceOn(new Square("e8"));
+		assertTrue(blackKing != null && blackKing.color().equals(Color.BLACK) && blackKing.pieceType().equals(PieceType.KING));
 		Piece blackRightBishop = game.board().pieceOn(new Square("f8"));
 		assertTrue(blackRightBishop != null && blackRightBishop.color().equals(Color.BLACK) && blackRightBishop.pieceType().equals(PieceType.BISHOP));
 		Piece blackRightKnight = game.board().pieceOn(new Square("g8"));
