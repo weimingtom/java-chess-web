@@ -1,5 +1,8 @@
 package com.brasee.chess.moves;
 
+import java.util.List;
+import java.util.Map;
+
 import com.brasee.chess.Board;
 import com.brasee.chess.Square;
 import com.brasee.chess.pieces.Piece;
@@ -30,5 +33,11 @@ public abstract class AbstractMove implements Move {
 	
 	@Override
 	public abstract void undo(Board board);
+	
+	@Override
+	public abstract Map<Square, Piece> updatedSquares();
+	
+	@Override
+	public abstract List<Square> clearedSquares();
 
 }

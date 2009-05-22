@@ -114,6 +114,30 @@ public class GameEnPassantTest {
 		// verify en passant doesn't work
 		assertEquals(MoveType.INVALID, game.move(enPassantStartSquare, enPassantEndSquare).moveType());
 	}
+	
+	@Test
+	public void testEnPassantReturnsCorrectClearedAndUpdatedSquares() {
+		// setup en passant
+		Piece whitePawn = new Pawn(Color.WHITE);
+		Piece blackPawn = new Pawn(Color.BLACK);
+		game.board().placePiece(new Square("e4"), whitePawn);
+		game.board().placePiece(new Square("d7"), blackPawn);
+		Square enPassantStartSquare = new Square("e5");
+		Square enPassantEndSquare = new Square("d6");
+		// white pawn move
+		game.move(new Square("e4"), enPassantStartSquare);
+		// black pawn move
+		game.move(new Square("d7"), new Square("d5"));
+		
+		Move move = game.move(enPassantStartSquare, enPassantEndSquare);
+		assertEquals(2, move.clearedSquares().size());
+		assertTrue(move.clearedSquares().contains(enPassantStartSquare));
+		assertTrue(move.clearedSquares().contains(new Square("d5")));
+		assertEquals(1, move.updatedSquares().keySet().size());
+		Square updatedSquare = move.updatedSquares().keySet().iterator().next();
+		assertEquals(enPassantEndSquare, updatedSquare);
+		assertEquals(whitePawn, move.updatedSquares().get(updatedSquare));
+	}
 		
 	private void assertEnPassantSucceeded(Piece pawn, Square startSquare, Square endSquare, Piece opposingPawn) {
 		Move move = game.move(startSquare, endSquare);		

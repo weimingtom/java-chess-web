@@ -62,6 +62,14 @@ public class Game {
 		return move;
 	}
 	
+	public List<Move> moves() {
+		return moves;
+	}
+	
+	public Color playersTurn() {
+		return playersTurn;
+	}
+	
 	public Move promote(Square startSquare, Square endSquare, PieceType pieceType) {
 		Move move = InvalidMove.execute();
 
@@ -86,20 +94,16 @@ public class Game {
 		return move;
 	}
 	
+	public Map<Square, Piece> pieces() {
+		return board().pieceLocations;
+	}
+	
 	public Set<Piece> capturedPieces(Color color) {
 		return capturedPieces.get(color);
 	}
 	
 	protected Board board() {
 		return board;
-	}
-	
-	protected List<Move> moves() {
-		return moves;
-	}
-	
-	protected Color playersTurn() {
-		return playersTurn;
 	}
 	
 	protected Move lastMove() {
@@ -207,8 +211,8 @@ public class Game {
 		board.placePiece(new Square("a8"), new Rook(Color.BLACK));
 		board.placePiece(new Square("b8"), new Knight(Color.BLACK));
 		board.placePiece(new Square("c8"), new Bishop(Color.BLACK));
-		board.placePiece(new Square("d8"), new King(Color.BLACK));
-		board.placePiece(new Square("e8"), new Queen(Color.BLACK));
+		board.placePiece(new Square("d8"), new Queen(Color.BLACK));
+		board.placePiece(new Square("e8"), new King(Color.BLACK));
 		board.placePiece(new Square("f8"), new Bishop(Color.BLACK));
 		board.placePiece(new Square("g8"), new Knight(Color.BLACK));
 		board.placePiece(new Square("h8"), new Rook(Color.BLACK));
