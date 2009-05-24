@@ -89,4 +89,9 @@ public class EnPassantMove extends AbstractMove {
 		return updatedSquares;
 	}
 
+	@Override
+	public Piece capturedPiece() {
+		return opposingPiece;
+	}
+
 }

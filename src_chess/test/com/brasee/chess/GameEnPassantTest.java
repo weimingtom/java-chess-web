@@ -138,7 +138,25 @@ public class GameEnPassantTest {
 		assertEquals(enPassantEndSquare, updatedSquare);
 		assertEquals(whitePawn, move.updatedSquares().get(updatedSquare));
 	}
+
+	@Test
+	public void testEnPassantCapturedPieceIsCorrect() {
+		// setup en passant
+		Piece whitePawn = new Pawn(Color.WHITE);
+		Piece blackPawn = new Pawn(Color.BLACK);
+		game.board().placePiece(new Square("e4"), whitePawn);
+		game.board().placePiece(new Square("d7"), blackPawn);
+		Square enPassantStartSquare = new Square("e5");
+		Square enPassantEndSquare = new Square("d6");
+		// white pawn move
+		game.move(new Square("e4"), enPassantStartSquare);
+		// black pawn move
+		game.move(new Square("d7"), new Square("d5"));
 		
+		Move move = game.move(enPassantStartSquare, enPassantEndSquare);
+		assertEquals(blackPawn, move.capturedPiece());
+	}
+	
 	private void assertEnPassantSucceeded(Piece pawn, Square startSquare, Square endSquare, Piece opposingPawn) {
 		Move move = game.move(startSquare, endSquare);		
 		assertEquals(pawn, game.board().pieceOn(endSquare));
@@ -150,5 +168,5 @@ public class GameEnPassantTest {
 		assertEquals(1, game.capturedPieces(opposingPawn.color()).size());
 		assertTrue(game.capturedPieces(opposingPawn.color()).contains(opposingPawn));		
 	}
-	
+
 }

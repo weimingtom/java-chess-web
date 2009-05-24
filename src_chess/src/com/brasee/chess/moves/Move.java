@@ -19,8 +19,8 @@ public interface Move {
 	public MoveType moveType();
 	public List<Square> clearedSquares();
 	public Map<Square, Piece> updatedSquares();
-	
 	public void undo(Board board);
+	public Piece capturedPiece();
 
 }
 

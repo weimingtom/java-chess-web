@@ -72,7 +72,7 @@ public class PromotionMove extends AbstractMove {
 		if (board.hasPieceOn(endSquare)) {
 			opposingPiece = board.pieceOn(endSquare);
 			board.removePiece(endSquare);
-		}	
+		}
 		board.removePiece(startSquare);
 		board.placePiece(endSquare, promotionPiece);
 		
@@ -118,6 +118,11 @@ public class PromotionMove extends AbstractMove {
 		Map<Square, Piece> updatedSquares = new HashMap<Square, Piece>();
 		updatedSquares.put(endSquare, promotionPiece);
 		return updatedSquares;
+	}
+
+	@Override
+	public Piece capturedPiece() {
+		return opposingPiece;
 	}
 
 }

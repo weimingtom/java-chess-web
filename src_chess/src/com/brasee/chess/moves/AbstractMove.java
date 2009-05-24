@@ -40,4 +40,7 @@ public abstract class AbstractMove implements Move {
 	@Override
 	public abstract List<Square> clearedSquares();
 
+	@Override
+	public abstract Piece capturedPiece();
+
 }

@@ -2,10 +2,8 @@ package com.brasee.chess;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.brasee.chess.moves.CaptureMove;
 import com.brasee.chess.moves.CastlingMove;
@@ -30,7 +28,7 @@ public class Game {
 	private Board board;
 	private List<Move> moves; 
 	private Color playersTurn;
-	private Map<Color, Set<Piece>> capturedPieces;
+	private Map<Color, List<Piece>> capturedPieces;
 	
 	public Game() {
 		board = new Board();
@@ -98,7 +96,7 @@ public class Game {
 		return board().pieceLocations;
 	}
 	
-	public Set<Piece> capturedPieces(Color color) {
+	public List<Piece> capturedPieces(Color color) {
 		return capturedPieces.get(color);
 	}
 	
@@ -222,9 +220,9 @@ public class Game {
 	}
 	
 	private void clearCapturedPieces() {
-		capturedPieces = new HashMap<Color, Set<Piece>>();
-		capturedPieces.put(Color.WHITE, new HashSet<Piece>());
-		capturedPieces.put(Color.BLACK, new HashSet<Piece>());
+		capturedPieces = new HashMap<Color, List<Piece>>();
+		capturedPieces.put(Color.WHITE, new ArrayList<Piece>());
+		capturedPieces.put(Color.BLACK, new ArrayList<Piece>());
 	}
 
 }
