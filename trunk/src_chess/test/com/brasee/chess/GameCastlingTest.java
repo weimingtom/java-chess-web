@@ -154,4 +154,14 @@ public class GameCastlingTest {
 		assertEquals(king, move.updatedSquares().get(new Square("g1")));
 		assertEquals(rook, move.updatedSquares().get(new Square("f1")));
 	}
+	
+	@Test
+	public void testCastlingMoveCapturedPieceIsNull() {
+		Piece rook = new Rook(Color.WHITE);
+		Piece king = new King(Color.WHITE);
+		game.board().placePiece(new Square("e1"), king);
+		game.board().placePiece(new Square("h1"), rook);
+		Move move = game.move(new Square("e1"), new Square("g1"));
+		assertNull(move.capturedPiece());
+	}
 }

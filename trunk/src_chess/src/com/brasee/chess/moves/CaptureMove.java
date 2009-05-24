@@ -71,7 +71,10 @@ public class CaptureMove extends AbstractMove {
 		updatedSquares.put(endSquare, piece);
 		return updatedSquares;
 	}
-	
-	
+
+	@Override
+	public Piece capturedPiece() {
+		return opposingPiece;
+	}
 
 }

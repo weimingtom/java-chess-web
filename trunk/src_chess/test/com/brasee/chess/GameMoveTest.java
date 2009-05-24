@@ -1,11 +1,16 @@
 package com.brasee.chess;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import com.brasee.chess.moves.InvalidMove;
 import com.brasee.chess.moves.Move;
-import com.brasee.chess.moves.NormalMove;
 import com.brasee.chess.moves.Move.MoveType;
 import com.brasee.chess.pieces.Bishop;
 import com.brasee.chess.pieces.King;
@@ -15,8 +20,6 @@ import com.brasee.chess.pieces.Piece;
 import com.brasee.chess.pieces.Queen;
 import com.brasee.chess.pieces.Rook;
 import com.brasee.chess.pieces.Piece.Color;
-
-import static org.junit.Assert.*; 
 
 public class GameMoveTest {
 
@@ -31,6 +34,7 @@ public class GameMoveTest {
 	public void testInvalidMovesCannotBeExecuted() {
 		assertFalse(InvalidMove.canBeExecuted());
 	}
+	
 	@Test
 	public void testPawnCanMoveToValidSquare() {
 		Square currentSquare = new Square("a2");
@@ -228,6 +232,17 @@ public class GameMoveTest {
 		assertEquals(emptySquare, updatedSquare);
 		assertEquals(pawn, move.updatedSquares().get(updatedSquare));
 	}
+	
+	@Test
+	public void testNormalMoveCapturedPieceIsNull() {
+		Square currentSquare = new Square("a2");
+		Square emptySquare = new Square("a3");
+		Piece pawn = new Pawn(Color.WHITE);
+		game.board().placePiece(currentSquare, pawn);
+		Move move = game.move(currentSquare, emptySquare);
+		assertNull(move.capturedPiece());
+	}
+
 		
 	private void assertMoveEquals(Move move, MoveType normal, Piece piece, Square startSquare, Square endSquare) {
 		assertEquals(piece, move.piece());

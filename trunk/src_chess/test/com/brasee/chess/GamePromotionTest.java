@@ -164,6 +164,23 @@ public class GamePromotionTest {
 		assertEquals(new Square("a8"), promoteSquare);
 		assertEquals(PieceType.QUEEN, move.updatedSquares().get(promoteSquare).pieceType());
 	}
+	
+	@Test
+	public void testMovePromotionCapturedPieceIsNull() {
+		Move move = performSimplePromotion();
+		assertNull(move.capturedPiece());
+	}
+	
+	@Test
+	public void testCapturePromotionCapturedPieceIsCorrect() {
+		Piece whitePawn = new Pawn(Color.WHITE);
+		Piece blackRook = new Rook(Color.BLACK);
+		game.board().placePiece(new Square("a7"), whitePawn);
+		game.board().placePiece(new Square("b8"), blackRook);
+		
+		Move move = game.promote(new Square("a7"), new Square("b8"), PieceType.QUEEN);
+		assertEquals(blackRook, move.capturedPiece());
+	}
 			
 	private Move performSimplePromotion() {
 		Piece whitePawn = new Pawn(Color.WHITE);

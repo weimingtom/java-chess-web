@@ -61,4 +61,9 @@ public class NormalMove extends AbstractMove {
 		updatedSquares.put(endSquare, piece);
 		return updatedSquares;
 	}
+
+	@Override
+	public Piece capturedPiece() {
+		return null;
+	}
 }

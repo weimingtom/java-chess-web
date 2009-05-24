@@ -41,4 +41,9 @@ public class InvalidMove extends AbstractMove {
 		return new HashMap<Square, Piece>();
 	}
 
+	@Override
+	public Piece capturedPiece() {
+		return null;
+	}
+
 }
