@@ -29,6 +29,16 @@ public abstract class AbstractMove implements Move {
 	}
 	
 	@Override
+	public String notation() {
+		if (startSquare != null && endSquare != null) {
+			return startSquare.toString() + "." + endSquare.toString();
+		}
+		else {
+			return null;
+		}
+	}
+	
+	@Override
 	public abstract MoveType moveType();
 	
 	@Override
@@ -42,5 +52,5 @@ public abstract class AbstractMove implements Move {
 
 	@Override
 	public abstract Piece capturedPiece();
-
+	
 }

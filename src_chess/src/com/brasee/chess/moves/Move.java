@@ -21,6 +21,7 @@ public interface Move {
 	public Map<Square, Piece> updatedSquares();
 	public void undo(Board board);
 	public Piece capturedPiece();
+	public String notation();
 
 }
 
