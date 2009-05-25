@@ -242,6 +242,16 @@ public class GameMoveTest {
 		Move move = game.move(currentSquare, emptySquare);
 		assertNull(move.capturedPiece());
 	}
+	
+	@Test
+	public void testMoveNotationConsistsOfStartAndEndSquares() {
+		Square currentSquare = new Square("a2");
+		Square emptySquare = new Square("a3");
+		Piece pawn = new Pawn(Color.WHITE);
+		game.board().placePiece(currentSquare, pawn);
+		Move move = game.move(currentSquare, emptySquare);
+		assertEquals("a2.a3", move.notation());
+	}
 
 		
 	private void assertMoveEquals(Move move, MoveType normal, Piece piece, Square startSquare, Square endSquare) {
