@@ -29,8 +29,9 @@
     </target>
 
 	<target name="package" depends="build" description="Package the application into a WAR file">
-		<delete dir="${dist.dir}/package"/>
-        <copy todir="${dist.dir}/package" preservelastmodified="true">
+		<delete dir="${dist.dir}"/>
+		<mkdir dir="${dist.dir}"/>
+		<copy todir="${dist.dir}/package" preservelastmodified="true">
             <fileset dir="${web.dir}">
             	<exclude name="**/META-INF/**"/>
                 <include name="**/*.*"/>
