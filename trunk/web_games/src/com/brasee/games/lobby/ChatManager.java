@@ -27,10 +27,13 @@ public class ChatManager {
 		this.messageArray = new MessageCircularArray<String>(messageArraySize, String.class);
 	}
 	
-	public void addMessage(String message) {
+	public ChatResult<String> addMessage(String message, int previousNextMessageIndex) {
+		ChatResult<String> chatResult = null;
 		synchronized (messageArray) {
 			messageArray.addMessage(message);
+			chatResult = messageArray.getMessages(previousNextMessageIndex, maxMessagesToReturn);
 		}
+		return chatResult;
 	}
 	
 	public ChatResult<String> getMessages(int previousNextMessageIndex) {
@@ -42,7 +45,11 @@ public class ChatManager {
 	}
 
 	public Integer getMessageIndex() {
-		return messageArray.getMessageIndex();
+		Integer messageIndex = null;
+		synchronized (messageArray) {
+			messageIndex = messageArray.getMessageIndex();	
+		}
+		return messageIndex;
 	}
 	
 }
