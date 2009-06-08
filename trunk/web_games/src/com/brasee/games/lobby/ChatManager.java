@@ -28,6 +28,10 @@ public class ChatManager {
 	}
 	
 	public ChatResult<String> addMessage(String message, int previousNextMessageIndex) {
+		if (message == null) {
+			throw new IllegalArgumentException("Missing message parameter");
+		}
+		
 		ChatResult<String> chatResult = null;
 		synchronized (messageArray) {
 			messageArray.addMessage(message);
