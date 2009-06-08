@@ -24,8 +24,8 @@
 		<copy file="../web_games/dist/${war.name}.war" todir="dist" />
 	</target>
 	
-    <target name="deploywar" depends="build" description="Build WAR file and deploy to Tomcat server">
-        <copy todir="${deploy.path}" preservelastmodified="true">
+    <target name="deploywar" depends="undeploy, build" description="Build WAR file and deploy to Tomcat server">
+    	<copy todir="${deploy.path}" preservelastmodified="true">
             <fileset dir="${dist.dir}">
                 <include name="${war.name}.war"/>
             </fileset>
