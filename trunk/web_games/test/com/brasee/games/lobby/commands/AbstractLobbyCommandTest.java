@@ -13,12 +13,17 @@ public abstract class AbstractLobbyCommandTest {
 
 	@SuppressWarnings("unchecked")
 	public String processRequest(MockHttpServletRequest request, Class expectedCommandClass) {
+		return processRequest(request, expectedCommandClass, new ChatManager(100, 10));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String processRequest(MockHttpServletRequest request, Class expectedCommandClass, ChatManager chatManager) {
 		String jsonStringResult = null;
 
 		LobbyCommand lobbyCommand = LobbyCommandFactory.createCommand(request);
 		assertTrue(lobbyCommand.getClass().equals(expectedCommandClass));
 
-		JsonView view = lobbyCommand.processCommand(request, new ChatManager(100, 10));
+		JsonView view = lobbyCommand.processCommand(request, chatManager);
 		
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		try {

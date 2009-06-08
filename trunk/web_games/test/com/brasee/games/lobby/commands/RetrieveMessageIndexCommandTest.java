@@ -14,4 +14,12 @@ public class RetrieveMessageIndexCommandTest extends AbstractLobbyCommandTest {
 		assertEquals(expectedResult, processRequest(request, RetrieveMessageIndexCommand.class));
 	}
 	
+	@Test
+	public void testRetrieveMessageIndexCommandReturnsFailureResultForNullChatManagerException() {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		request.addParameter("command", "retrieve_message_index");
+		String expectedResult = "{\"result\":\"failure\"}";
+		assertEquals(expectedResult, processRequest(request, RetrieveMessageIndexCommand.class, null));
+	}
+	
 }
