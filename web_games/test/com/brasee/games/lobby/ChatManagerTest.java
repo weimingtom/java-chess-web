@@ -47,12 +47,10 @@ public class ChatManagerTest {
 		assertEquals(new Integer(1), manager.getMessageIndex());
 	}
 	
-	@Test
-	public void testChatManagerDoesNotAddNullMessage() {
+	@Test(expected=IllegalArgumentException.class)
+	public void testChatManagerThrowsExceptionForNullMessage() {
 		assertEquals(new Integer(0), manager.getMessageIndex());
 		manager.addMessage(null, 0);
-		assertEquals(new Integer(0), manager.getMessageIndex());
-		assertEquals(new Integer(0), new Integer(manager.getMessages(0).getMessages().size()));
 	}
 	
 	@Test
@@ -89,5 +87,5 @@ public class ChatManagerTest {
 		assertEquals("test message 3", chatResult.getMessages().get(0));
 		assertEquals("test message 4", chatResult.getMessages().get(1));
 	}
-
+	
 }
