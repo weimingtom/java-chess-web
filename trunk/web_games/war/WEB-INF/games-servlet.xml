@@ -13,12 +13,22 @@
 			<props>
 				<prop key="/chess.json">chessJsonController</prop>
 				<prop key="/chess.htm">chessUiController</prop>
+				<prop key="/lobby.json">chessJsonController</prop>
+				<prop key="/lobby.htm">chessUiController</prop>
 			</props>
 		</property>
 	</bean>
 
 	<bean id="chessJsonController" class="com.brasee.games.chess.web.ChessJsonController" />
 	<bean id="chessUiController" class="com.brasee.games.chess.web.ChessUiController" />
+	
+	<bean id="lobbyChatManager" class="com.brasee.games.lobby.LobbyChatManager">
+		<constructor-arg index="1" value="100" type="java.lang.Integer"/>
+		<constructor-arg index="2" value="10" type="java.lang.Integer"/>
+	</bean>
+	<bean id="lobbyJsonController" class="com.brasee.games.lobby.LobbyJsonController"
+		p:chatManager-ref="lobbyChatManager" />
+	<bean id="lobbyUiController" class="com.brasee.games.lobby.LobbyUiController" />
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
