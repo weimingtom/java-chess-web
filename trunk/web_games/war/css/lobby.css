@@ -1,0 +1,74 @@
+/* Lobby page styles */
+#leftcontent {
+	float: left;
+	width: 640px;
+	margin: auto;
+	padding: 0px;
+	
+	/* min-height with an IE6 hack */
+	min-height: 500px;
+	height: auto !important;
+	height: 500px;
+}
+
+#rightcontent {
+	float: left;
+	width: 280px;
+	margin: auto;
+	padding-left: 10px;
+	
+	/* min-height with an IE6 hack */
+	min-height: 500px;
+	height: auto !important;
+	height: 500px;
+}
+
+#chatOutput {
+	border: 3px solid #f0f0f0;
+	width: 610px;
+	height: 300px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.2em;
+	text-align: left;
+	overflow: auto;
+}
+
+#chatInput {
+	width: 610px;
+	border: 3px solid #cccccc;
+	font-family:  Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.2em;
+}
+
+.subpanelHeader {
+	font-size: 107%;
+	font-weight: bold; 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.subpanelDivOuter {
+	background-color: #CCCCCC;
+	padding: 3px;
+	margin-bottom: 10px;
+}
+
+.subpanelDivInner {
+	background-color: #FFFFFF;
+	text-align: center;
+	padding: 3px;
+}
+
+.leftSubpanelDivOuter {
+	background-color: #CCCCCC;
+	padding: 3px;
+	margin-bottom: 10px;
+}
+
+.leftSubpanelDivInner {
+	background-color: #FFFFFF;
+	text-align: center;
+	padding: 3px;
+	height: 500px;
+}
