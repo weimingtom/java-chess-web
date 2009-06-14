@@ -25,6 +25,7 @@
 			<div id="nav">
 				<ul>
 					<li><a href="chess.htm"><img src="img/chess_icon.png" alt="Chess"/> Chess</a></li>
+					<li><a href="lobby.htm"><img src="img/chess_icon.png" alt="Lobby"/> Lobby</a></li>
 				</ul>
   			</div> 
 			<div id="container">
