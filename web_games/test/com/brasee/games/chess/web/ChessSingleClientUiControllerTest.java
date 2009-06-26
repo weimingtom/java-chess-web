@@ -7,11 +7,11 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 
-public class ChessUiControllerTest {
+public class ChessSingleClientUiControllerTest {
 
 	@Test
 	public void testControllerReturnsCorrectModelAndView() {
-		ChessUiController controller = new ChessUiController();
+		ChessSingleClientUiController controller = new ChessSingleClientUiController();
 		ModelAndView modelAndView = null;
 		try {
 			modelAndView = controller.handleRequest(new MockHttpServletRequest("GET", null), 
@@ -22,6 +22,6 @@ public class ChessUiControllerTest {
 		}
 		assertNotNull(modelAndView);
 		assertTrue(modelAndView.getModel().isEmpty());
-		assertEquals("chess", modelAndView.getViewName());
+		assertEquals("chessSingleClient", modelAndView.getViewName());
 	}
 }

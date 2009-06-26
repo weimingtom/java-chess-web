@@ -3,10 +3,9 @@ var readyForNewMessages = true;
 
 function initialize() {
 	applyRoundedCorners();
-	getMessageIndex();
 	setupEnterKeyEvent();
 	setInputFocus();
-	setTimeout(getNewMessages, 2000);
+	getNewMessages();
 }
 
 function applyRoundedCorners() {
@@ -34,15 +33,6 @@ function submitChatInput() {
 	sendMessage(messageText);
 	
 	setInputFocus();
-}
-
-function getMessageIndex() {
-	var json = { "command": "retrieve_message_index" };
-	$.post("lobby.json", json,
-  		function(data){
-			messageIndex = data.message_index;
-  		}, 
-  	"json");
 }
 
 function sendMessage(messageText) {

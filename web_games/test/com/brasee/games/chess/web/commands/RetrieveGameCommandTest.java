@@ -9,7 +9,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 
 import com.brasee.chess.Game;
-import com.brasee.games.chess.web.ChessJsonController;
+import com.brasee.games.chess.web.ChessSingleClientJsonController;
 import com.brasee.games.chess.web.JsonView;
 
 public class RetrieveGameCommandTest {
@@ -19,7 +19,7 @@ public class RetrieveGameCommandTest {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpSession session = new MockHttpSession();
 		Game existingGame = new Game();
-		session.setAttribute(ChessJsonController.CHESS_GAME_SESSION_VARIABLE, existingGame);
+		session.setAttribute(ChessSingleClientJsonController.CHESS_SINGLE_CLIENT_GAME_SESSION_VARIABLE, existingGame);
 		request.setSession(session);
 		request.addParameter("command", "retrieve_game");
 

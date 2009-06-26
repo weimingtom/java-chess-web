@@ -24,8 +24,8 @@
 			<div id="header"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td align="left" valign="top"><a href="<c:url value="/"/>"><img src="img/games_header_link.jpg" alt="Brasee.com Games"/></a></td><td align="right" valign="top"><a href="/"><img src="img/games_header_back_to_main.jpg" alt="Brasee.com Home"/></a></td></tr></table></div>
 			<div id="nav">
 				<ul>
-					<li><a href="chess.htm"><img src="img/chess_icon.png" alt="Chess"/> Chess</a></li>
 					<li><a href="lobby.htm"><img src="img/chess_icon.png" alt="Lobby"/> Lobby</a></li>
+					<li><a href="chessSingleClient.htm"><img src="img/chess_icon.png" alt="Chess (same computer)"/> Chess (same computer)</a></li>
 				</ul>
   			</div> 
 			<div id="container">
