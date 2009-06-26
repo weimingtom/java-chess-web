@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.brasee.chess.Game;
 import com.brasee.chess.pieces.Piece.Color;
 
-public class ChessJsonControllerTest {
+public class ChessSingleClientJsonControllerTest {
 
 	@Test
 	public void testControllerProcessesCommandSuccessfully() {
@@ -24,7 +24,7 @@ public class ChessJsonControllerTest {
 		request.addParameter("command", "retrieve_game");
 		
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		ChessJsonController controller = new ChessJsonController();
+		ChessSingleClientJsonController controller = new ChessSingleClientJsonController();
 		ModelAndView modelAndView = null;
 		try {
 			modelAndView = controller.handleRequestInternal(request, response);
@@ -38,8 +38,8 @@ public class ChessJsonControllerTest {
 		assertEquals("text/plain", modelAndView.getView().getContentType());
 		
 		// test game has been properly initialized and saved to session 
-		assertNotNull(session.getAttribute(ChessJsonController.CHESS_GAME_SESSION_VARIABLE));
-		Game game = (Game) session.getAttribute(ChessJsonController.CHESS_GAME_SESSION_VARIABLE);
+		assertNotNull(session.getAttribute(ChessSingleClientJsonController.CHESS_SINGLE_CLIENT_GAME_SESSION_VARIABLE));
+		Game game = (Game) session.getAttribute(ChessSingleClientJsonController.CHESS_SINGLE_CLIENT_GAME_SESSION_VARIABLE);
 		assertEquals(Color.WHITE, game.playersTurn());
 	}
 }

@@ -3,12 +3,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-	<title>Chess - Brasee.com</title>
+	<title>Chess - human vs. human on same computer - Brasee.com</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/menu.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="css/chess.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/chessSingleClient.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/smoothness/jquery-ui-1.7.1.custom.css" type="text/css" media="screen" />
-	<script type="text/javascript" src="js/chess.js"></script>
+	<script type="text/javascript" src="js/chessSingleClient.js"></script>
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.7.1.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
@@ -24,8 +24,8 @@
 			<div id="header"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td align="left" valign="top"><a href="<c:url value="/"/>"><img src="img/games_header_link.jpg" alt="Brasee.com Games"/></a></td><td align="right" valign="top"><a href="/"><img src="img/games_header_back_to_main.jpg" alt="Brasee.com Home"/></a></td></tr></table></div>
 			<div id="nav">
 				<ul>
-					<li><a href="chess.htm"><img src="img/chess_icon.png" alt="Chess"/> Chess</a></li>
 					<li><a href="lobby.htm"><img src="img/chess_icon.png" alt="Lobby"/> Lobby</a></li>
+					<li><a href="chessSingleClient.htm"><img src="img/chess_icon.png" alt="Chess (same computer)"/> Chess (same computer)</a></li>					
 				</ul>
   			</div> 
 			<div id="container">

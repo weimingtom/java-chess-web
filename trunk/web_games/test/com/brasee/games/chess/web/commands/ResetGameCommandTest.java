@@ -7,7 +7,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 
 import com.brasee.chess.Game;
-import com.brasee.games.chess.web.ChessJsonController;
+import com.brasee.games.chess.web.ChessSingleClientJsonController;
 
 public class ResetGameCommandTest {
 
@@ -16,13 +16,13 @@ public class ResetGameCommandTest {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpSession session = new MockHttpSession();
 		Game existingGame = new Game();
-		session.setAttribute(ChessJsonController.CHESS_GAME_SESSION_VARIABLE, existingGame);
+		session.setAttribute(ChessSingleClientJsonController.CHESS_SINGLE_CLIENT_GAME_SESSION_VARIABLE, existingGame);
 		request.setSession(session);
 		request.addParameter("command", "reset_game");
 		
 		ChessCommand command = ChessCommandFactory.createCommand(request);
 		command.processCommand(request, existingGame);
-		assertNotSame(existingGame, session.getAttribute(ChessJsonController.CHESS_GAME_SESSION_VARIABLE));
+		assertNotSame(existingGame, session.getAttribute(ChessSingleClientJsonController.CHESS_SINGLE_CLIENT_GAME_SESSION_VARIABLE));
 	}
 	
 }

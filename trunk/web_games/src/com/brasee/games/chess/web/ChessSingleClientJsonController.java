@@ -11,9 +11,9 @@ import com.brasee.chess.Game;
 import com.brasee.games.chess.web.commands.ChessCommand;
 import com.brasee.games.chess.web.commands.ChessCommandFactory;
 
-public class ChessJsonController extends AbstractController {
+public class ChessSingleClientJsonController extends AbstractController {
 
-	public static String CHESS_GAME_SESSION_VARIABLE = "chessGame";
+	public static String CHESS_SINGLE_CLIENT_GAME_SESSION_VARIABLE = "chessSingleClientGame";
 	
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -24,11 +24,11 @@ public class ChessJsonController extends AbstractController {
 	}
 	
 	private Game createOrRetrieveSessionGame(HttpSession session) {
-		Game game = (Game)session.getAttribute(CHESS_GAME_SESSION_VARIABLE); 
+		Game game = (Game)session.getAttribute(CHESS_SINGLE_CLIENT_GAME_SESSION_VARIABLE); 
 		if (game == null) {
 			game = new Game();
 			game.initializeBoard();
-			session.setAttribute(CHESS_GAME_SESSION_VARIABLE, game);
+			session.setAttribute(CHESS_SINGLE_CLIENT_GAME_SESSION_VARIABLE, game);
 		}
 		return game;
 	}

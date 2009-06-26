@@ -11,17 +11,16 @@
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<props>
-				<prop key="/chess.json">chessJsonController</prop>
-				<prop key="/chess.htm">chessUiController</prop>
+				<prop key="/chessSingleClient.json">chessSingleClientJsonController</prop>
+				<prop key="/chessSingleClient.htm">chessSingleClientUiController</prop>
 				<prop key="/lobby.json">lobbyJsonController</prop>
 				<prop key="/lobby.htm">lobbyUiController</prop>
 			</props>
 		</property>
 	</bean>
 
-	<bean id="chessJsonController" class="com.brasee.games.chess.web.ChessJsonController" />
-	<bean id="chessUiController" class="com.brasee.games.chess.web.ChessUiController" />
-	
+	<bean id="chessSingleClientJsonController" class="com.brasee.games.chess.web.ChessSingleClientJsonController" />
+	<bean id="chessSingleClientUiController" class="com.brasee.games.chess.web.ChessSingleClientUiController" />
 	
 	<bean id="lobbyChatManager" class="com.brasee.games.lobby.ChatManager">
 		<constructor-arg value="100" />

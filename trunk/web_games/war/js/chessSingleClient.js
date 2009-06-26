@@ -34,7 +34,7 @@ function applyRoundedCorners() {
 }
 
 function retrieveGame() {
-	$.post("chess.json", { "command": "retrieve_game" },
+	$.post("chessSingleClient.json", { "command": "retrieve_game" },
 		function(data) {
 			refreshGame(data);
 		}, 
@@ -43,7 +43,7 @@ function retrieveGame() {
 }
 
 function resetGame() {
-	$.post("chess.json", { "command": "reset_game" },
+	$.post("chessSingleClient.json", { "command": "reset_game" },
 		function(data) {
 			refreshGame(data);
 		}, 
@@ -53,7 +53,7 @@ function resetGame() {
 
 function sendMove(startSquare, endSquare) {
 	var json = { "command": "move", "start_square": startSquare.attr('id'), "end_square": endSquare.attr('id') };
-	$.post("chess.json", json,
+	$.post("chessSingleClient.json", json,
   		function(data){
 			updateGame(data);
 			startSquare.css({ top: 0, left: 0 });
@@ -200,7 +200,7 @@ function openPromotionDialog() {
 
 function sendPromotion(pieceType) {
 	$("#promotion_dialog").dialog('close');
-	$.post("chess.json", { "command": "promote", "start_square": promotionStartSquare, "end_square": promotionEndSquare, "piece_type": pieceType },
+	$.post("chessSingleClient.json", { "command": "promote", "start_square": promotionStartSquare, "end_square": promotionEndSquare, "piece_type": pieceType },
 		function(data) {
 			updateGame(data);
 			var startSquare = document.getElementById(promotionStartSquare);
