@@ -23,6 +23,13 @@
 	height: 500px;
 }
 
+#singlecontent {
+	float: left;
+	width: 940px;
+	margin: auto;
+}
+
+
 #chatOutput {
 	border: 3px solid #f0f0f0;
 	width: 610px;
@@ -38,6 +45,48 @@
 	border: 3px solid #cccccc;
 	font-family:  Verdana, Arial, Helvetica, sans-serif;
 	font-size: 1.2em;
+}
+
+#usernameInput {
+	width: 300px;
+	border: 3px solid #cccccc;
+	font-family:  Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.2em;
+}
+
+#loginDiv {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.2em;
+	margin-left: 25%;
+	margin-right: 25%;
+	text-align: left;
+
+}
+
+#loginDiv h2 {
+	text-align: center;
+}
+
+#loginDiv h4 {
+	text-align: center;
+}
+
+#loginDiv form {
+	text-align: center;
+}
+
+.dialogButton {
+	width: 200px;
+	height: 30px;
+	line-height: 30px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.dialogButton span.dialogButtonText {
+	font-weight: bold; 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;
 }
 
 .subpanelHeader {

@@ -47,12 +47,6 @@ public class ChatManagerTest {
 		assertEquals(new Integer(1), manager.getMessageIndex());
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
-	public void testChatManagerThrowsExceptionForNullMessage() {
-		assertEquals(new Integer(0), manager.getMessageIndex());
-		manager.addMessage(null, 0);
-	}
-	
 	@Test
 	public void testChatManagerReturnsCorrectSingleMessage() {
 		int previousIndex = manager.getMessageIndex();

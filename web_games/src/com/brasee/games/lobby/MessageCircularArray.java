@@ -37,9 +37,8 @@ public class MessageCircularArray<T> {
 	}
 	
 	public void addMessage(T message) {
-		int newMessageIndex = incrementMessageIndex(this.nextMessageIndex);
-	
 		if (message != null) {
+			int newMessageIndex = incrementMessageIndex(this.nextMessageIndex);
 			this.messages[nextMessageIndex] = message;
 			nextMessageIndex = newMessageIndex;
 		}
