@@ -67,10 +67,6 @@
 	text-align: center;
 }
 
-#loginDiv h4 {
-	text-align: center;
-}
-
 #loginDiv form {
 	text-align: center;
 }
@@ -120,4 +116,11 @@
 	text-align: center;
 	padding: 3px;
 	height: 500px;
+}
+
+.timestampText {
+	font-size: 70%;
+	font-style: italic; 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #555555;
 }
