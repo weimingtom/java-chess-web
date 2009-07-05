@@ -1,5 +1,7 @@
 package com.brasee.games.lobby.commands;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -16,6 +18,8 @@ import com.brasee.games.lobby.LobbyUiController;
 
 public class AddMessageCommand implements LobbyCommand {
 
+	private SimpleDateFormat timestampFormatter = new SimpleDateFormat("h:mm:ss a, M/d/yy");
+	
 	@Override
 	public JsonView processCommand(HttpServletRequest request, ChatManager chatManager) {
 		Map<String, Object> responseMap = new HashMap<String, Object>();
@@ -23,7 +27,7 @@ public class AddMessageCommand implements LobbyCommand {
 		try {
 			String message = ChatStringUtils.escapeAndLimitString(request.getParameter("message"));
 			GamesUser user = (GamesUser) request.getSession().getAttribute(LobbyUiController.GAMES_USER_SESSION_VARIABLE);
-			String fullMessage = user.getName() + ": " + message;
+			String fullMessage = user.getName() + ": " + message + generateTimestampHtml();
 			int messageIndex = Integer.parseInt(request.getParameter("message_index"));
 			
 			// if the user didn't enter anything, set fullMessage to null so it isn't added to the ChatManager
@@ -42,6 +46,10 @@ public class AddMessageCommand implements LobbyCommand {
 		}
 		
 		return new JsonView(responseMap);
+	}
+	
+	private String generateTimestampHtml() {
+		return " <span class=\"timestampText\">(" + timestampFormatter.format(new Date()) + ")</span>";
 	}
 
 }

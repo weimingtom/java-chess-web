@@ -1,6 +1,7 @@
 package com.brasee.games.lobby.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,8 +34,8 @@ public class AddMessageCommandTest extends AbstractLobbyCommandTest {
 		request.addParameter("message", "test message");
 		request.addParameter("message_index", "0");
 		
-		String expectedResult = "{\"result\":\"success\",\"message_index\":1,\"messages\":[\"User: test message\"]}";
-		assertEquals(expectedResult, processRequest(request, AddMessageCommand.class));
+		String expectedResult = "{\"result\":\"success\",\"message_index\":1,\"messages\":[\"User: test message";
+		assertTrue(processRequest(request, AddMessageCommand.class).startsWith(expectedResult));
 	}
 	
 	@Test
