@@ -17,6 +17,9 @@ public class LobbyUiController extends AbstractController {
 	
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		ModelAndView modelAndView = new ModelAndView("lobbyLogin");
+		
 		if (METHOD_POST.equals(request.getMethod())) {
 			String username = request.getParameter(USERNAME_INPUT);
 			if (username == null || username.length() > 25) {
@@ -25,17 +28,18 @@ public class LobbyUiController extends AbstractController {
 			GamesUser user = new GamesUser();
 			user.setName(ChatStringUtils.escapeMarkupChars(username));
 			request.getSession().setAttribute(GAMES_USER_SESSION_VARIABLE, user);
-			return new ModelAndView("lobby");
+			modelAndView = new ModelAndView("lobby");
+			modelAndView.addObject("user", user);
 		}
 		else {
 			GamesUser user = (GamesUser) request.getSession().getAttribute(GAMES_USER_SESSION_VARIABLE);
 			if (user != null) {
-				return new ModelAndView("lobby");
-			}
-			else {
-				return new ModelAndView("lobbyLogin");
+				modelAndView = new ModelAndView("lobby");
+				modelAndView.addObject("user", user);
 			}
 		}
+		
+		return modelAndView;
 	}
 
 }

@@ -3,7 +3,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-	<title>Chess - Brasee.com</title>
+	<title>Chess Lobby - Brasee.com</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/menu.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/lobby.css" type="text/css" media="screen" />
@@ -24,7 +24,7 @@
 			<div id="header"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td align="left" valign="top"><a href="<c:url value="/"/>"><img src="img/games_header_link.jpg" alt="Brasee.com Games"/></a></td><td align="right" valign="top"><a href="/"><img src="img/games_header_back_to_main.jpg" alt="Brasee.com Home"/></a></td></tr></table></div>
 			<div id="nav">
 				<ul>
-					<li><a href="lobby.htm"><img src="img/chess_icon.png" alt="Lobby"/> Lobby</a></li>
+					<li><a href="lobby.htm"><img src="img/chess_icon.png" alt="Chess Lobby"/> Chess Lobby</a></li>
 					<li><a href="chessSingleClient.htm"><img src="img/chess_icon.png" alt="Chess (same computer)"/> Chess (same computer)</a></li>
 				</ul>
   			</div> 
@@ -39,7 +39,8 @@
 				</div> <!-- /leftcontent -->
 				
 				<div id="rightcontent">
-
+					<center><h3>Welcome, ${user.name}!</h3></center>
+					<br/>
 					<div class="subpanelDivOuter"><div class="subpanelDivInner">
 						<div class="subpanelHeader">Online Users</div>
 					</div></div>
