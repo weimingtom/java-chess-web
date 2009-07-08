@@ -49,7 +49,7 @@ public class AddMessageCommand implements LobbyCommand {
 	}
 	
 	private String generateTimestampHtml() {
-		return " <span class=\"timestampText\">(" + timestampFormatter.format(new Date()) + ")</span>";
+		return "<span class=\"timestampText\">&nbsp;&nbsp;(" + timestampFormatter.format(new Date()) + ")</span>";
 	}
 
 }
