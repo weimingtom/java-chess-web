@@ -2,6 +2,9 @@ package com.brasee.games.lobby.commands;
 
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
+
+import com.brasee.games.lobby.ChatManager;
+
 import static org.junit.Assert.*;
 
 public class RetrieveMessageIndexCommandTest extends AbstractLobbyCommandTest {
@@ -19,7 +22,8 @@ public class RetrieveMessageIndexCommandTest extends AbstractLobbyCommandTest {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addParameter("command", "retrieve_message_index");
 		String expectedResult = "{\"result\":\"failure\"}";
-		assertEquals(expectedResult, processRequest(request, RetrieveMessageIndexCommand.class, null));
+		ChatManager chatManager = null;
+		assertEquals(expectedResult, processRequest(request, RetrieveMessageIndexCommand.class, chatManager));
 	}
 	
 }

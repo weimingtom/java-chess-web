@@ -26,8 +26,10 @@
 		<constructor-arg value="100" />
 		<constructor-arg value="10" />
 	</bean>
+	<bean id="lobbyUserManager" class="com.brasee.games.lobby.UserManager" />
 	<bean id="lobbyJsonController" class="com.brasee.games.lobby.LobbyJsonController"
-		p:chatManager-ref="lobbyChatManager" />
+		p:chatManager-ref="lobbyChatManager" 
+		p:userManager-ref="userManager" />
 	<bean id="lobbyUiController" class="com.brasee.games.lobby.LobbyUiController" />
 
 	<bean id="viewResolver"

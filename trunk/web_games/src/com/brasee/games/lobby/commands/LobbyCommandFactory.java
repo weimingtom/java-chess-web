@@ -18,6 +18,12 @@ public class LobbyCommandFactory {
 		else if ("retrieve_message_index".equals(commandName)) {
 			command = new RetrieveMessageIndexCommand();
 		}
+		else if ("refresh_user".equals(commandName)) {
+			command = new RefreshUserCommand();
+		}
+		else if ("retrieve_users".equals(commandName)) {
+			command = new RetrieveUsersCommand();
+		}
 		
 		return command;
 	}

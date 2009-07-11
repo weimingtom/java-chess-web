@@ -13,16 +13,21 @@ import com.brasee.games.lobby.commands.LobbyCommandFactory;
 public class LobbyJsonController extends AbstractController {
 
 	private ChatManager chatManager;
+	private UserManager userManager;
 	
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		LobbyCommand command = LobbyCommandFactory.createCommand(request);
-		JsonView jsonView = command.processCommand(request, chatManager);
+		JsonView jsonView = command.processCommand(request, userManager, chatManager);
 		return new ModelAndView(jsonView);
 	}
 
 	public void setChatManager(ChatManager chatManager) {
 		this.chatManager = chatManager;
+	}
+	
+	public void setUserManager(UserManager userManager) {
+		this.userManager = userManager;
 	}
 	
 }
