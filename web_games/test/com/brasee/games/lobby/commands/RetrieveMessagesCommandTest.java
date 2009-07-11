@@ -11,19 +11,22 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import com.brasee.games.chess.web.JsonView;
 import com.brasee.games.lobby.ChatManager;
+import com.brasee.games.lobby.UserManager;
 
 public class RetrieveMessagesCommandTest {
 
-	private ChatManager manager;
+	private ChatManager chatManager;
+	private UserManager userManager; 
 	
 	@Before
 	public void setUp() {
-		this.manager = new ChatManager(100, 10);
+		this.chatManager = new ChatManager(100, 10);
+		this.userManager = new UserManager();
 	}
 	
 	@Test
 	public void testRetrieveMessagesCommandReturnsSuccessResultForValidInput() {
-		manager.addMessage("User: test message", 0);
+		chatManager.addMessage("User: test message", 0);
 		
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addParameter("command", "retrieve_messages");
@@ -35,7 +38,7 @@ public class RetrieveMessagesCommandTest {
 	
 	@Test
 	public void testRetrieveMessagesCommandReturnsFailureResultForInvalidInput() {
-		manager.addMessage("User: test message", 0);
+		chatManager.addMessage("User: test message", 0);
 		
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addParameter("command", "retrieve_messages");
@@ -50,7 +53,7 @@ public class RetrieveMessagesCommandTest {
 		LobbyCommand lobbyCommand = LobbyCommandFactory.createCommand(request);
 		assertTrue(lobbyCommand instanceof RetrieveMessagesCommand);
 
-		JsonView view = lobbyCommand.processCommand(request, manager);
+		JsonView view = lobbyCommand.processCommand(request, userManager, chatManager);
 		
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		try {

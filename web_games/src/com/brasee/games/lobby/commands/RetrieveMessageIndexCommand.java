@@ -9,11 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.brasee.games.chess.web.JsonView;
 import com.brasee.games.lobby.ChatManager;
+import com.brasee.games.lobby.UserManager;
 
 public class RetrieveMessageIndexCommand implements LobbyCommand {
 
 	@Override
-	public JsonView processCommand(HttpServletRequest request, ChatManager chatManager) {
+	public JsonView processCommand(HttpServletRequest request, UserManager userManager, ChatManager chatManager) {
 		Map<String, Object> responseMap = new HashMap<String, Object>();
 		
 		try {

@@ -15,13 +15,14 @@ import com.brasee.games.lobby.ChatManager;
 import com.brasee.games.lobby.ChatResult;
 import com.brasee.games.lobby.ChatStringUtils;
 import com.brasee.games.lobby.LobbyUiController;
+import com.brasee.games.lobby.UserManager;
 
 public class AddMessageCommand implements LobbyCommand {
 
 	private SimpleDateFormat timestampFormatter = new SimpleDateFormat("h:mm:ss a, M/d/yy");
 	
 	@Override
-	public JsonView processCommand(HttpServletRequest request, ChatManager chatManager) {
+	public JsonView processCommand(HttpServletRequest request, UserManager userManager, ChatManager chatManager) {
 		Map<String, Object> responseMap = new HashMap<String, Object>();
 		
 		try {
