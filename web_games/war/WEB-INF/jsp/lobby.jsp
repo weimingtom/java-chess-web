@@ -39,10 +39,12 @@
 				</div> <!-- /leftcontent -->
 				
 				<div id="rightcontent">
+				
 					<center><h3>Welcome, ${user.name}!</h3></center>
 					<br/>
 					<div class="subpanelDivOuter"><div class="subpanelDivInner">
 						<div class="subpanelHeader">Online Users</div>
+						<span id="userList"></span>
 					</div></div>
 					
 				</div> <!-- /rightcontent -->

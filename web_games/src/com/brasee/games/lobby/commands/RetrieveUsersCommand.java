@@ -24,8 +24,9 @@ public class RetrieveUsersCommand implements LobbyCommand {
 			responseMap.put("result", "success");
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			Logger.getLogger(this.getClass().getName()).log(Level.WARNING, e.getMessage());
-			responseMap.put("result", "failure");	
+			responseMap.put("result", "failure");
 		}
 		
 		return new JsonView(responseMap);
