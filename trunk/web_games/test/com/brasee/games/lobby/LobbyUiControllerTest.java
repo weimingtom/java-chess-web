@@ -49,7 +49,7 @@ public class LobbyUiControllerTest {
 			fail("Should not throw an exception");
 		}
 		assertNotNull(modelAndView);
-		assertTrue(modelAndView.getModel().isEmpty());
+		assertEquals(user, modelAndView.getModel().get("user"));
 		assertEquals("lobby", modelAndView.getViewName());
 	}
 	
