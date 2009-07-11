@@ -3,7 +3,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-	<title>Chess (same computer) - Brasee.com</title>
+	<title>Play Chess (same computer) - Brasee.com</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/menu.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/chessSingleClient.css" type="text/css" media="screen" />
