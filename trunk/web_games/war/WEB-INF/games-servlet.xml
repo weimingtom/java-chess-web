@@ -29,7 +29,7 @@
 	<bean id="lobbyUserManager" class="com.brasee.games.lobby.UserManager" />
 	<bean id="lobbyJsonController" class="com.brasee.games.lobby.LobbyJsonController"
 		p:chatManager-ref="lobbyChatManager" 
-		p:userManager-ref="userManager" />
+		p:userManager-ref="lobbyUserManager" />
 	<bean id="lobbyUiController" class="com.brasee.games.lobby.LobbyUiController" />
 
 	<bean id="viewResolver"
