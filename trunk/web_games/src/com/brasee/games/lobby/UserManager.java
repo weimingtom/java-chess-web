@@ -3,6 +3,7 @@ package com.brasee.games.lobby;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,7 +16,7 @@ public class UserManager {
 	/** Maps the sessionId to the time it last sent a refresh */
 	private Map<String, Long> userRefreshMap = new HashMap<String, Long>();
 	
-	private long expiryTimeInMilliseconds = 10000;
+	private long expiryTimeInMilliseconds = 5000;
 	
 	/**
 	 * Indicates that this user is connected at the current time.
@@ -25,8 +26,10 @@ public class UserManager {
 	 */
 	public void refreshUser(String sessionId, String userName) {
 		Long currentTime = System.currentTimeMillis();
-		userNameMap.put(sessionId, userName);
-		userRefreshMap.put(sessionId, currentTime);
+		synchronized(userRefreshMap) {
+			userNameMap.put(sessionId, userName);
+			userRefreshMap.put(sessionId, currentTime);
+		}
 	}
 	
 	/**
@@ -38,8 +41,15 @@ public class UserManager {
 	 */
 	public List<String> getCurrentUserNames() {
 		List<String> currentUserNames = new ArrayList<String>();
-		Set<String> sessionIds = userRefreshMap.keySet();
 		Long currentTime = System.currentTimeMillis();
+		
+		Set<String> sessionIds = new HashSet<String>();
+		synchronized(userRefreshMap) {
+			for (String sessionId : userRefreshMap.keySet()) {
+				sessionIds.add(new String(sessionId));
+			}
+		}
+
 		for (String sessionId : sessionIds) {
 			Long lastRefreshTime = userRefreshMap.get(sessionId);
 			if (lastRefreshTime == null || 
@@ -51,6 +61,7 @@ public class UserManager {
 				currentUserNames.add(userNameMap.get(sessionId));
 			}
 		}
+
 		Collections.sort(currentUserNames);
 		return currentUserNames;
 	}

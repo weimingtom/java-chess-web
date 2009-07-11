@@ -22,7 +22,7 @@ public class LobbyUiController extends AbstractController {
 		
 		if (METHOD_POST.equals(request.getMethod())) {
 			String username = request.getParameter(USERNAME_INPUT);
-			if (username == null || username.length() > 25) {
+			if (username == null || username.isEmpty() || username.length() > 25) {
 				username = DEFAULT_USERNAME;
 			}
 			GamesUser user = new GamesUser();
