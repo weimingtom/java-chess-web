@@ -25,7 +25,7 @@
 			<div id="nav">
 				<ul>
 					<li><a href="lobby.htm"><img src="img/chess_icon.png" alt="Chess Lobby"/> Chess Lobby</a></li>
-					<li><a href="chessSingleClient.htm"><img src="img/chess_icon.png" alt="Chess (same computer)"/> Chess (same computer)</a></li>
+					<li><a href="chessSingleClient.htm"><img src="img/chess_icon.png" alt="Play Chess (same computer)"/> Play Chess (same computer)</a></li>
 				</ul>
   			</div> 
 			<div id="container">
