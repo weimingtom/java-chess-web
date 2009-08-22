@@ -42,6 +42,16 @@ public abstract class AbstractPiece implements Piece {
 	@Override
 	public abstract PieceType pieceType();
 	
+	@Override
+	public boolean equals(Object obj) {
+		boolean equals = false;
+		if (obj != null && obj instanceof Piece) {
+			Piece that = (Piece)obj;
+			equals = this.pieceType().equals(that.pieceType()) && this.color().equals(that.color()); 
+		}
+		return equals;
+	}
+
 	protected boolean validSetupForMove(Board board, Square currentSquare, Square emptySquare) {
 		return (this == board.pieceOn(currentSquare) && !board.hasPieceOn(emptySquare));
 	}
