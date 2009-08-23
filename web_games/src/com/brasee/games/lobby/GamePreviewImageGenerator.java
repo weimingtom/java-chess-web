@@ -4,30 +4,11 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.imageio.ImageIO;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
-import org.springframework.core.io.Resource;
-
-import com.brasee.chess.Board;
 import com.brasee.chess.Game;
 import com.brasee.chess.Square;
-import com.brasee.chess.pieces.Knight;
 import com.brasee.chess.pieces.Piece;
-import com.brasee.chess.pieces.Piece.Color;
 
 public class GamePreviewImageGenerator {
 
@@ -63,33 +44,6 @@ public class GamePreviewImageGenerator {
 	    }
    
 	    return image;
-	}
-	
-	public static void main(String[] args) {
-		BufferedImage boardImage = null;
-		Map<Piece, BufferedImage> pieceImages = new HashMap<Piece, BufferedImage>();
-		
-		try {
-			//ApplicationContext context = new FileSystemXmlApplicationContext();
-			//Resource boardImageResource = context.getResource("d:/Kaleb/java/chess/web_games/war/img/board_small.png");
-			ApplicationContext context = new ClassPathXmlApplicationContext();
-			Resource boardImageResource = context.getResource("classpath:board_small.png");
-			boardImage = ImageIO.read(boardImageResource.getFile());
-			//Resource knightBlackImageResource = context.getResource("d:/Kaleb/java/chess/web_games/war/img/knight_black_small.png");
-			Resource knightBlackImageResource = context.getResource("classpath:knight_black_small.png");
-			BufferedImage knightBlackImage = ImageIO.read(knightBlackImageResource.getFile());
-			pieceImages = new HashMap<Piece, BufferedImage>();
-			pieceImages.put(new Knight(Color.BLACK), knightBlackImage);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		GamePreviewImageGenerator generator = new GamePreviewImageGenerator(boardImage, pieceImages);
-		Game game = new Game();
-		game.initializeBoard();
-		//BufferedImage image = generator.createPngPreviewImage(game);
-	    //testFileOutput(image);
 	}
 	
 }
