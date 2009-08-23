@@ -16,7 +16,7 @@ public class GamePreviewImageGenerator {
 	public static final int SQUARE_SIZE = 25;
 	public static final String IMAGE_FORMAT = "PNG";
 	
-	public BufferedImage boardImage;
+	private BufferedImage boardImage;
 	private Map<Piece, BufferedImage> pieceImages;
 	
 	public GamePreviewImageGenerator(BufferedImage boardImage, Map<Piece, BufferedImage> pieceImages) {
