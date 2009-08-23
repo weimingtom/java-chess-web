@@ -15,7 +15,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import com.brasee.chess.Game;
 import com.brasee.chess.Square;
 
-public class GamePreviewImageGeneratorTestCase {
+public class GamePreviewImageGeneratorTest {
 
 	private GamePreviewImageGeneratorFactory factory;
 	private Game game;
