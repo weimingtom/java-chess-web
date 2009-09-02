@@ -28,6 +28,7 @@ public class GamePreviewView implements View {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void render(Map model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//Expire response
 		response.setHeader("Cache-Control", "no-cache");
