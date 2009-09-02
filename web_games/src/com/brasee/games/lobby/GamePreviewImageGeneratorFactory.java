@@ -34,7 +34,7 @@ public class GamePreviewImageGeneratorFactory {
 	private Resource blackRookResource;
 	private Resource blackKnightResource;
 	private Resource blackKingResource;
-	private Resource blackQueenResource;	
+	private Resource blackQueenResource;
 	
 	public synchronized GamePreviewImageGenerator getInstance() {
 		if (instance == null) {
