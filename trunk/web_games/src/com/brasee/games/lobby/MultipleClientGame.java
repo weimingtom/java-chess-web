@@ -1,34 +1,24 @@
 package com.brasee.games.lobby;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.brasee.chess.Game;
+import com.brasee.chess.pieces.Piece.Color;
 
 public class MultipleClientGame {
 
 	private Game game;
-	private String whitePlayerSessionId;
-	private String blackPlayerSessionId;
+	private Map<Color, String> playerSessionIds;
 	
 	public MultipleClientGame() {
+		playerSessionIds = new HashMap<Color, String>();
 		this.game = new Game();
+		game.initializeBoard();
 	}
 	
 	public Game getGame() {
 		return game;
 	}
-
-	public String getWhitePlayerSessionId() {
-		return whitePlayerSessionId;
-	}
-
-	public void setWhitePlayerSessionId(String whitePlayerSessionId) {
-		this.whitePlayerSessionId = whitePlayerSessionId;
-	}
-
-	public String getBlackPlayerSessionId() {
-		return blackPlayerSessionId;
-	}
-
-	public void setBlackPlayerSessionId(String blackPlayerSessionId) {
-		this.blackPlayerSessionId = blackPlayerSessionId;
-	}
+	
 }
