@@ -10,7 +10,6 @@ import org.springframework.web.servlet.mvc.AbstractController;
 public class GamePreviewController extends AbstractController {
 
 	private MultipleClientGameManager gameManager;
-	private GamePreviewImageGeneratorFactory imageGeneratorFactory;
 	
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -20,7 +19,7 @@ public class GamePreviewController extends AbstractController {
 			Integer gameId = Integer.parseInt(gameIdParameter);
 			MultipleClientGame multipleClientGame = gameManager.getGame(gameId);
 			if (multipleClientGame != null) {
-				modelAndView = new ModelAndView(new GamePreviewView(multipleClientGame.getGame(), imageGeneratorFactory.getInstance()));
+				modelAndView = new ModelAndView(new GamePreviewView(multipleClientGame));
 			}
 		}
 		return modelAndView;
@@ -28,10 +27,6 @@ public class GamePreviewController extends AbstractController {
 
 	public void setGameManager(MultipleClientGameManager gameManager) {
 		this.gameManager = gameManager;
-	}
-
-	public void setImageGeneratorFactory(GamePreviewImageGeneratorFactory imageGeneratorFactory) {
-		this.imageGeneratorFactory = imageGeneratorFactory;
 	}
 
 }
