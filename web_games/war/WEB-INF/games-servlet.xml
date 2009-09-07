@@ -24,7 +24,7 @@
 	<bean id="chessSingleClientJsonController" class="com.brasee.games.chess.web.ChessSingleClientJsonController" />
 	<bean id="chessSingleClientUiController" class="com.brasee.games.chess.web.ChessSingleClientUiController" />
 	
-	<bean id="createMultipleClientGameController" class="com.brasee.games.chess.web.CreateMultipleClientGameController" />
+	<bean id="chessMultipleClientUiController" class="com.brasee.games.chess.web.ChessMultipleClientUiController" />
 	
 	<bean id="lobbyChatManager" class="com.brasee.games.lobby.ChatManager">
 		<constructor-arg value="100" />
