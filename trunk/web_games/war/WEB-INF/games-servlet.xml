@@ -37,10 +37,10 @@
 	<bean id="lobbyUiController" class="com.brasee.games.lobby.LobbyUiController" />
 
 	<bean id="gamePreviewController" class="com.brasee.games.lobby.GamePreviewController"
-		p:gameManager-ref="multipleClientGameManager"
-		p:imageGeneratorFactory-ref="gamePreviewImageGeneratorFactory" />
+		p:gameManager-ref="multipleClientGameManager" />
 	<bean id="multipleClientGameManager" class="com.brasee.games.lobby.MultipleClientGameManager">
 		<constructor-arg index="0" type="int" value="6" />
+		<constructor-arg index="1" ref="gamePreviewImageGeneratorFactory" />
 	</bean>
 	<bean id="gamePreviewImageGeneratorFactory" class="com.brasee.games.lobby.GamePreviewImageGeneratorFactory" 
 		p:boardResource="img/board_small.png"

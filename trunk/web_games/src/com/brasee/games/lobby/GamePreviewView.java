@@ -10,16 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.View;
 
-import com.brasee.chess.Game;
-
 public class GamePreviewView implements View {
 
-	private Game game;
-	private GamePreviewImageGenerator imageGenerator;
+	private MultipleClientGame game;
 
-	public GamePreviewView(Game game, GamePreviewImageGenerator imageGenerator) {
+	public GamePreviewView(MultipleClientGame game) {
 		this.game = game;
-		this.imageGenerator = imageGenerator;
 	}
 
 	@Override
@@ -36,7 +32,7 @@ public class GamePreviewView implements View {
 		response.setHeader("Pragma", "no-cache");
 		response.setDateHeader("Max-Age", 0);
 
-		BufferedImage previewImage = imageGenerator.createPngPreviewImage(game);
+		BufferedImage previewImage = game.getPreviewImage();
 		OutputStream responseStream = response.getOutputStream();
 		ImageIO.write(previewImage, "PNG", responseStream);
 	}

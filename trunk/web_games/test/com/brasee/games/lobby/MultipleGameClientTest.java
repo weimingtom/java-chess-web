@@ -14,12 +14,17 @@ public class MultipleGameClientTest {
 	
 	@Before
 	public void setUp() {
-		manager = new MultipleClientGameManager(DEFAULT_NUMBER_OF_GAMES);
+		manager = new MultipleClientGameManager(DEFAULT_NUMBER_OF_GAMES, new GamePreviewImageGeneratorFactory());
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testNumberOfGamesMustBeGreaterThan0() {
-		new MultipleClientGameManager(0);
+		new MultipleClientGameManager(0, new GamePreviewImageGeneratorFactory());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testImageGeneratoryFactoryMustNotBeNull() {
+		new MultipleClientGameManager(6, null);
 	}
 	
 	@Test
