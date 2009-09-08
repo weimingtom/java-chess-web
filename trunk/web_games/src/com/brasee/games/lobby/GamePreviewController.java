@@ -3,9 +3,10 @@ package com.brasee.games.lobby;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+
+import com.brasee.games.chess.web.MultipleClientGameHelper;
 
 public class GamePreviewController extends AbstractController {
 
@@ -14,14 +15,12 @@ public class GamePreviewController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
-		String gameIdParameter = request.getParameter("gameId");
-		if (gameIdParameter != null && StringUtils.isNumeric(gameIdParameter)) {
-			Integer gameId = Integer.parseInt(gameIdParameter);
-			MultipleClientGame multipleClientGame = gameManager.getGame(gameId);
-			if (multipleClientGame != null) {
-				modelAndView = new ModelAndView(new GamePreviewView(multipleClientGame));
-			}
+		
+		MultipleClientGame game = MultipleClientGameHelper.retrieveGame(request.getParameter("gameId"), gameManager);
+		if (game != null) {
+			modelAndView = new ModelAndView(new GamePreviewView(game));
 		}
+
 		return modelAndView;
 	}
 
