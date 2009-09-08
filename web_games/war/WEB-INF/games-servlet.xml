@@ -13,7 +13,8 @@
 			<props>
 				<prop key="/chessSingleClient.json">chessSingleClientJsonController</prop>
 				<prop key="/chessSingleClient.htm">chessSingleClientUiController</prop>
-				<prop key="/createMultipleClientGame.htm">createMultipleClientGameController</prop>
+				<prop key="/chessMultipleClient.json">chessMultipleClientJsonController</prop>
+				<prop key="/chessMultipleClient.htm">chessMultipleClientUiController</prop>
 				<prop key="/lobby.json">lobbyJsonController</prop>
 				<prop key="/lobby.htm">lobbyUiController</prop>
 				<prop key="/gamePreview.htm">gamePreviewController</prop>
@@ -24,8 +25,11 @@
 	<bean id="chessSingleClientJsonController" class="com.brasee.games.chess.web.ChessSingleClientJsonController" />
 	<bean id="chessSingleClientUiController" class="com.brasee.games.chess.web.ChessSingleClientUiController" />
 	
-	<bean id="chessMultipleClientUiController" class="com.brasee.games.chess.web.ChessMultipleClientUiController" />
-	
+	<bean id="chessMultipleClientUiController" class="com.brasee.games.chess.web.ChessMultipleClientUiController"
+		p:gameManager-ref="multipleClientGameManager" />
+	<bean id="chessMultipleClientJsonController" class="com.brasee.games.chess.web.ChessMultipleClientJsonController"
+		p:gameManager-ref="multipleClientGameManager" />
+
 	<bean id="lobbyChatManager" class="com.brasee.games.lobby.ChatManager">
 		<constructor-arg value="100" />
 		<constructor-arg value="10" />
@@ -34,12 +38,13 @@
 	<bean id="lobbyJsonController" class="com.brasee.games.lobby.LobbyJsonController"
 		p:chatManager-ref="lobbyChatManager" 
 		p:userManager-ref="lobbyUserManager" />
-	<bean id="lobbyUiController" class="com.brasee.games.lobby.LobbyUiController" />
+	<bean id="lobbyUiController" class="com.brasee.games.lobby.LobbyUiController" 
+		p:gameManager-ref="multipleClientGameManager" />
 
 	<bean id="gamePreviewController" class="com.brasee.games.lobby.GamePreviewController"
 		p:gameManager-ref="multipleClientGameManager" />
 	<bean id="multipleClientGameManager" class="com.brasee.games.lobby.MultipleClientGameManager">
-		<constructor-arg index="0" type="int" value="6" />
+		<constructor-arg index="0" type="int" value="3" />
 		<constructor-arg index="1" ref="gamePreviewImageGeneratorFactory" />
 	</bean>
 	<bean id="gamePreviewImageGeneratorFactory" class="com.brasee.games.lobby.GamePreviewImageGeneratorFactory" 

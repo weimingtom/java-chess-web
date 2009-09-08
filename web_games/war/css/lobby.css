@@ -1,22 +1,10 @@
 /* Lobby page styles */
 
-#topcontent {
-	float: left;
-	width: 950px;
-	margin: auto;
-	padding: 0px;
-}
-
 #leftcontent {
 	float: left;
 	width: 660px;
 	margin: auto;
 	padding: 0px;
-	
-	/* min-height with an IE6 hack */
-	min-height: 500px;
-	height: auto !important;
-	height: 500px;
 }
 
 #rightcontent {
@@ -24,23 +12,26 @@
 	width: 260px;
 	margin: auto;
 	padding-left: 10px;
-	
-	/* min-height with an IE6 hack */
-	min-height: 500px;
-	height: auto !important;
-	height: 500px;
+}
+
+#bottomcontent {
+	float: left;
+	width: 940px;
+	margin: auto;
+	padding: 0px;
 }
 
 #singlecontent {
 	float: left;
 	width: 940px;
 	margin: auto;
+	padding: 0px;
 }
 
 #chatOutput {
 	border: 3px solid #f0f0f0;
-	width: 630px;
-	height: 300px;
+	width: 920px;
+	height: 200px;
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 1.2em;
 	text-align: left;
@@ -48,7 +39,7 @@
 }
 
 #chatInput {
-	width: 630px;
+	width: 920px;
 	border: 3px solid #cccccc;
 	font-family:  Verdana, Arial, Helvetica, sans-serif;
 	font-size: 1.2em;
@@ -122,6 +113,19 @@
 	text-align: center;
 	padding: 3px;
 	height: 350px;
+}
+
+.bottomSubpanelDivOuter {
+	background-color: #CCCCCC;
+	padding: 3px;
+	margin-bottom: 10px;
+}
+
+.bottomSubpanelDivInner {
+	background-color: #FFFFFF;
+	text-align: center;
+	padding: 3px;
+	height: 235px;
 }
 
 .timestampText {

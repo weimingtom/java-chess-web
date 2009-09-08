@@ -16,7 +16,7 @@
 		$(document).ready(function() {
 			initialize();
 		});
-	</script>	
+	</script>
 </head>
 <body>
 	<div id="pageborder">
@@ -29,25 +29,38 @@
 				</ul>
   			</div> 
 			<div id="container">
+				
 				<div id="leftcontent">
-
-					<div class="leftSubpanelDivOuter"><div class="leftSubpanelDivInner">
-						<center><div id="chatOutput"></div></center>
-						<input type="text" id="chatInput"></input>
-					</div></div> 
-					
-				</div> <!-- /leftcontent -->
+					<table border="0" cellspacing="0" cellpadding="5">
+						<tr>
+							<c:forEach items="${gameMap}" var="gameMapEntry">
+								<td>
+									<b>Game ${gameMapEntry.key}</b>
+									<br/> 
+									<img src="gamePreview.htm?gameId=${gameMapEntry.key}" />
+									<br/>
+									<b>${gameMapEntry.value}</b>
+								</td>
+							</c:forEach>
+						</tr>
+					</table>
+				</div>	<!-- /leftcontent -->
 				
 				<div id="rightcontent">
-				
 					<center><h3>Welcome, ${user.name}!</h3></center>
 					<br/>
 					<div class="subpanelDivOuter"><div class="subpanelDivInner">
 						<div class="subpanelHeader">Online Users</div>
 						<span id="userList"></span>
 					</div></div>
-					
 				</div> <!-- /rightcontent -->
+				
+				<div id="bottomcontent">
+					<div class="bottomSubpanelDivOuter"><div class="bottomSubpanelDivInner">
+						<center><div id="chatOutput"></div></center>
+						<input type="text" id="chatInput"></input>
+					</div></div> 
+				</div> <!-- /bottomcontent -->
 				
 			</div> <!-- /container -->
 			<div id="footer-wrapper">
