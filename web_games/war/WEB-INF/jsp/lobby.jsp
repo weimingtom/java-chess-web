@@ -31,17 +31,17 @@
 			<div id="container">
 				
 				<div id="leftcontent">
-					<table border="0" cellspacing="0" cellpadding="5">
+					<table border="0" cellpadding="0" cellspacing="0" width="660px">
 						<tr>
-							<c:forEach items="${gameMap}" var="gameMapEntry">
-								<td>
-									<b>Game ${gameMapEntry.key}</b>
-									<br/> 
-									<img src="gamePreview.htm?gameId=${gameMapEntry.key}" />
-									<br/>
-									<b>${gameMapEntry.value}</b>
-								</td>
-							</c:forEach>
+						<c:forEach items="${gameMap}" var="gameMapEntry" varStatus="status">
+							<c:if test="${status.index % 3 == 0 && !status.first && !status.last}"></tr><tr></c:if>
+							<td width="220px">
+								<h3>Game #${gameMapEntry.key}</h3>
+								<img src="gamePreview.htm?gameId=${gameMapEntry.key}" />
+								<br/>
+								<h4>${gameMapEntry.value}</h4>
+							</td>
+						</c:forEach>
 						</tr>
 					</table>
 				</div>	<!-- /leftcontent -->
