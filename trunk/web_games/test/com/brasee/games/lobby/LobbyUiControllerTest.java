@@ -34,9 +34,9 @@ public class LobbyUiControllerTest {
 	@Test
 	public void testControllerReturnsCorrectModelAndViewForExistingUser() {
 		LobbyUiController controller = new LobbyUiController();
+		controller.setGameManager(new MultipleClientGameManager(3, new GamePreviewImageGeneratorFactory()));
 		MockHttpSession session = new MockHttpSession();
-		GamesUser user = new GamesUser();
-		user.setName("User");
+		GamesUser user = new GamesUser("User", "111111");
 		session.setAttribute(LobbyUiController.GAMES_USER_SESSION_VARIABLE, user);
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", null);
 		request.setSession(session);

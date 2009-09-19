@@ -18,8 +18,7 @@ public class RefreshUserCommandTest extends AbstractLobbyCommandTest {
 	
 	@Before
 	public void setUp() {
-		user = new GamesUser();
-		user.setName("User");
+		user = new GamesUser("User", "111111");
 		
 		request = new MockHttpServletRequest();
 		session = new MockHttpSession();
@@ -37,7 +36,8 @@ public class RefreshUserCommandTest extends AbstractLobbyCommandTest {
 	
 	@Test
 	public void testRefreshUserCommandReturnsFailureResultWhenUserNameIsNull() {
-		user.setName(null);
+		user = new GamesUser(null, "111111");
+		session.setAttribute(LobbyUiController.GAMES_USER_SESSION_VARIABLE, user);
 		request.addParameter("command", "refresh_user");
 		
 		String expectedResult = "{\"result\":\"failure\"}";

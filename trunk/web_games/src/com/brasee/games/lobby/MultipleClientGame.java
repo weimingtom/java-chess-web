@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import com.brasee.chess.Game;
 import com.brasee.chess.Square;
@@ -12,12 +13,12 @@ import com.brasee.chess.moves.Move.MoveType;
 import com.brasee.chess.pieces.Piece;
 import com.brasee.chess.pieces.Piece.Color;
 import com.brasee.chess.pieces.Piece.PieceType;
+import com.brasee.games.GamesUser;
 
 public class MultipleClientGame {
 
 	private Game game;
-	private Map<Color, String> playerSessionIds;
-	private Map<Color, String> playerNames;
+	private ConcurrentMap<Color, GamesUser> players;
 	
 	private BufferedImage previewImage;
 	private GamePreviewImageGenerator imageGenerator;
@@ -27,8 +28,7 @@ public class MultipleClientGame {
 	public MultipleClientGame(GamePreviewImageGenerator imageGenerator) {
 		this.imageGenerator	= imageGenerator;
 		
-		playerSessionIds = new ConcurrentHashMap<Color, String>();
-		playerNames = new ConcurrentHashMap<Color, String>();
+		this.players = new ConcurrentHashMap<Color, GamesUser>();
 		this.game = new Game();
 		this.game.initializeBoard();
 
@@ -77,12 +77,15 @@ public class MultipleClientGame {
 		}
 	}
 	
-	public String getPlayerName(Color color) {
-		return playerNames.get(color);
+	public GamesUser getPlayer(Color color) {
+		return players.get(color);
 	}
-	
-	public String getPlayerSessionId(Color color) {
-		return playerSessionIds.get(color);
+
+	public void addPlayerIfColorIsAvailable(Color color, GamesUser user) {
+		Color otherColor = color.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
+		if (!user.equals(players.get(otherColor))) {
+			players.putIfAbsent(color, user);
+		}
 	}
 	
 }
