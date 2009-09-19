@@ -1,4 +1,4 @@
-package com.brasee.games.chess.web.commands;
+package com.brasee.games.chess.web.commands.singleplayer;
 
 import java.util.HashMap;
 import java.util.Map;

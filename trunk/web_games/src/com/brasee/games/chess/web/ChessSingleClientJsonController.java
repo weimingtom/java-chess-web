@@ -9,7 +9,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import com.brasee.chess.Game;
 import com.brasee.games.chess.web.commands.ChessCommand;
-import com.brasee.games.chess.web.commands.ChessCommandFactory;
+import com.brasee.games.chess.web.commands.singleplayer.SinglePlayerChessCommandFactory;
 
 public class ChessSingleClientJsonController extends AbstractController {
 
@@ -18,7 +18,7 @@ public class ChessSingleClientJsonController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Game game = createOrRetrieveSessionGame(request.getSession());
-		ChessCommand command = ChessCommandFactory.createCommand(request);
+		ChessCommand command = SinglePlayerChessCommandFactory.createCommand(request);
 		JsonView jsonView = command.processCommand(request, game);
 		return new ModelAndView(jsonView);
 	}

@@ -1,4 +1,4 @@
-package com.brasee.games.chess.web.commands;
+package com.brasee.games.chess.web.commands.singleplayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +17,7 @@ import com.brasee.games.chess.web.JsonSquare;
 import com.brasee.games.chess.web.JsonSquarePiece;
 import com.brasee.games.chess.web.JsonView;
 import com.brasee.games.chess.web.PieceTypeStringConverter;
+import com.brasee.games.chess.web.commands.ChessCommand;
 
 public abstract class AbstractChessCommand implements ChessCommand {
 
