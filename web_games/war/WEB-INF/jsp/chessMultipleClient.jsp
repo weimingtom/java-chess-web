@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="css/menu.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/chessSingleClient.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/smoothness/jquery-ui-1.7.1.custom.css" type="text/css" media="screen" />
-	<script type="text/javascript" src="js/chessSingleClient.js"></script>
+	<script type="text/javascript" src="js/chessMultipleClient.js"></script>
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.7.1.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>

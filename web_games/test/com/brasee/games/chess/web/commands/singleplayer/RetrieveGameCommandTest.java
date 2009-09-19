@@ -1,4 +1,4 @@
-package com.brasee.games.chess.web.commands;
+package com.brasee.games.chess.web.commands.singleplayer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -11,6 +11,7 @@ import org.springframework.mock.web.MockHttpSession;
 import com.brasee.chess.Game;
 import com.brasee.games.chess.web.ChessSingleClientJsonController;
 import com.brasee.games.chess.web.JsonView;
+import com.brasee.games.chess.web.commands.ChessCommand;
 
 public class RetrieveGameCommandTest {
 
@@ -23,7 +24,7 @@ public class RetrieveGameCommandTest {
 		request.setSession(session);
 		request.addParameter("command", "retrieve_game");
 
-		ChessCommand command = ChessCommandFactory.createCommand(request);
+		ChessCommand command = SinglePlayerChessCommandFactory.createCommand(request);
 		JsonView view = command.processCommand(request, existingGame);
 		
 		MockHttpServletResponse response = new MockHttpServletResponse();

@@ -1,16 +1,24 @@
-package com.brasee.games.chess.web.commands;
+package com.brasee.games.chess.web.commands.singleplayer;
 
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
+
+import com.brasee.games.chess.web.commands.ChessCommand;
+import com.brasee.games.chess.web.commands.InvalidCommand;
+import com.brasee.games.chess.web.commands.singleplayer.MoveCommand;
+import com.brasee.games.chess.web.commands.singleplayer.PromoteCommand;
+import com.brasee.games.chess.web.commands.singleplayer.ResetGameCommand;
+import com.brasee.games.chess.web.commands.singleplayer.RetrieveGameCommand;
+
 import static org.junit.Assert.*;
 
-public class ChessCommandFactoryTest {
+public class SinglePlayerChessCommandFactoryTest {
 
 	@Test
 	public void testFactoryReturnsRetrieveGameCommand() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addParameter("command", "retrieve_game");
-		ChessCommand command = ChessCommandFactory.createCommand(request);
+		ChessCommand command = SinglePlayerChessCommandFactory.createCommand(request);
 		assertTrue(command instanceof RetrieveGameCommand);
 	}
 	
@@ -18,7 +26,7 @@ public class ChessCommandFactoryTest {
 	public void testFactoryReturnsResetGameCommand() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addParameter("command", "reset_game");
-		ChessCommand command = ChessCommandFactory.createCommand(request);
+		ChessCommand command = SinglePlayerChessCommandFactory.createCommand(request);
 		assertTrue(command instanceof ResetGameCommand);
 	}
 	
@@ -26,7 +34,7 @@ public class ChessCommandFactoryTest {
 	public void testFactoryReturnsMoveCommand() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addParameter("command", "move");
-		ChessCommand command = ChessCommandFactory.createCommand(request);
+		ChessCommand command = SinglePlayerChessCommandFactory.createCommand(request);
 		assertTrue(command instanceof MoveCommand);
 	}
 	
@@ -34,7 +42,7 @@ public class ChessCommandFactoryTest {
 	public void testFactoryReturnsPromoteCommand() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addParameter("command", "promote");
-		ChessCommand command = ChessCommandFactory.createCommand(request);
+		ChessCommand command = SinglePlayerChessCommandFactory.createCommand(request);
 		assertTrue(command instanceof PromoteCommand);
 	}
 	
@@ -42,7 +50,7 @@ public class ChessCommandFactoryTest {
 	public void testFactoryReturnsInvalidCommandForEmptyString() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addParameter("command", "");
-		ChessCommand command = ChessCommandFactory.createCommand(request);
+		ChessCommand command = SinglePlayerChessCommandFactory.createCommand(request);
 		assertTrue(command instanceof InvalidCommand);
 	}
 	
@@ -50,14 +58,14 @@ public class ChessCommandFactoryTest {
 	public void testFactoryReturnsInvalidCommandForNonsenseString() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addParameter("command", "nonsense!");
-		ChessCommand command = ChessCommandFactory.createCommand(request);
+		ChessCommand command = SinglePlayerChessCommandFactory.createCommand(request);
 		assertTrue(command instanceof InvalidCommand);
 	}
 	
 	@Test
 	public void testFactoryReturnsInvalidCommandWhenNoCommandInRequest() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		ChessCommand command = ChessCommandFactory.createCommand(request);
+		ChessCommand command = SinglePlayerChessCommandFactory.createCommand(request);
 		assertTrue(command instanceof InvalidCommand);
 	}
 }

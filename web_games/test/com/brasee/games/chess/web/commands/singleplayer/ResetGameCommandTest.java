@@ -1,4 +1,4 @@
-package com.brasee.games.chess.web.commands;
+package com.brasee.games.chess.web.commands.singleplayer;
 
 import static org.junit.Assert.assertNotSame;
 
@@ -8,6 +8,7 @@ import org.springframework.mock.web.MockHttpSession;
 
 import com.brasee.chess.Game;
 import com.brasee.games.chess.web.ChessSingleClientJsonController;
+import com.brasee.games.chess.web.commands.ChessCommand;
 
 public class ResetGameCommandTest {
 
@@ -20,7 +21,7 @@ public class ResetGameCommandTest {
 		request.setSession(session);
 		request.addParameter("command", "reset_game");
 		
-		ChessCommand command = ChessCommandFactory.createCommand(request);
+		ChessCommand command = SinglePlayerChessCommandFactory.createCommand(request);
 		command.processCommand(request, existingGame);
 		assertNotSame(existingGame, session.getAttribute(ChessSingleClientJsonController.CHESS_SINGLE_CLIENT_GAME_SESSION_VARIABLE));
 	}

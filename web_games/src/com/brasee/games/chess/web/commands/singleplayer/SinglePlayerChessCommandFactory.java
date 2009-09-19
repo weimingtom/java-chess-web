@@ -1,8 +1,11 @@
-package com.brasee.games.chess.web.commands;
+package com.brasee.games.chess.web.commands.singleplayer;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class ChessCommandFactory {
+import com.brasee.games.chess.web.commands.ChessCommand;
+import com.brasee.games.chess.web.commands.InvalidCommand;
+
+public class SinglePlayerChessCommandFactory {
 
 	public static ChessCommand createCommand(HttpServletRequest request) {
 		ChessCommand chessCommand = new InvalidCommand();
