@@ -68,6 +68,19 @@
 	text-align: center;
 }
 
+.gameButton {
+	line-height: 40px;
+	margin: 0 auto;
+	padding: 5px;
+	text-align: center;
+}
+
+.gameButton span.gameButtonText {
+	font-weight: bold; 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #000000;
+}
+
 .dialogButton {
 	width: 200px;
 	height: 30px;

@@ -19,8 +19,7 @@ public class AddMessageCommandTest extends AbstractLobbyCommandTest {
 	
 	@Before
 	public void setUp() {
-		user = new GamesUser();
-		user.setName("User");
+		user = new GamesUser("User", "111111");
 		
 		request = new MockHttpServletRequest();
 		session = new MockHttpSession();

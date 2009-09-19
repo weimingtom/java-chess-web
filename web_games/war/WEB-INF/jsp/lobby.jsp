@@ -34,16 +34,40 @@
 					<table border="0" cellpadding="0" cellspacing="0" width="660px">
 						<tr>
 						<c:forEach items="${gameMap}" var="gameMapEntry" varStatus="status">
+							<c:set var="gameId" value="${gameMapEntry.key}" />
+							<c:set var="gameInfo" value="${gameMapEntry.value}" />
 							<c:if test="${status.index % 3 == 0 && !status.first && !status.last}"></tr><tr></c:if>
-							<td width="220px">
-								<h3>Game #${gameMapEntry.key}</h3>
-								<img src="gamePreview.htm?gameId=${gameMapEntry.key}" />
+							<td width="220px" align="center" valign="top">
+								<h3>Game #${gameId}</h3>
+								<img src="gamePreview.htm?gameId=${gameId}" />
 								<br/>
-								<h4>${gameMapEntry.value}</h4>
+								<h4>${gameInfo.description}</h4>
+								<c:if test="${empty gameInfo.whitePlayerName}">
+									<a href="chessMultipleClient.htm?gameId=${gameId}&action=join&color=white">
+										<span class="gameButton ui-state-default ui-corner-all">
+											<span class="gameButtonText">Play White</span>
+										</span>
+									</a>
+								</c:if>
+								<c:if test="${empty gameInfo.blackPlayerName}">
+									<a href="chessMultipleClient.htm?gameId=${gameId}&action=join&color=black">
+										<span class="gameButton ui-state-default ui-corner-all">
+											<span class="gameButtonText">Play Black</span>
+										</span>
+									</a>
+								</c:if>
+								<c:if test="${!empty gameInfo.whitePlayerName && !empty gameInfo.blackPlayerName}">
+									<a href="chessMultipleClient.htm?gameId=${gameId}">
+										<span class="gameButton ui-state-default ui-corner-all">
+											<span class="gameButtonText">Watch Game</span>
+										</span>
+									</a>
+								</c:if>
 							</td>
 						</c:forEach>
 						</tr>
 					</table>
+					<br/>
 				</div>	<!-- /leftcontent -->
 				
 				<div id="rightcontent">
