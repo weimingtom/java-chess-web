@@ -14,7 +14,7 @@ var moveIndex = -1;
 function initialize() {
 	setupSquares();
 	applyRoundedCorners();
-	retrieveGameIndex();
+	retrieveGameStatus();
 }
 
 function setupSquares() {
@@ -51,13 +51,16 @@ function retrieveGame() {
 	);
 }
 
-function retrieveGameIndex() {
-	$.post("chessMultiClient.json", { "command": "retrieve_game_index", "gameId" : gameId },
+function retrieveGameStatus() {
+	$.post("chessMultiClient.json", { "command": "retrieve_game_status", "gameId" : gameId },
 		function(data) {
 			if (moveIndex != data.move_index) {
 				retrieveGame(data);
 			}
-			setTimeout(retrieveGameIndex, GAME_RETRIEVE_TIME);
+			else {
+				refreshUser(data);
+			}
+			setTimeout(retrieveGameStatus, GAME_RETRIEVE_TIME);
 		}, 
 		"json"
 	);
@@ -82,6 +85,16 @@ function sendMove(startSquare, endSquare) {
   	"json");
 }
 
+// Refresh the names of the users, the associated color of the current user, and the ability to reset the game
+function refreshUser(data) {
+	var whitePlayerName = (data.white_player_name != null ? data.white_player_name : "White");
+	var blackPlayerName = (data.black_player_name != null ? data.black_player_name : "Black");
+	$("#white_player_name").html(whitePlayerName);
+	$("#black_player_name").html(blackPlayerName);
+	$("#playersTurn").html(generatePlayersTurnText(data.players_turn, data.player_color));
+	toggleResetButton(data.player_color); 
+}
+
 // Refresh the contents of the entire game 
 function refreshGame(data) {
 	moveIndex = data.move_index;
@@ -100,10 +113,12 @@ function refreshGame(data) {
    	addMoves(data.move_notations);
    	resetMouseCursor();
 	updateTurn(data.players_turn, data.player_color);
+	refreshUser(data);
 }
 
 // Only update the contents of the game that changed 
 function updateGame(data) {
+	moveIndex = data.move_index;
    	$.each(data.cleared_squares, function(i,item) {
    		clearSquare(item.square);
 	});	
@@ -118,13 +133,22 @@ function updateGame(data) {
 	updateTurn(data.players_turn, data.player_color);
 }
 
+function toggleResetButton(playerColor) {
+	if (playerColor == "white" || playerColor == "black") {
+		$("#resetButton").show();
+	}
+	else {
+		$("#resetButton").hide();
+	}
+}
+
 function updateTurn(color, playerColor) {
 	if (color == "white" || color == "black") {
 		$("#promotion_queen").attr('src', 'img/queen_' + color + '.png');
 		$("#promotion_knight").attr('src', 'img/knight_' + color + '.png');
 		$("#promotion_rook").attr('src', 'img/rook_' + color + '.png');
 		$("#promotion_bishop").attr('src', 'img/bishop_' + color + '.png');
-		$("#playersTurn").html(generatePlayersTurnText(color));
+		$("#playersTurn").html(generatePlayersTurnText(color, playerColor));
 		$(".square").each(function(i) {
 			if ($(this).attr('src').indexOf(color) > -1 && playerColor == color) {
 				enableDraggable($(this));
@@ -136,16 +160,23 @@ function updateTurn(color, playerColor) {
 	}
 }
 
-function generatePlayersTurnText(color) {
+function generatePlayersTurnText(color, playerColor) {
 	var playersTurnText = "";
-	if (color == "white") {
-		playersTurnText = $("#white_name").text();
+	
+	if ((color == "white" || color == "black") && color == playerColor) {
+		playersTurnText = "Your turn!";
 	}
 	else {
-		playersTurnText = $("#black_name").text();
+		if (color == "white") {
+			playersTurnText = $("#white_player_name").text();
+		}
+		else {
+			playersTurnText = $("#black_player_name").text();
+		}
+		playersTurnText += "'s turn";
 	}
 	
-	return playersTurnText + "'s turn";
+	return playersTurnText;
 }
 
 function clearBoard() {
@@ -222,7 +253,7 @@ function openPromotionDialog() {
 
 function sendPromotion(pieceType) {
 	$("#promotion_dialog").dialog('close');
-	$.post("chessSingleClient.json", { "command": "promote", "start_square": promotionStartSquare, "end_square": promotionEndSquare, "piece_type": pieceType, "gameId" : gameId },
+	$.post("chessMultiClient.json", { "command": "promote", "start_square": promotionStartSquare, "end_square": promotionEndSquare, "piece_type": pieceType, "gameId" : gameId },
 		function(data) {
 			updateGame(data);
 			var startSquare = document.getElementById(promotionStartSquare);

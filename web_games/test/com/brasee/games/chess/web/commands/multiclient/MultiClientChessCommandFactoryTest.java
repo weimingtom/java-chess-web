@@ -26,9 +26,9 @@ public class MultiClientChessCommandFactoryTest {
 	@Test
 	public void testFactoryReturnsRetrieveGameMoveIndexCommand() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
-		request.addParameter("command", "retrieve_game_index");
+		request.addParameter("command", "retrieve_game_status");
 		MultiClientChessCommand command = MultiClientChessCommandFactory.createCommand(request);
-		assertTrue(command instanceof RetrieveMultiClientGameMoveIndexCommand);
+		assertTrue(command instanceof RetrieveMultiClientGameStatusCommand);
 	}
 	
 	@Test

@@ -1,19 +1,19 @@
 package com.brasee.games.chess.web.commands.multiclient;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.brasee.games.GamesUser;
 import com.brasee.games.chess.web.JsonView;
 import com.brasee.games.lobby.MultiClientGame;
 
-public class RetrieveMultiClientGameMoveIndexCommand extends AbstractMultiClientChessCommand {
+public class RetrieveMultiClientGameStatusCommand extends AbstractMultiClientChessCommand {
 
 	@Override
 	public JsonView processCommand(HttpServletRequest request, MultiClientGame game) {
-		Map<String, Object> responseMap = new HashMap<String, Object>();
-		responseMap.put("move_index", Integer.toString(game.moves().size()));
+		GamesUser user = getUserFromRequest(request);
+		Map<String, Object> responseMap = createGameStateResponseMap(game, user);
 		return new JsonView(responseMap);
 	}
 

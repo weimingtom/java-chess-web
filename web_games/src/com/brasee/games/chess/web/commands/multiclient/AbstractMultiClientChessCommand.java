@@ -17,6 +17,7 @@ import com.brasee.games.chess.web.JsonSquare;
 import com.brasee.games.chess.web.JsonSquarePiece;
 import com.brasee.games.chess.web.JsonView;
 import com.brasee.games.chess.web.PieceTypeStringConverter;
+import com.brasee.games.lobby.LobbyUiController;
 import com.brasee.games.lobby.MultiClientGame;
 
 public abstract class AbstractMultiClientChessCommand implements MultiClientChessCommand {
@@ -28,6 +29,8 @@ public abstract class AbstractMultiClientChessCommand implements MultiClientChes
 		responseMap.put("players_turn", playersTurnToString(game.playersTurn()));
 		responseMap.put("move_index", Integer.toString(game.moves().size()));
 		responseMap.put("player_color", currentPlayerColor(game, user));
+		responseMap.put("white_player_name", getPlayerName(Color.WHITE, game));
+		responseMap.put("black_player_name", getPlayerName(Color.BLACK, game));
 		return responseMap;
 	}
 	
@@ -44,6 +47,10 @@ public abstract class AbstractMultiClientChessCommand implements MultiClientChes
 		responseMap.put("cleared_squares", generateJsonSquareList(move.clearedSquares()));
 		responseMap.put("captured_piece", capturedPieceToString(move.capturedPiece()));
 		responseMap.put("move_notation", move.notation());
+	}
+	
+	protected GamesUser getUserFromRequest(HttpServletRequest request) {
+		return (GamesUser) request.getSession().getAttribute(LobbyUiController.GAMES_USER_SESSION_VARIABLE);
 	}
 	
 	private String currentPlayerColor(MultiClientGame game, GamesUser user) {
@@ -110,6 +117,15 @@ public abstract class AbstractMultiClientChessCommand implements MultiClientChes
 		else {
 			return "black";
 		}
+	}
+	
+	private String getPlayerName(Color color, MultiClientGame game) {
+		String playerName = null;
+		GamesUser user = game.getPlayer(color);
+		if (user != null) {
+			playerName = user.getName();
+		}
+		return playerName;
 	}
 
 }
