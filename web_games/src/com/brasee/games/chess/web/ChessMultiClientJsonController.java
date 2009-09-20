@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
+import com.brasee.games.chess.web.commands.multiclient.InvalidMultiClientCommand;
 import com.brasee.games.chess.web.commands.multiclient.MultiClientChessCommand;
 import com.brasee.games.chess.web.commands.multiclient.MultiClientChessCommandFactory;
 import com.brasee.games.lobby.MultiClientGame;
@@ -18,7 +19,13 @@ public class ChessMultiClientJsonController extends AbstractController {
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception { 
 		MultiClientGame game = gameManager.retrieveGame(request.getParameter("gameId"));
-		MultiClientChessCommand command = MultiClientChessCommandFactory.createCommand(request);
+		MultiClientChessCommand command = null;
+		if (game != null) {
+			command = MultiClientChessCommandFactory.createCommand(request);
+		}
+		else {
+			command = new InvalidMultiClientCommand();
+		}
 		JsonView jsonView = command.processCommand(request, game);
 		return new ModelAndView(jsonView);
 	}
