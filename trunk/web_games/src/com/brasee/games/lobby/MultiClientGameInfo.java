@@ -2,13 +2,13 @@ package com.brasee.games.lobby;
 
 import com.brasee.chess.pieces.Piece.Color;
 
-public class MultipleClientGameInfo {
+public class MultiClientGameInfo {
 
 	private final String description;
 	private final String blackPlayerName;
 	private final String whitePlayerName;
 	
-	public MultipleClientGameInfo(MultipleClientGame game) {
+	public MultiClientGameInfo(MultiClientGame game) {
 		if (game == null) {
 			throw new IllegalArgumentException("MultipleClientGame parameter must not be null");
 		}
@@ -18,7 +18,7 @@ public class MultipleClientGameInfo {
 		this.description = generateGameDescription(game);
 	}
 	
-	private String generateGameDescription(MultipleClientGame game) {
+	private String generateGameDescription(MultiClientGame game) {
 		String gameDescription = "";
 
 		if (game.getPlayer(Color.WHITE) == null && game.getPlayer(Color.BLACK) == null) {

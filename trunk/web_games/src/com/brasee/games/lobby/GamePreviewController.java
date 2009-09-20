@@ -8,13 +8,13 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 public class GamePreviewController extends AbstractController {
 
-	private MultipleClientGameManager gameManager;
+	private MultiClientGameManager gameManager;
 	
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		MultipleClientGame game = gameManager.retrieveGame(request.getParameter("gameId"));
+		MultiClientGame game = gameManager.retrieveGame(request.getParameter("gameId"));
 		if (game != null) {
 			modelAndView = new ModelAndView(new GamePreviewView(game));
 		}
@@ -22,7 +22,7 @@ public class GamePreviewController extends AbstractController {
 		return modelAndView;
 	}
 
-	public void setGameManager(MultipleClientGameManager gameManager) {
+	public void setGameManager(MultiClientGameManager gameManager) {
 		this.gameManager = gameManager;
 	}
 

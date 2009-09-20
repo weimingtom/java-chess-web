@@ -18,7 +18,7 @@ public class LobbyUiController extends AbstractController {
 	private static String DEFAULT_USERNAME = "Anonymous";
 	private static String USERNAME_INPUT = "usernameInput";
 	
-	private MultipleClientGameManager gameManager;
+	private MultiClientGameManager gameManager;
 	
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -48,17 +48,17 @@ public class LobbyUiController extends AbstractController {
 		return modelAndView;
 	}
 	
-	private Map<Integer, MultipleClientGameInfo> generateGameMap() {
-		Map<Integer, MultipleClientGameInfo> gameMap = new TreeMap<Integer, MultipleClientGameInfo>();
+	private Map<Integer, MultiClientGameInfo> generateGameMap() {
+		Map<Integer, MultiClientGameInfo> gameMap = new TreeMap<Integer, MultiClientGameInfo>();
 		
 		for (int i = 1; i <= gameManager.getNumberOfGames(); i++) {
-			gameMap.put(i, new MultipleClientGameInfo(gameManager.getGame(i)));
+			gameMap.put(i, new MultiClientGameInfo(gameManager.getGame(i)));
 		}
 		
 		return gameMap;
 	}
 
-	public void setGameManager(MultipleClientGameManager gameManager) {
+	public void setGameManager(MultiClientGameManager gameManager) {
 		this.gameManager = gameManager;
 	}
 

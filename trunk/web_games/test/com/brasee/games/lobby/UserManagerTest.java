@@ -66,9 +66,9 @@ public class UserManagerTest {
 	
 	@Test
 	public void testExpiryRemovesAUserFromCurrentUsersList() throws Exception {
-		manager.setExpiryTimeInMilliseconds(100);
+		// Note: negative expiration time limits are stupid, and used for unit testing purposed only
+		manager.setExpiryTimeInMilliseconds(-1);
 		manager.refreshUser("sessionId", "User Name");
-		Thread.sleep(200);
 		assertTrue(manager.getCurrentUserNames().isEmpty());
 	}
 }

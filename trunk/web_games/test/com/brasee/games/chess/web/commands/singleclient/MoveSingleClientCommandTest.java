@@ -1,4 +1,4 @@
-package com.brasee.games.chess.web.commands.singleplayer;
+package com.brasee.games.chess.web.commands.singleclient;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -11,9 +11,10 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import com.brasee.chess.Game;
 import com.brasee.games.chess.web.JsonView;
-import com.brasee.games.chess.web.commands.ChessCommand;
+import com.brasee.games.chess.web.commands.singleclient.SingleClientChessCommand;
+import com.brasee.games.chess.web.commands.singleclient.SingleClientChessCommandFactory;
 
-public class MoveCommandTest {
+public class MoveSingleClientCommandTest {
 
 	@Test
 	public void testMoveCommandReturnsCorrectViewForValidInput() {
@@ -41,7 +42,7 @@ public class MoveCommandTest {
 		
 		Game game = new Game();
 		game.initializeBoard();
-		ChessCommand command = SinglePlayerChessCommandFactory.createCommand(request);
+		SingleClientChessCommand command = SingleClientChessCommandFactory.createCommand(request);
 		JsonView view = command.processCommand(request, game);
 		
 		MockHttpServletResponse response = new MockHttpServletResponse();

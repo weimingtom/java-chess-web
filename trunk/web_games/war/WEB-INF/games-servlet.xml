@@ -13,8 +13,8 @@
 			<props>
 				<prop key="/chessSingleClient.json">chessSingleClientJsonController</prop>
 				<prop key="/chessSingleClient.htm">chessSingleClientUiController</prop>
-				<prop key="/chessMultipleClient.json">chessMultipleClientJsonController</prop>
-				<prop key="/chessMultipleClient.htm">chessMultipleClientUiController</prop>
+				<prop key="/chessMultiClient.json">chessMultiClientJsonController</prop>
+				<prop key="/chessMultiClient.htm">chessMultiClientUiController</prop>
 				<prop key="/lobby.json">lobbyJsonController</prop>
 				<prop key="/lobby.htm">lobbyUiController</prop>
 				<prop key="/gamePreview.htm">gamePreviewController</prop>
@@ -25,9 +25,9 @@
 	<bean id="chessSingleClientJsonController" class="com.brasee.games.chess.web.ChessSingleClientJsonController" />
 	<bean id="chessSingleClientUiController" class="com.brasee.games.chess.web.ChessSingleClientUiController" />
 	
-	<bean id="chessMultipleClientUiController" class="com.brasee.games.chess.web.ChessMultipleClientUiController"
+	<bean id="chessMultiClientUiController" class="com.brasee.games.chess.web.ChessMultiClientUiController"
 		p:gameManager-ref="multipleClientGameManager" />
-	<bean id="chessMultipleClientJsonController" class="com.brasee.games.chess.web.ChessMultipleClientJsonController"
+	<bean id="chessMultiClientJsonController" class="com.brasee.games.chess.web.ChessMultiClientJsonController"
 		p:gameManager-ref="multipleClientGameManager" />
 
 	<bean id="lobbyChatManager" class="com.brasee.games.lobby.ChatManager">
@@ -43,7 +43,7 @@
 
 	<bean id="gamePreviewController" class="com.brasee.games.lobby.GamePreviewController"
 		p:gameManager-ref="multipleClientGameManager" />
-	<bean id="multipleClientGameManager" class="com.brasee.games.lobby.MultipleClientGameManager">
+	<bean id="multipleClientGameManager" class="com.brasee.games.lobby.MultiClientGameManager">
 		<constructor-arg index="0" type="int" value="3" />
 		<constructor-arg index="1" ref="gamePreviewImageGeneratorFactory" />
 	</bean>

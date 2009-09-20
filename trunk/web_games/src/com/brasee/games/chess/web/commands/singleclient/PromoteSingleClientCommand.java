@@ -1,4 +1,4 @@
-package com.brasee.games.chess.web.commands.singleplayer;
+package com.brasee.games.chess.web.commands.singleclient;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +11,9 @@ import com.brasee.chess.Game;
 import com.brasee.chess.Square;
 import com.brasee.chess.moves.Move;
 import com.brasee.games.chess.web.JsonView;
+import com.brasee.games.chess.web.PieceTypeStringConverter;
 
-public class MoveCommand extends AbstractChessCommand {
+public class PromoteSingleClientCommand extends AbstractSingleClientChessCommand {
 
 	@Override
 	public JsonView processCommand(HttpServletRequest request, Game game) {
@@ -21,7 +22,9 @@ public class MoveCommand extends AbstractChessCommand {
 		try {
 			String startSquare = request.getParameter("start_square");
 			String endSquare = request.getParameter("end_square");
-			Move move = game.move(new Square(startSquare), new Square(endSquare));
+			String pieceType = request.getParameter("piece_type");
+			Move move = game.promote(new Square(startSquare), new Square(endSquare),
+					PieceTypeStringConverter.stringToPieceType(pieceType));
 			responseMap = createGameStateResponseMap(game);
 			addSingleMoveInfoToResponse(move, responseMap);
 		}
@@ -32,6 +35,5 @@ public class MoveCommand extends AbstractChessCommand {
 		
 		return new JsonView(responseMap);
 	}
-
 
 }

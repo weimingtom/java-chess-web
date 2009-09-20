@@ -43,21 +43,21 @@
 								<br/>
 								<h4>${gameInfo.description}</h4>
 								<c:if test="${empty gameInfo.whitePlayerName}">
-									<a href="chessMultipleClient.htm?gameId=${gameId}&action=join&color=white">
+									<a href="chessMultiClient.htm?gameId=${gameId}&action=join&color=white">
 										<span class="gameButton ui-state-default ui-corner-all">
 											<span class="gameButtonText">Play White</span>
 										</span>
 									</a>
 								</c:if>
 								<c:if test="${empty gameInfo.blackPlayerName}">
-									<a href="chessMultipleClient.htm?gameId=${gameId}&action=join&color=black">
+									<a href="chessMultiClient.htm?gameId=${gameId}&action=join&color=black">
 										<span class="gameButton ui-state-default ui-corner-all">
 											<span class="gameButtonText">Play Black</span>
 										</span>
 									</a>
 								</c:if>
 								<c:if test="${!empty gameInfo.whitePlayerName && !empty gameInfo.blackPlayerName}">
-									<a href="chessMultipleClient.htm?gameId=${gameId}">
+									<a href="chessMultiClient.htm?gameId=${gameId}">
 										<span class="gameButton ui-state-default ui-corner-all">
 											<span class="gameButtonText">Watch Game</span>
 										</span>

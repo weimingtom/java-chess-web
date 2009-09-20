@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import com.brasee.chess.Game;
 import com.brasee.chess.Square;
+import com.brasee.chess.moves.InvalidMove;
 import com.brasee.chess.moves.Move;
 import com.brasee.chess.moves.Move.MoveType;
 import com.brasee.chess.pieces.Piece;
@@ -15,7 +16,7 @@ import com.brasee.chess.pieces.Piece.Color;
 import com.brasee.chess.pieces.Piece.PieceType;
 import com.brasee.games.GamesUser;
 
-public class MultipleClientGame {
+public class MultiClientGame {
 
 	private Game game;
 	private ConcurrentMap<Color, GamesUser> players;
@@ -25,7 +26,7 @@ public class MultipleClientGame {
 	
 	private Object previewImageLock = new Object();
 	
-	public MultipleClientGame(GamePreviewImageGenerator imageGenerator) {
+	public MultiClientGame(GamePreviewImageGenerator imageGenerator) {
 		this.imageGenerator	= imageGenerator;
 		
 		this.players = new ConcurrentHashMap<Color, GamesUser>();
@@ -35,11 +36,14 @@ public class MultipleClientGame {
 		this.previewImage = this.imageGenerator.createPngPreviewImage(this.game);
 	}
 	
-	public Move move(Square startSquare, Square endSquare) {
-		Move move = game.move(startSquare, endSquare);
-		if (!move.moveType().equals(MoveType.INVALID)) {
-			synchronized (previewImageLock) {
-				this.previewImage = this.imageGenerator.createPngPreviewImage(game);	
+	public Move move(Square startSquare, Square endSquare, GamesUser user) {
+		Move move = InvalidMove.execute();
+		if (isUsersTurn(user)) {
+			move = game.move(startSquare, endSquare);
+			if (!move.moveType().equals(MoveType.INVALID)) {
+				synchronized (previewImageLock) {
+					this.previewImage = this.imageGenerator.createPngPreviewImage(game);	
+				}
 			}
 		}
 		return move;
@@ -53,14 +57,30 @@ public class MultipleClientGame {
 		return game.playersTurn();
 	}
 	
-	public Move promote(Square startSquare, Square endSquare, PieceType pieceType) {
-		Move move = game.promote(startSquare, endSquare, pieceType);
-		if (!move.moveType().equals(MoveType.INVALID)) {
-			synchronized (previewImageLock) {
-				this.previewImage = this.imageGenerator.createPngPreviewImage(game);
+	public Move promote(Square startSquare, Square endSquare, PieceType pieceType, GamesUser user) {
+		Move move = InvalidMove.execute();
+		if (isUsersTurn(user)) {
+			move = game.promote(startSquare, endSquare, pieceType);
+			if (!move.moveType().equals(MoveType.INVALID)) {
+				synchronized (previewImageLock) {
+					this.previewImage = this.imageGenerator.createPngPreviewImage(game);
+				}
 			}
 		}
 		return move;
+	}
+	
+	public boolean reset(GamesUser user) {
+		boolean success = false;
+		if (user != null && (user.equals(getPlayer(Color.WHITE)) || user.equals(getPlayer(Color.BLACK)))) {
+			game = new Game();
+			game.initializeBoard();
+			synchronized (previewImageLock) {
+				this.previewImage = this.imageGenerator.createPngPreviewImage(game);
+			}
+			success = true;
+		}
+		return success;
 	}
 	
 	public Map<Square, Piece> pieces() {
@@ -86,6 +106,10 @@ public class MultipleClientGame {
 		if (!user.equals(players.get(otherColor))) {
 			players.putIfAbsent(color, user);
 		}
+	}
+	
+	private boolean isUsersTurn(GamesUser user) {
+		return user != null && user.equals(players.get(playersTurn()));
 	}
 	
 }

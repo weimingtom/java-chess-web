@@ -6,25 +6,25 @@ import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MultipleGameClientTest {
+public class MultiClientGameManagerTest {
 
 	private static final int DEFAULT_NUMBER_OF_GAMES = 6;
 	
-	private MultipleClientGameManager manager;
+	private MultiClientGameManager manager;
 	
 	@Before
 	public void setUp() {
-		manager = new MultipleClientGameManager(DEFAULT_NUMBER_OF_GAMES, new GamePreviewImageGeneratorFactory());
+		manager = new MultiClientGameManager(DEFAULT_NUMBER_OF_GAMES, new GamePreviewImageGeneratorFactory());
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testNumberOfGamesMustBeGreaterThan0() {
-		new MultipleClientGameManager(0, new GamePreviewImageGeneratorFactory());
+		new MultiClientGameManager(0, new GamePreviewImageGeneratorFactory());
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testImageGeneratoryFactoryMustNotBeNull() {
-		new MultipleClientGameManager(6, null);
+		new MultiClientGameManager(6, null);
 	}
 	
 	@Test

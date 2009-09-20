@@ -12,9 +12,9 @@ import org.springframework.web.servlet.View;
 
 public class GamePreviewView implements View {
 
-	private MultipleClientGame game;
+	private MultiClientGame game;
 
-	public GamePreviewView(MultipleClientGame game) {
+	public GamePreviewView(MultiClientGame game) {
 		this.game = game;
 	}
 
