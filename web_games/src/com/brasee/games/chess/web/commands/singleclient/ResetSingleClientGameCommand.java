@@ -1,4 +1,4 @@
-package com.brasee.games.chess.web.commands.singleplayer;
+package com.brasee.games.chess.web.commands.singleclient;
 
 import java.util.Map;
 
@@ -8,7 +8,7 @@ import com.brasee.chess.Game;
 import com.brasee.games.chess.web.ChessSingleClientJsonController;
 import com.brasee.games.chess.web.JsonView;
 
-public class ResetGameCommand extends AbstractChessCommand {
+public class ResetSingleClientGameCommand extends AbstractSingleClientChessCommand {
 
 	@Override
 	public JsonView processCommand(HttpServletRequest request, Game game) {

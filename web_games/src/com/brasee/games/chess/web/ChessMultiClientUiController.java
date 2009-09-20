@@ -9,21 +9,23 @@ import org.springframework.web.servlet.mvc.AbstractController;
 import com.brasee.chess.pieces.Piece.Color;
 import com.brasee.games.GamesUser;
 import com.brasee.games.lobby.LobbyUiController;
-import com.brasee.games.lobby.MultipleClientGame;
-import com.brasee.games.lobby.MultipleClientGameManager;
+import com.brasee.games.lobby.MultiClientGame;
+import com.brasee.games.lobby.MultiClientGameManager;
 
-public class ChessMultipleClientUiController extends AbstractController {
+public class ChessMultiClientUiController extends AbstractController {
 
-	private MultipleClientGameManager gameManager;
+	private MultiClientGameManager gameManager;
 	
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		MultipleClientGame game = gameManager.retrieveGame(request.getParameter("gameId"));
+		String gameId = request.getParameter("gameId");
+		MultiClientGame game = gameManager.retrieveGame(gameId);
 		GamesUser user = (GamesUser) request.getSession().getAttribute(LobbyUiController.GAMES_USER_SESSION_VARIABLE);
 		if (game != null && user != null) {
-			modelAndView = new ModelAndView("chessMultipleClient");
+			modelAndView = new ModelAndView("chessMultiClient");
+			modelAndView.addObject("gameId", gameId);
 			String actionParameter = request.getParameter("action");
 			String colorParameter = request.getParameter("color");
 			if ("join".equals(actionParameter) && ("white".equals(colorParameter) || "black".equals(colorParameter))) {
@@ -35,7 +37,7 @@ public class ChessMultipleClientUiController extends AbstractController {
 		return modelAndView;
 	}
 
-	public void setGameManager(MultipleClientGameManager gameManager) {
+	public void setGameManager(MultiClientGameManager gameManager) {
 		this.gameManager = gameManager;
 	}
 	

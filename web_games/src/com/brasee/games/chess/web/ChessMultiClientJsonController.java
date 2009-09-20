@@ -7,22 +7,22 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 
 import com.brasee.chess.Square;
-import com.brasee.games.lobby.MultipleClientGame;
-import com.brasee.games.lobby.MultipleClientGameManager;
+import com.brasee.games.lobby.MultiClientGame;
+import com.brasee.games.lobby.MultiClientGameManager;
 
-public class ChessMultipleClientJsonController extends AbstractController {
+public class ChessMultiClientJsonController extends AbstractController {
 
-	private MultipleClientGameManager gameManager;
+	private MultiClientGameManager gameManager;
 	
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
-		MultipleClientGame game = gameManager.getGame(1);
-		game.move(new Square("a2"), new Square("a4"));
+		MultiClientGame game = gameManager.getGame(1);
+		game.move(new Square("a2"), new Square("a4"), null);
 		return modelAndView;
 	}
 
-	public void setGameManager(MultipleClientGameManager gameManager) {
+	public void setGameManager(MultiClientGameManager gameManager) {
 		this.gameManager = gameManager;
 	}
 	

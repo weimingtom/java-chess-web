@@ -13,14 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.brasee.games.GamesUser;
 import com.brasee.games.lobby.GamePreviewImageGeneratorFactory;
 import com.brasee.games.lobby.LobbyUiController;
-import com.brasee.games.lobby.MultipleClientGameManager;
+import com.brasee.games.lobby.MultiClientGameManager;
 
-public class ChessMultipleClientUiControllerTest {
+public class ChessMultiClientUiControllerTest {
 
 	@Test
 	public void testControllerReturnsNullViewNameForMissingGameId() {
-		ChessMultipleClientUiController controller = new ChessMultipleClientUiController();
-		controller.setGameManager(new MultipleClientGameManager(3, new GamePreviewImageGeneratorFactory()));
+		ChessMultiClientUiController controller = new ChessMultiClientUiController();
+		controller.setGameManager(new MultiClientGameManager(3, new GamePreviewImageGeneratorFactory()));
 		
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", null);
 		MockHttpSession session = new MockHttpSession();
@@ -41,8 +41,8 @@ public class ChessMultipleClientUiControllerTest {
 	
 	@Test
 	public void testControllerReturnsNullViewNameForMissingUser() {
-		ChessMultipleClientUiController controller = new ChessMultipleClientUiController();
-		controller.setGameManager(new MultipleClientGameManager(3, new GamePreviewImageGeneratorFactory()));
+		ChessMultiClientUiController controller = new ChessMultiClientUiController();
+		controller.setGameManager(new MultiClientGameManager(3, new GamePreviewImageGeneratorFactory()));
 		ModelAndView modelAndView = null;
 		
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", null);
@@ -60,8 +60,8 @@ public class ChessMultipleClientUiControllerTest {
 	
 	@Test
 	public void testControllerReturnsCorrectViewForLoggedInUserAndGameId() {
-		ChessMultipleClientUiController controller = new ChessMultipleClientUiController();
-		controller.setGameManager(new MultipleClientGameManager(3, new GamePreviewImageGeneratorFactory()));
+		ChessMultiClientUiController controller = new ChessMultiClientUiController();
+		controller.setGameManager(new MultiClientGameManager(3, new GamePreviewImageGeneratorFactory()));
 		ModelAndView modelAndView = null;
 
 		MockHttpServletRequest request = new MockHttpServletRequest("GET", null);
@@ -78,7 +78,7 @@ public class ChessMultipleClientUiControllerTest {
 			fail("Should not throw an exception");
 		}
 		assertNotNull(modelAndView);
-		assertEquals("chessMultipleClient", modelAndView.getViewName());
+		assertEquals("chessMultiClient", modelAndView.getViewName());
 	}
 	
 }

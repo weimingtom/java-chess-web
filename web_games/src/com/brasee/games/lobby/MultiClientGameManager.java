@@ -6,13 +6,13 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 
-public class MultipleClientGameManager {
+public class MultiClientGameManager {
 
 	private int numberOfGames;
-	private Map<Integer, MultipleClientGame> games;
+	private Map<Integer, MultiClientGame> games;
 	private GamePreviewImageGeneratorFactory imageGeneratorFactory;
 	
-	public MultipleClientGameManager(int numberOfGames, GamePreviewImageGeneratorFactory imageGeneratorFactory) {
+	public MultiClientGameManager(int numberOfGames, GamePreviewImageGeneratorFactory imageGeneratorFactory) {
 		if (numberOfGames <= 0) {
 			throw new IllegalArgumentException("numberOfGames must be greater than 0");
 		}
@@ -22,15 +22,15 @@ public class MultipleClientGameManager {
 		
 		this.imageGeneratorFactory = imageGeneratorFactory;
 		this.numberOfGames = numberOfGames;
-		this.games = new HashMap<Integer, MultipleClientGame>();
+		this.games = new HashMap<Integer, MultiClientGame>();
 		for (int gameId = 1; gameId <= numberOfGames; gameId++) {
-			MultipleClientGame game = new MultipleClientGame(this.imageGeneratorFactory.getInstance());
+			MultiClientGame game = new MultiClientGame(this.imageGeneratorFactory.getInstance());
 			games.put(gameId, game);
 		}
 	}
 	
-	public MultipleClientGame retrieveGame(String gameIdString) {
-		MultipleClientGame multipleClientGame = null;
+	public MultiClientGame retrieveGame(String gameIdString) {
+		MultiClientGame multipleClientGame = null;
 		
 		try {
 			if (gameIdString != null && StringUtils.isNumeric(gameIdString)) {
@@ -39,7 +39,7 @@ public class MultipleClientGameManager {
 			}
 		}
 		catch (Exception e) {
-			Logger.getLogger(MultipleClientGameManager.class.getName()).warning("Exception while retrieving game with id " 
+			Logger.getLogger(MultiClientGameManager.class.getName()).warning("Exception while retrieving game with id " 
 					+ gameIdString + ", returning null.");
 		}
 		
@@ -50,7 +50,7 @@ public class MultipleClientGameManager {
 		return numberOfGames;
 	}
 	
-	public MultipleClientGame getGame(int gameId) {
+	public MultiClientGame getGame(int gameId) {
 		return games.get(gameId);
 	}
 	
