@@ -2,6 +2,15 @@
 var promotionStartSquare = '';
 var promotionEndSquare = '';
 
+// global variables to set refresh times
+var GAME_RETRIEVE_TIME = 2500;
+var CHAT_RETRIEVE_TIME = 1500;
+var USER_RETRIEVE_TIME = 5000;
+var USER_REFRESH_TIME = 2500;
+
+// global variable to keep track of current known move index
+var moveIndex = -1;
+
 function initialize() {
 	setupSquares();
 	applyRoundedCorners();
@@ -36,7 +45,11 @@ function applyRoundedCorners() {
 function retrieveGame() {
 	$.post("chessMultiClient.json", { "command": "retrieve_game", "gameId" : gameId },
 		function(data) {
-			refreshGame(data);
+			if (moveIndex != data.move_index) {
+				moveIndex = data.move_index;
+				refreshGame(data);
+			}
+			setTimeout(retrieveGame, GAME_RETRIEVE_TIME);
 		}, 
 		"json"
 	);
