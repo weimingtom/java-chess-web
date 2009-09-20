@@ -34,7 +34,7 @@ function applyRoundedCorners() {
 }
 
 function retrieveGame() {
-	$.post("chessSingleClient.json", { "command": "retrieve_game" },
+	$.post("chessMultiClient.json", { "command": "retrieve_game", "gameId" : gameId },
 		function(data) {
 			refreshGame(data);
 		}, 
@@ -43,7 +43,7 @@ function retrieveGame() {
 }
 
 function resetGame() {
-	$.post("chessSingleClient.json", { "command": "reset_game" },
+	$.post("chessMultiClient.json", { "command": "reset_game", "gameId" : gameId },
 		function(data) {
 			refreshGame(data);
 		}, 
@@ -52,8 +52,8 @@ function resetGame() {
 }
 
 function sendMove(startSquare, endSquare) {
-	var json = { "command": "move", "start_square": startSquare.attr('id'), "end_square": endSquare.attr('id') };
-	$.post("chessSingleClient.json", json,
+	var json = { "command": "move", "start_square": startSquare.attr('id'), "end_square": endSquare.attr('id'), "gameId" : gameId };
+	$.post("chessMultiClient.json", json,
   		function(data){
 			updateGame(data);
 			startSquare.css({ top: 0, left: 0 });
@@ -77,7 +77,7 @@ function refreshGame(data) {
    	});
    	addMoves(data.move_notations);
    	resetMouseCursor();
-	updateTurn(data.players_turn);
+	updateTurn(data.players_turn, data.player_color);
 }
 
 // Only update the contents of the game that changed 
@@ -93,10 +93,10 @@ function updateGame(data) {
    	}
    	resetMouseCursor();
    	addMove(data.players_turn, data.move_notation);
-	updateTurn(data.players_turn);
+	updateTurn(data.players_turn, data.player_color);
 }
 
-function updateTurn(color) {
+function updateTurn(color, playerColor) {
 	if (color == "white" || color == "black") {
 		$("#promotion_queen").attr('src', 'img/queen_' + color + '.png');
 		$("#promotion_knight").attr('src', 'img/knight_' + color + '.png');
@@ -104,7 +104,7 @@ function updateTurn(color) {
 		$("#promotion_bishop").attr('src', 'img/bishop_' + color + '.png');
 		$("#playersTurn").html(generatePlayersTurnText(color));
 		$(".square").each(function(i) {
-			if ($(this).attr('src').indexOf(color) > -1) {
+			if ($(this).attr('src').indexOf(color) > -1 && playerColor == color) {
 				enableDraggable($(this));
 			}
 			else {
@@ -200,7 +200,7 @@ function openPromotionDialog() {
 
 function sendPromotion(pieceType) {
 	$("#promotion_dialog").dialog('close');
-	$.post("chessSingleClient.json", { "command": "promote", "start_square": promotionStartSquare, "end_square": promotionEndSquare, "piece_type": pieceType },
+	$.post("chessSingleClient.json", { "command": "promote", "start_square": promotionStartSquare, "end_square": promotionEndSquare, "piece_type": pieceType, "gameId" : gameId },
 		function(data) {
 			updateGame(data);
 			var startSquare = document.getElementById(promotionStartSquare);
