@@ -14,7 +14,7 @@ var moveIndex = -1;
 function initialize() {
 	setupSquares();
 	applyRoundedCorners();
-	retrieveGame();
+	retrieveGameIndex();
 }
 
 function setupSquares() {
@@ -45,11 +45,19 @@ function applyRoundedCorners() {
 function retrieveGame() {
 	$.post("chessMultiClient.json", { "command": "retrieve_game", "gameId" : gameId },
 		function(data) {
+			refreshGame(data);
+		}, 
+		"json"
+	);
+}
+
+function retrieveGameIndex() {
+	$.post("chessMultiClient.json", { "command": "retrieve_game_index", "gameId" : gameId },
+		function(data) {
 			if (moveIndex != data.move_index) {
-				moveIndex = data.move_index;
-				refreshGame(data);
+				retrieveGame(data);
 			}
-			setTimeout(retrieveGame, GAME_RETRIEVE_TIME);
+			setTimeout(retrieveGameIndex, GAME_RETRIEVE_TIME);
 		}, 
 		"json"
 	);
@@ -76,6 +84,7 @@ function sendMove(startSquare, endSquare) {
 
 // Refresh the contents of the entire game 
 function refreshGame(data) {
+	moveIndex = data.move_index;
 	clearBoard();
 	clearCapturedPieces();
 	clearMoves();

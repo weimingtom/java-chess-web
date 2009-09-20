@@ -24,6 +24,14 @@ public class MultiClientChessCommandFactoryTest {
 	}
 	
 	@Test
+	public void testFactoryReturnsRetrieveGameMoveIndexCommand() {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		request.addParameter("command", "retrieve_game_index");
+		MultiClientChessCommand command = MultiClientChessCommandFactory.createCommand(request);
+		assertTrue(command instanceof RetrieveMultiClientGameMoveIndexCommand);
+	}
+	
+	@Test
 	public void testFactoryReturnsResetGameCommand() {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.addParameter("command", "reset_game");
