@@ -24,10 +24,10 @@
 
 	<bean id="chessSingleClientJsonController" class="com.brasee.games.chess.web.ChessSingleClientJsonController" />
 	<bean id="chessSingleClientUiController" class="com.brasee.games.chess.web.ChessSingleClientUiController" />
-	
-	<bean id="chessMultiClientUiController" class="com.brasee.games.chess.web.ChessMultiClientUiController"
-		p:gameManager-ref="multipleClientGameManager" />
+
 	<bean id="chessMultiClientJsonController" class="com.brasee.games.chess.web.ChessMultiClientJsonController"
+		p:gameManager-ref="multipleClientGameManager" />	
+	<bean id="chessMultiClientUiController" class="com.brasee.games.chess.web.ChessMultiClientUiController"
 		p:gameManager-ref="multipleClientGameManager" />
 
 	<bean id="lobbyChatManager" class="com.brasee.games.lobby.ChatManager">
