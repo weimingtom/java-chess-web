@@ -1,7 +1,9 @@
+// global variables to set refresh times
 var CHAT_RETRIEVE_TIME = 1500;
 var USER_RETRIEVE_TIME = 5000;
 var USER_REFRESH_TIME = 2500;
 
+//global variable to keep track of current known message index
 var messageIndex = 0;
 
 function initialize() {
