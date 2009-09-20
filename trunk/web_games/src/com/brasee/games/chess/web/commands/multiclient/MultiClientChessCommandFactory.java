@@ -12,8 +12,8 @@ public class MultiClientChessCommandFactory {
 		if ("retrieve_game".equals(commandName)) {
 			chessCommand = new RetrieveMultiClientGameCommand();
 		}
-		else if ("retrieve_game_index".equals(commandName)) {
-			chessCommand = new RetrieveMultiClientGameMoveIndexCommand();
+		else if ("retrieve_game_status".equals(commandName)) {
+			chessCommand = new RetrieveMultiClientGameStatusCommand();
 		}
 		else if ("reset_game".equals(commandName)) {
 			chessCommand = new ResetMultiClientGameCommand();

@@ -28,7 +28,7 @@
 			<div id="nav">
 				<ul>
 					<li><a href="lobby.htm"><img src="img/chess_icon.png" alt="Chess Lobby"/> Chess Lobby</a></li>
-					<li><a href="chessSingleClient.htm"><img src="img/chess_icon.png" alt="Play Chess (same computer)"/> Play Chess (same computer)</a></li>					
+					<li><a href="chessSingleClient.htm"><img src="img/chess_icon.png" alt="Play Chess (same browser)"/> Play Chess (same browser)</a></li>					
 				</ul>
   			</div>
 			<div id="container">
@@ -37,9 +37,9 @@
 					<table border="0" cellpadding="0" cellspacing="0" align="center">
 						<tr>
 							<td><img src="img/king_white_small.png"/>&nbsp;</td>
-							<td><b><span id="white_name">White</span></b></td>
+							<td><b><span id="white_player_name"></span></b></td>
 							<td><b>&nbsp;vs.&nbsp;</b></td>
-							<td><b><span id="black_name">Black</span></b></td>
+							<td><b><span id="black_player_name"></span></b></td>
 							<td>&nbsp;<img src="img/king_black_small.png"/></td>
 						</tr>
 						<tr>
@@ -160,16 +160,16 @@
 				<div id="rightcontent">
 				
 					<div class="subpanelDivOuter"><div class="subpanelDivInner">
-						<div class="subpanelHeader">Game Information</div>
+						<div class="subpanelHeader">Game #${gameId} Information</div>
 						<p>Human vs. Human</p>
-						<p>Playing on same computer</p>
+						<p>Multiple clients</p>
 					</div></div>
 							
-					<div class="rightSubpanelDivOuter"><div class="rightSubpanelDivInner">
+					<div class="subpanelDivOuter"><div class="subpanelDivInner">
 						<div class="subpanelHeader">Game Options</div>
 						<br/>
 						<a href="#" onclick="openResetDialog()">
-							<div class="dialogButton ui-state-default ui-corner-all">
+							<div id="resetButton" class="dialogButton ui-state-default ui-corner-all">
 								<span class="dialogButtonText">Reset Game</span>
 							</div>
 						</a>

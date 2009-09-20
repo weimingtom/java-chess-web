@@ -12,14 +12,13 @@ import com.brasee.chess.moves.Move;
 import com.brasee.games.GamesUser;
 import com.brasee.games.chess.web.JsonView;
 import com.brasee.games.chess.web.PieceTypeStringConverter;
-import com.brasee.games.lobby.LobbyUiController;
 import com.brasee.games.lobby.MultiClientGame;
 
 public class PromoteMultiClientCommand extends AbstractMultiClientChessCommand {
 
 	@Override
 	public JsonView processCommand(HttpServletRequest request, MultiClientGame game) {
-		GamesUser user = (GamesUser) request.getSession().getAttribute(LobbyUiController.GAMES_USER_SESSION_VARIABLE);
+		GamesUser user = getUserFromRequest(request);
 		Map<String, Object> responseMap = new HashMap<String, Object>();
 		
 		try {

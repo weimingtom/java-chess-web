@@ -25,7 +25,7 @@
 			<div id="nav">
 				<ul>
 					<li><a href="lobby.htm"><img src="img/chess_icon.png" alt="Chess Lobby"/> Chess Lobby</a></li>
-					<li><a href="chessSingleClient.htm"><img src="img/chess_icon.png" alt="Play Chess (same computer)"/> Play Chess (same computer)</a></li>					
+					<li><a href="chessSingleClient.htm"><img src="img/chess_icon.png" alt="Play Chess (same browser)"/> Play Chess (same browser)</a></li>					
 				</ul>
   			</div> 
 			<div id="container">
@@ -159,7 +159,7 @@
 					<div class="subpanelDivOuter"><div class="subpanelDivInner">
 						<div class="subpanelHeader">Game Information</div>
 						<p>Human vs. Human</p>
-						<p>Playing on same computer</p>
+						<p>Single client (same browser)</p>
 					</div></div>
 							
 					<div class="rightSubpanelDivOuter"><div class="rightSubpanelDivInner">
