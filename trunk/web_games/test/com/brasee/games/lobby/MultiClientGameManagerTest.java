@@ -23,7 +23,7 @@ public class MultiClientGameManagerTest {
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
-	public void testImageGeneratoryFactoryMustNotBeNull() {
+	public void testImageGeneratorFactoryMustNotBeNull() {
 		new MultiClientGameManager(6, null);
 	}
 	
