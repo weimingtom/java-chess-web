@@ -3,12 +3,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-	<title>Play Chess (same computer) - Brasee.com</title>
+	<title>Chess Game #${gameId} - Brasee.com</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/menu.css" type="text/css" media="screen" />
-	<link rel="stylesheet" href="css/chessSingleClient.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/chessMultiClient.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/smoothness/jquery-ui-1.7.1.custom.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="js/chessMultiClient.js"></script>
+	<script type="text/javascript" src="js/chessMultiClientChat.js"></script>
 	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 	<script type="text/javascript" src="js/jquery-ui-1.7.1.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.corner.js"></script>
@@ -158,7 +159,8 @@
 				</div> <!-- /centercontent -->
 				
 				<div id="rightcontent">
-				
+					<center><h3>Welcome, ${user.name}!</h3></center>
+					<br/>
 					<div class="subpanelDivOuter"><div class="subpanelDivInner">
 						<div class="subpanelHeader">Game #${gameId} Information</div>
 						<p>Human vs. Human</p>
@@ -177,6 +179,13 @@
 					</div></div> 
 				</div> <!-- /rightcontent -->
 				
+				<div id="bottomcontent">
+					<div class="bottomSubpanelDivOuter"><div class="bottomSubpanelDivInner">
+						<center><div id="chatOutput"></div></center>
+						<input type="text" id="chatInput"></input>
+					</div></div> 
+				</div> <!-- /bottomcontent -->
+
 			</div> <!-- /container -->
 			<div id="footer-wrapper">
 				<div id="footer">
