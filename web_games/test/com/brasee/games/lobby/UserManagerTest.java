@@ -19,6 +19,7 @@ public class UserManagerTest {
 	public void testNewUserManagerHasNoUserNames() {
 		assertNotNull(manager.getCurrentUserNames());
 		assertTrue(manager.getCurrentUserNames().isEmpty());
+		assertFalse(manager.isConnected("some random sessionId"));
 	}
 	
 	@Test
@@ -28,6 +29,7 @@ public class UserManagerTest {
 		List<String> users = manager.getCurrentUserNames();
 		assertEquals(new Integer(1), new Integer(users.size()));
 		assertEquals(userName, users.get(0));
+		assertTrue(manager.isConnected("sessionId"));
 	}
 	
 	@Test

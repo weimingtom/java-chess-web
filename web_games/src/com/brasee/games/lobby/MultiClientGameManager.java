@@ -8,10 +8,12 @@ import org.apache.commons.lang.StringUtils;
 
 public class MultiClientGameManager {
 
+	private static int DEFAULT_USER_EXPIRY_TIME = 7000;
+	
 	private int numberOfGames;
 	private Map<Integer, MultiClientGame> games;
 	private GamePreviewImageGeneratorFactory imageGeneratorFactory;
-	
+
 	public MultiClientGameManager(int numberOfGames, GamePreviewImageGeneratorFactory imageGeneratorFactory) {
 		if (numberOfGames <= 0) {
 			throw new IllegalArgumentException("numberOfGames must be greater than 0");
@@ -24,7 +26,10 @@ public class MultiClientGameManager {
 		this.numberOfGames = numberOfGames;
 		this.games = new HashMap<Integer, MultiClientGame>();
 		for (int gameId = 1; gameId <= numberOfGames; gameId++) {
-			MultiClientGame game = new MultiClientGame(this.imageGeneratorFactory.getInstance());
+			UserManager userManager = new UserManager();
+			userManager.setExpiryTimeInMilliseconds(DEFAULT_USER_EXPIRY_TIME);
+			ChatManager	chatManager = new ChatManager();
+			MultiClientGame game = new MultiClientGame(this.imageGeneratorFactory.getInstance(), userManager, chatManager);
 			games.put(gameId, game);
 		}
 	}
@@ -53,5 +58,7 @@ public class MultiClientGameManager {
 	public MultiClientGame getGame(int gameId) {
 		return games.get(gameId);
 	}
+
+
 	
 }

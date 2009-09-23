@@ -30,10 +30,7 @@
 	<bean id="chessMultiClientUiController" class="com.brasee.games.chess.web.ChessMultiClientUiController"
 		p:gameManager-ref="multipleClientGameManager" />
 
-	<bean id="lobbyChatManager" class="com.brasee.games.lobby.ChatManager">
-		<constructor-arg value="100" />
-		<constructor-arg value="10" />
-	</bean>
+	<bean id="lobbyChatManager" class="com.brasee.games.lobby.ChatManager" />
 	<bean id="lobbyUserManager" class="com.brasee.games.lobby.UserManager" />
 	<bean id="lobbyJsonController" class="com.brasee.games.lobby.LobbyJsonController"
 		p:chatManager-ref="lobbyChatManager" 

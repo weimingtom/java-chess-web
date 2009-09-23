@@ -2,27 +2,38 @@ package com.brasee.games.lobby;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class UserManager {
 	
 	/** Maps the sessionId to the user's name */
-	private Map<String, String> userNameMap = new HashMap<String, String>();
+	private Map<String, String> userNameMap = new ConcurrentHashMap<String, String>();
 	
 	/** Maps the sessionId to the time it last sent a refresh */
-	private Map<String, Long> userRefreshMap = new HashMap<String, Long>();
+	private Map<String, Long> userRefreshMap = new ConcurrentHashMap<String, Long>();
 	
 	private long expiryTimeInMilliseconds = 5000;
+	
+	/**
+	 * Returns true if the given sessionId is connected to the game, otherwise returns false.
+	 * 
+	 * @param sessionId
+	 * @return
+	 */
+	public boolean isConnected(String sessionId) {
+		return userNameMap.containsKey(sessionId);
+	}
 	
 	/**
 	 * Indicates that this user is connected at the current time.
 	 * 
 	 * @param sessionId
 	 * @param userName
+	 * @return
 	 */
 	public void refreshUser(String sessionId, String userName) {
 		Long currentTime = System.currentTimeMillis();

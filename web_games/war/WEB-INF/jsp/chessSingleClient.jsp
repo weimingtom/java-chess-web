@@ -155,7 +155,10 @@
 				</div> <!-- /centercontent -->
 				
 				<div id="rightcontent">
-				
+					<c:if test="${!empty user}">
+						<center><h3>Welcome, ${user.name}!</h3></center>
+						<br/>
+					</c:if>
 					<div class="subpanelDivOuter"><div class="subpanelDivInner">
 						<div class="subpanelHeader">Game Information</div>
 						<p>Human vs. Human</p>

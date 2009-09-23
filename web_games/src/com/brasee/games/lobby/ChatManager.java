@@ -2,11 +2,18 @@ package com.brasee.games.lobby;
 
 public class ChatManager {
 	
+	private static int DEFAULT_MESSAGE_ARRAY_SIZE = 20;
+	private static int DEFAULT_MAX_MESSAGES_TO_RETURN = 10;
+	
 	private static int MIN_MESSAGE_ARRAY_SIZE = 2;
 	private static int MIN_MAX_MESSAGES_TO_RETURN = 1;
 	
 	private int maxMessagesToReturn;
 	private MessageCircularArray<String> messageArray;
+	
+	public ChatManager() {
+		this(DEFAULT_MESSAGE_ARRAY_SIZE, DEFAULT_MAX_MESSAGES_TO_RETURN);
+	}
 	
 	public ChatManager(int messageArraySize, int maxMessagesToReturn) {
 		if (messageArraySize < MIN_MESSAGE_ARRAY_SIZE) {

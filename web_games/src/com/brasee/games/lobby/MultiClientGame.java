@@ -20,13 +20,14 @@ public class MultiClientGame {
 
 	private Game game;
 	private ConcurrentMap<Color, GamesUser> players;
-	
 	private BufferedImage previewImage;
 	private GamePreviewImageGenerator imageGenerator;
+	private UserManager userManager;
+	private ChatManager chatManager;
 	
 	private Object previewImageLock = new Object();
 	
-	public MultiClientGame(GamePreviewImageGenerator imageGenerator) {
+	public MultiClientGame(GamePreviewImageGenerator imageGenerator, UserManager userManager, ChatManager chatManager) {
 		this.imageGenerator	= imageGenerator;
 		
 		this.players = new ConcurrentHashMap<Color, GamesUser>();
@@ -34,6 +35,8 @@ public class MultiClientGame {
 		this.game.initializeBoard();
 
 		this.previewImage = this.imageGenerator.createPngPreviewImage(this.game);
+		this.userManager = userManager;
+		this.chatManager = chatManager;
 	}
 	
 	public Move move(Square startSquare, Square endSquare, GamesUser user) {
@@ -97,8 +100,18 @@ public class MultiClientGame {
 		}
 	}
 	
+	// TODO: implement the player refresh correctly.  probably with a self-initiated timer that refreshes user manager.
+	// Maybe this will change user manager.
+	// current code doesn't work
 	public GamesUser getPlayer(Color color) {
-		return players.get(color);
+		GamesUser user = players.get(color);
+		
+		if (user != null && !userManager.isConnected(user.getSessionId())) {
+			user = null;
+			players.remove(color);
+		}
+		
+		return user;
 	}
 
 	public void addPlayerIfColorIsAvailable(Color color, GamesUser user) {
@@ -107,9 +120,17 @@ public class MultiClientGame {
 			players.putIfAbsent(color, user);
 		}
 	}
-	
+		
 	private boolean isUsersTurn(GamesUser user) {
 		return user != null && user.equals(players.get(playersTurn()));
+	}
+	
+	public UserManager getUserManager() {
+		return userManager;
+	}
+
+	public ChatManager getChatManager() {
+		return chatManager;
 	}
 	
 }

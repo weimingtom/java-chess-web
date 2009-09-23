@@ -21,7 +21,7 @@ public class ChessSingleClientUiControllerTest {
 			fail("Should not throw an exception");
 		}
 		assertNotNull(modelAndView);
-		assertTrue(modelAndView.getModel().isEmpty());
+		assertTrue(modelAndView.getModel().containsKey("user"));
 		assertEquals("chessSingleClient", modelAndView.getViewName());
 	}
 }

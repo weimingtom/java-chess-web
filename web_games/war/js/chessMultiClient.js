@@ -3,10 +3,7 @@ var promotionStartSquare = '';
 var promotionEndSquare = '';
 
 // global variables to set refresh times
-var GAME_RETRIEVE_TIME = 2500;
-var CHAT_RETRIEVE_TIME = 1500;
-var USER_RETRIEVE_TIME = 5000;
-var USER_REFRESH_TIME = 2500;
+var GAME_RETRIEVE_TIME = 3000;
 
 // global variable to keep track of current known move index
 var moveIndex = -1;
@@ -15,6 +12,12 @@ function initialize() {
 	setupSquares();
 	applyRoundedCorners();
 	retrieveGameStatus();
+
+	setupEnterKeyEvent();
+	setInputFocus();
+	refreshChatUser();
+	getUsers();
+	getNewMessages();
 }
 
 function setupSquares() {
@@ -58,7 +61,7 @@ function retrieveGameStatus() {
 				retrieveGame(data);
 			}
 			else {
-				refreshUser(data);
+				refreshGameUser(data);
 			}
 			setTimeout(retrieveGameStatus, GAME_RETRIEVE_TIME);
 		}, 
@@ -86,7 +89,7 @@ function sendMove(startSquare, endSquare) {
 }
 
 // Refresh the names of the users, the associated color of the current user, and the ability to reset the game
-function refreshUser(data) {
+function refreshGameUser(data) {
 	var whitePlayerName = (data.white_player_name != null ? data.white_player_name : "White");
 	var blackPlayerName = (data.black_player_name != null ? data.black_player_name : "Black");
 	$("#white_player_name").html(whitePlayerName);
@@ -113,7 +116,7 @@ function refreshGame(data) {
    	addMoves(data.move_notations);
    	resetMouseCursor();
 	updateTurn(data.players_turn, data.player_color);
-	refreshUser(data);
+	refreshGameUser(data);
 }
 
 // Only update the contents of the game that changed 

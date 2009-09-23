@@ -34,6 +34,7 @@ public class ChessMultiClientUiController extends AbstractController {
 			}
 		}
 		
+		modelAndView.addObject("user", user);
 		return modelAndView;
 	}
 
