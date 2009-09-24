@@ -8,7 +8,8 @@ import org.apache.commons.lang.StringUtils;
 
 public class MultiClientGameManager {
 
-	private static int DEFAULT_USER_EXPIRY_TIME = 7000;
+	private static long USER_EXPIRY_TIME = 7000L;
+	private static long USER_MANAGER_REFRESH_TIME = 3500L; 
 	
 	private int numberOfGames;
 	private Map<Integer, MultiClientGame> games;
@@ -26,8 +27,7 @@ public class MultiClientGameManager {
 		this.numberOfGames = numberOfGames;
 		this.games = new HashMap<Integer, MultiClientGame>();
 		for (int gameId = 1; gameId <= numberOfGames; gameId++) {
-			UserManager userManager = new UserManager();
-			userManager.setExpiryTimeInMilliseconds(DEFAULT_USER_EXPIRY_TIME);
+			UserManager userManager = new UserManager(USER_EXPIRY_TIME, USER_MANAGER_REFRESH_TIME);
 			ChatManager	chatManager = new ChatManager();
 			MultiClientGame game = new MultiClientGame(this.imageGeneratorFactory.getInstance(), userManager, chatManager);
 			games.put(gameId, game);

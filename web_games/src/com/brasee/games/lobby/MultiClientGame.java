@@ -3,6 +3,8 @@ package com.brasee.games.lobby;
 import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -18,16 +20,18 @@ import com.brasee.games.GamesUser;
 
 public class MultiClientGame {
 
+	private static final long PLAYER_EXPIRY_TIMER_REFRESH = 3500L;
 	private Game game;
 	private ConcurrentMap<Color, GamesUser> players;
 	private BufferedImage previewImage;
 	private GamePreviewImageGenerator imageGenerator;
 	private UserManager userManager;
 	private ChatManager chatManager;
+	private Timer playerExpiryTimer;
 	
 	private Object previewImageLock = new Object();
 	
-	public MultiClientGame(GamePreviewImageGenerator imageGenerator, UserManager userManager, ChatManager chatManager) {
+	public MultiClientGame(GamePreviewImageGenerator imageGenerator, final UserManager userManager, ChatManager chatManager) {
 		this.imageGenerator	= imageGenerator;
 		
 		this.players = new ConcurrentHashMap<Color, GamesUser>();
@@ -37,6 +41,19 @@ public class MultiClientGame {
 		this.previewImage = this.imageGenerator.createPngPreviewImage(this.game);
 		this.userManager = userManager;
 		this.chatManager = chatManager;
+		
+		this.playerExpiryTimer = new Timer(true);
+		this.playerExpiryTimer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				if (players.get(Color.WHITE) != null && !userManager.isConnected(players.get(Color.WHITE).getSessionId())) {
+					players.remove(Color.WHITE);
+				}
+				if (players.get(Color.BLACK) != null && !userManager.isConnected(players.get(Color.BLACK).getSessionId())) {
+					players.remove(Color.BLACK);
+				}
+			}
+		}, 0, PLAYER_EXPIRY_TIMER_REFRESH);
 	}
 	
 	public Move move(Square startSquare, Square endSquare, GamesUser user) {
@@ -100,18 +117,8 @@ public class MultiClientGame {
 		}
 	}
 	
-	// TODO: implement the player refresh correctly.  probably with a self-initiated timer that refreshes user manager.
-	// Maybe this will change user manager.
-	// current code doesn't work
 	public GamesUser getPlayer(Color color) {
-		GamesUser user = players.get(color);
-		
-		if (user != null && !userManager.isConnected(user.getSessionId())) {
-			user = null;
-			players.remove(color);
-		}
-		
-		return user;
+		return players.get(color);
 	}
 
 	public void addPlayerIfColorIsAvailable(Color color, GamesUser user) {

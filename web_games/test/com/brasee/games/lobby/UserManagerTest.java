@@ -12,7 +12,7 @@ public class UserManagerTest {
 	
 	@Before
 	public void setUp() {
-		manager = new UserManager();
+		manager = new UserManager(7000L, 3500L);
 	}
 	
 	@Test
@@ -69,8 +69,9 @@ public class UserManagerTest {
 	@Test
 	public void testExpiryRemovesAUserFromCurrentUsersList() throws Exception {
 		// Note: negative expiration time limits are stupid, and used for unit testing purposed only
-		manager.setExpiryTimeInMilliseconds(-1);
+		manager = new UserManager(-1, 50);
 		manager.refreshUser("sessionId", "User Name");
+		Thread.sleep(100);
 		assertTrue(manager.getCurrentUserNames().isEmpty());
 	}
 }
