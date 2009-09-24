@@ -121,11 +121,16 @@ public class MultiClientGame {
 		return players.get(color);
 	}
 
-	public void addPlayerIfColorIsAvailable(Color color, GamesUser user) {
+	public boolean addPlayerIfColorIsAvailable(Color color, GamesUser user) {
+		boolean addSucceeded = false;
 		Color otherColor = color.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
 		if (!user.equals(players.get(otherColor))) {
-			players.putIfAbsent(color, user);
+			GamesUser existingUser = players.putIfAbsent(color, user);
+			if (existingUser == null) {
+				addSucceeded = true;
+			}
 		}
+		return addSucceeded;
 	}
 		
 	private boolean isUsersTurn(GamesUser user) {
