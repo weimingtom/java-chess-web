@@ -163,10 +163,16 @@
 					<br/>
 					<div class="subpanelDivOuter"><div class="subpanelDivInner">
 						<div class="subpanelHeader">Game #${gameId} Information</div>
-						<p>Human vs. Human</p>
-						<p>Multiple clients</p>
+						Human vs. Human
+						<br/>
+						Multiple clients
 					</div></div>
-							
+					
+					<div class="subpanelDivOuter"><div class="subpanelDivInner">
+						<div class="subpanelHeader">Users in Game #${gameId}</div>
+						<span id="userList"></span>
+					</div></div>
+												
 					<div class="subpanelDivOuter"><div class="subpanelDivInner">
 						<div class="subpanelHeader">Game Options</div>
 						<br/>
