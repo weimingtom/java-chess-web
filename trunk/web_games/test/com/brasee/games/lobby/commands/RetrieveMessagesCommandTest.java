@@ -21,7 +21,7 @@ public class RetrieveMessagesCommandTest {
 	@Before
 	public void setUp() {
 		this.chatManager = new ChatManager(100, 10);
-		this.userManager = new UserManager();
+		this.userManager = new UserManager(7000L, 3500L);
 	}
 	
 	@Test

@@ -31,7 +31,10 @@
 		p:gameManager-ref="multipleClientGameManager" />
 
 	<bean id="lobbyChatManager" class="com.brasee.games.lobby.ChatManager" />
-	<bean id="lobbyUserManager" class="com.brasee.games.lobby.UserManager" />
+	<bean id="lobbyUserManager" class="com.brasee.games.lobby.UserManager">
+		<constructor-arg index="0" type="long" value="7000" />
+		<constructor-arg index="1" type="long" value="3500" />
+	</bean>
 	<bean id="lobbyJsonController" class="com.brasee.games.lobby.LobbyJsonController"
 		p:chatManager-ref="lobbyChatManager" 
 		p:userManager-ref="lobbyUserManager" />

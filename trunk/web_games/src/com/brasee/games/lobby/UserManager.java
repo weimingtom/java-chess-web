@@ -2,21 +2,30 @@ package com.brasee.games.lobby;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Timer;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class UserManager {
 	
 	/** Maps the sessionId to the user's name */
-	private Map<String, String> userNameMap = new ConcurrentHashMap<String, String>();
+	private Map<String, String> userNameMap;
 	
 	/** Maps the sessionId to the time it last sent a refresh */
-	private Map<String, Long> userRefreshMap = new ConcurrentHashMap<String, Long>();
+	private Map<String, Long> userRefreshMap;
 	
-	private long expiryTimeInMilliseconds = 5000;
+	/** Timer to perform the refresh to detect expired users */
+	private Timer userRefreshTimer;
+	
+	public UserManager(long expiryTimeInMillis, long refreshTimeInMillis) {
+		this.userNameMap = new ConcurrentHashMap<String, String>();
+		this.userRefreshMap = new ConcurrentHashMap<String, Long>();
+		
+		this.userRefreshTimer = new Timer(true);
+		this.userRefreshTimer.scheduleAtFixedRate(new UserManagerExpiryTimer(expiryTimeInMillis, userNameMap, userRefreshMap), 
+			0, refreshTimeInMillis);
+	}
 	
 	/**
 	 * Returns true if the given sessionId is connected to the game, otherwise returns false.
@@ -44,41 +53,21 @@ public class UserManager {
 	}
 	
 	/**
-	 * Retrieve the userNames of all users that have refreshed within the last
-	 * expiryTimeInMilliseconds milliseconds.  If a user has not refreshed within
-	 * that amount of time, remove their sessionId from both the maps.
+	 * Retrieve the userNames of all connected users.
 	 *   
 	 * @return
 	 */
 	public List<String> getCurrentUserNames() {
 		List<String> currentUserNames = new ArrayList<String>();
-		Long currentTime = System.currentTimeMillis();
 		
-		Set<String> sessionIds = new HashSet<String>();
 		synchronized(userRefreshMap) {
 			for (String sessionId : userRefreshMap.keySet()) {
-				sessionIds.add(new String(sessionId));
-			}
-		}
-
-		for (String sessionId : sessionIds) {
-			Long lastRefreshTime = userRefreshMap.get(sessionId);
-			if (lastRefreshTime == null || 
-					currentTime.longValue() - lastRefreshTime.longValue() > expiryTimeInMilliseconds) {
-				userNameMap.remove(sessionId);
-				userRefreshMap.remove(sessionId);
-			}
-			else {
-				currentUserNames.add(userNameMap.get(sessionId));
+				currentUserNames.add(new String(userNameMap.get(sessionId)));
 			}
 		}
 
 		Collections.sort(currentUserNames);
 		return currentUserNames;
-	}
-
-	public void setExpiryTimeInMilliseconds(long expiryTimeInMilliseconds) {
-		this.expiryTimeInMilliseconds = expiryTimeInMilliseconds;
 	}
 	
 }

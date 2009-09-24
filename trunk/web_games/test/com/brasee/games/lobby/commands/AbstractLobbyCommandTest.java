@@ -14,12 +14,12 @@ public abstract class AbstractLobbyCommandTest {
 
 	@SuppressWarnings("unchecked")
 	public String processRequest(MockHttpServletRequest request, Class expectedCommandClass) {
-		return processRequest(request, expectedCommandClass, new UserManager(), new ChatManager(100, 10));
+		return processRequest(request, expectedCommandClass, new UserManager(7000L, 3500L), new ChatManager(100, 10));
 	}
 	
 	@SuppressWarnings("unchecked")
 	public String processRequest(MockHttpServletRequest request, Class expectedCommandClass, ChatManager chatManager) {
-		return processRequest(request, expectedCommandClass, new UserManager(), chatManager);
+		return processRequest(request, expectedCommandClass, new UserManager(7000L, 3500L), chatManager);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -35,7 +35,7 @@ public abstract class AbstractLobbyCommandTest {
 		LobbyCommand lobbyCommand = LobbyCommandFactory.createCommand(request);
 		assertTrue(lobbyCommand.getClass().equals(expectedCommandClass));
 
-		JsonView view = lobbyCommand.processCommand(request, new UserManager(), chatManager);
+		JsonView view = lobbyCommand.processCommand(request, new UserManager(7000L, 3500L), chatManager);
 		
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		try {
