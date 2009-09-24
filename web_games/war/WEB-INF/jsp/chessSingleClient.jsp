@@ -161,8 +161,9 @@
 					</c:if>
 					<div class="subpanelDivOuter"><div class="subpanelDivInner">
 						<div class="subpanelHeader">Game Information</div>
-						<p>Human vs. Human</p>
-						<p>Single client (same browser)</p>
+						Human vs. Human
+						<br/>
+						Single client (same browser)
 					</div></div>
 							
 					<div class="rightSubpanelDivOuter"><div class="rightSubpanelDivInner">
