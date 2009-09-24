@@ -30,7 +30,19 @@ public class ChessMultiClientUiController extends AbstractController {
 			String colorParameter = request.getParameter("color");
 			if ("join".equals(actionParameter) && ("white".equals(colorParameter) || "black".equals(colorParameter))) {
 				Color color = "white".equals(colorParameter) ? Color.WHITE : Color.BLACK;
-				game.addPlayerIfColorIsAvailable(color, user);
+				boolean addSucceded = game.addPlayerIfColorIsAvailable(color, user);
+				if (!addSucceded) {
+					Color otherColor = color.equals(Color.WHITE) ? Color.BLACK : Color.WHITE;
+					game.addPlayerIfColorIsAvailable(otherColor, user);
+				}
+			}
+			else {
+				if (game.getPlayer(Color.WHITE) == null) {
+					game.addPlayerIfColorIsAvailable(Color.WHITE, user);
+				}
+				else if (game.getPlayer(Color.BLACK) == null) {
+					game.addPlayerIfColorIsAvailable(Color.BLACK, user);
+				}
 			}
 		}
 		
