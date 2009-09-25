@@ -19,6 +19,7 @@ import com.brasee.games.chess.web.JsonView;
 import com.brasee.games.chess.web.PieceTypeStringConverter;
 import com.brasee.games.lobby.LobbyUiController;
 import com.brasee.games.lobby.MultiClientGame;
+import com.brasee.games.lobby.MultiClientGameInfo;
 
 public abstract class AbstractMultiClientChessCommand implements MultiClientChessCommand {
 
@@ -31,6 +32,7 @@ public abstract class AbstractMultiClientChessCommand implements MultiClientChes
 		responseMap.put("player_color", currentPlayerColor(game, user));
 		responseMap.put("white_player_name", getPlayerName(Color.WHITE, game));
 		responseMap.put("black_player_name", getPlayerName(Color.BLACK, game));
+		responseMap.put("description", MultiClientGameInfo.create(game).getDescription());
 		return responseMap;
 	}
 	

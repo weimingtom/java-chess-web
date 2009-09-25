@@ -52,7 +52,7 @@ public class LobbyUiController extends AbstractController {
 		Map<Integer, MultiClientGameInfo> gameMap = new TreeMap<Integer, MultiClientGameInfo>();
 		
 		for (int i = 1; i <= gameManager.getNumberOfGames(); i++) {
-			gameMap.put(i, new MultiClientGameInfo(gameManager.getGame(i)));
+			gameMap.put(i, MultiClientGameInfo.create(gameManager.getGame(i)));
 		}
 		
 		return gameMap;
