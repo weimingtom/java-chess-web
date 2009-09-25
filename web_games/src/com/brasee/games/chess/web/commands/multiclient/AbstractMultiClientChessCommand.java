@@ -56,6 +56,9 @@ public abstract class AbstractMultiClientChessCommand implements MultiClientChes
 	}
 	
 	private String currentPlayerColor(MultiClientGame game, GamesUser user) {
+		if (user == null) {
+			return "none";
+		}
 		if (user.equals(game.getPlayer(Color.WHITE))) {
 			return "white";
 		}
