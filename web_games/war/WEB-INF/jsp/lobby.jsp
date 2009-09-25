@@ -38,31 +38,25 @@
 							<c:set var="gameInfo" value="${gameMapEntry.value}" />
 							<c:if test="${status.index % 3 == 0 && !status.first && !status.last}"></tr><tr></c:if>
 							<td width="220px" align="center" valign="top">
-								<h3>Game #${gameId}</h3>
-								<img src="gamePreview.htm?gameId=${gameId}" />
+								<h3 id="gameHeader${gameId}" class="gameHeader">Game #${gameId}</h3>
+								<img class="previewImage" src="gamePreview.htm?gameId=${gameId}" />
 								<br/>
-								<h4>${gameInfo.description}</h4>
-								<c:if test="${empty gameInfo.whitePlayerName}">
-									<a href="chessMultiClient.htm?gameId=${gameId}&action=join&color=white">
-										<span class="gameButton ui-state-default ui-corner-all">
-											<span class="gameButtonText">Play White</span>
-										</span>
-									</a>
-								</c:if>
-								<c:if test="${empty gameInfo.blackPlayerName}">
-									<a href="chessMultiClient.htm?gameId=${gameId}&action=join&color=black">
-										<span class="gameButton ui-state-default ui-corner-all">
-											<span class="gameButtonText">Play Black</span>
-										</span>
-									</a>
-								</c:if>
-								<c:if test="${!empty gameInfo.whitePlayerName && !empty gameInfo.blackPlayerName}">
-									<a href="chessMultiClient.htm?gameId=${gameId}">
-										<span class="gameButton ui-state-default ui-corner-all">
-											<span class="gameButtonText">Watch Game</span>
-										</span>
-									</a>
-								</c:if>
+								<h4 id="gameDescription${gameId}">${gameInfo.description}</h4>
+								<a href="chessMultiClient.htm?gameId=${gameId}&action=join&color=white" id="playWhite${gameId}" style="display: none;">
+									<span class="gameButton ui-state-default ui-corner-all">
+										<span class="gameButtonText">Play White</span>
+									</span>
+								</a>
+								<a href="chessMultiClient.htm?gameId=${gameId}&action=join&color=black" id="playBlack${gameId}" style="display: none;">
+									<span class="gameButton ui-state-default ui-corner-all">
+										<span class="gameButtonText">Play Black</span>
+									</span>
+								</a>
+								<a href="chessMultiClient.htm?gameId=${gameId}" id="watchGame${gameId}" style="display: none;">
+									<span class="gameButton ui-state-default ui-corner-all">
+										<span class="gameButtonText">Watch Game</span>
+									</span>
+								</a>
 							</td>
 						</c:forEach>
 						</tr>

@@ -4,11 +4,11 @@ import com.brasee.chess.pieces.Piece.Color;
 
 public class MultiClientGameInfo {
 
-	private final String description;
-	private final String blackPlayerName;
-	private final String whitePlayerName;
+	private String description = null;
+	private String blackPlayerName = null;
+	private String whitePlayerName = null;
 	
-	public MultiClientGameInfo(MultiClientGame game) {
+	private MultiClientGameInfo(MultiClientGame game) {
 		if (game == null) {
 			throw new IllegalArgumentException("MultipleClientGame parameter must not be null");
 		}
@@ -18,7 +18,23 @@ public class MultiClientGameInfo {
 		this.description = generateGameDescription(game);
 	}
 	
-	private String generateGameDescription(MultiClientGame game) {
+	public static MultiClientGameInfo create(MultiClientGame game) {
+		return new MultiClientGameInfo(game);
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public String getBlackPlayerName() {
+		return blackPlayerName;
+	}
+
+	public String getWhitePlayerName() {
+		return whitePlayerName;
+	}
+	
+	private static String generateGameDescription(MultiClientGame game) {
 		String gameDescription = "";
 
 		if (game.getPlayer(Color.WHITE) == null && game.getPlayer(Color.BLACK) == null) {
@@ -34,17 +50,5 @@ public class MultiClientGameInfo {
 		}
 
 		return gameDescription;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public String getBlackPlayerName() {
-		return blackPlayerName;
-	}
-
-	public String getWhitePlayerName() {
-		return whitePlayerName;
 	}
 }
