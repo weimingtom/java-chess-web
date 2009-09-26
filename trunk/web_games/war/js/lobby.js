@@ -96,7 +96,7 @@ function refreshGameStatus(data, gameId) {
 		$("#playBlack" + gameId).show();	
 	}
 	
-	if (data.white_player_name == null || black_player_name == null) {
+	if (data.white_player_name == null || data.black_player_name == null) {
 		$("#watchGame" + gameId).hide();
 	}
 	else {
